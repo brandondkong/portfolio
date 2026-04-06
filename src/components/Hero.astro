@@ -1,0 +1,27 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import Portrait from "../assets/imgs/portrait.jpg";
+---
+
+<div class="flex flex-col-reverse md:flex-row justify-between items-start gap-4">
+	<h1 class="font-semibold uppercase text-[72px] md:text-[120px] xl:text-[168px] leading-[0.9] -tracking-[7.5%]">
+		Brandon<br />Kong
+	</h1>
+	<Image
+		src={Portrait}
+		alt="Portrait"
+		class="rounded-full w-26 h-26 md:w-26 xl:w-42 md:h-auto"
+		width={168}
+	/>
+</div>
+<div class="flex flex-col lg:flex-row items-start justify-between gap-8">
+	<div class="flex items-center gap-4 text-2xl">
+		<span class="font-medium tracking-tighter">brandon@kong.ly</span>
+		<Icon name="copy" size="20" />
+	</div>
+	<p class="text-3xl lg:text-4xl leading-8 lg:leading-11 font-normal md:font-medium tracking-tighter text-justify max-w-2xl indent-8">
+		Hello, I&apos;m a software engineer based in Chicago focused on secure
+		authentication infrastructure.
+	</p>
+</div>
