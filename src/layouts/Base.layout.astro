@@ -1,0 +1,17 @@
+---
+import Font from "astro/components/Font.astro";
+import "../styles/global.css"
+import Navbar from "../components/Navbar.astro";
+
+---
+
+<html lang="en">
+    <head>
+        <Font cssVariable="--font-inter" />
+        <Font cssVariable="--font-fragment-mono" />
+    </head>
+    <body>
+        <Navbar />
+        <slot />
+    </body>
+</html>
