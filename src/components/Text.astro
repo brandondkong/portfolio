@@ -1,0 +1,46 @@
+---
+type Variant = "display" | "heading" | "body-lg" | "body" | "label";
+
+interface Props {
+    variant: Variant;
+    as?: string;
+    class?: string;
+};
+
+const { variant, as, class: className } = Astro.props as Props;
+
+interface VariantData {
+    tag: string;
+    classes: string;
+}
+
+const variantConfig: Record<Variant, VariantData> = {
+    display: {
+        tag: "h1",
+        classes: "font-semibold uppercase text-display-sm md:text-display-md lg:text-display-lg leading-none -tracking-[7.5%] break-all",
+    },
+    heading: {
+        tag: "h2",
+        classes: "text-2xl font-medium tracking-tight",
+    },
+    "body-lg": {
+        tag: "span",
+        classes: "text-3xl lg:text-4xl leading-8 lg:leading-12 font-normal md:font-medium tracking-tighter",
+    },
+    body: {
+        tag: "p",
+        classes: "text-2xl font-medium tracking-tighter",
+    },
+    label: {
+        tag: "span",
+        classes: "text-sm font-normal tracking-tight",
+    },
+};
+
+const config = variantConfig[variant];
+const Tag = as || config.tag;
+---
+
+<Tag class:list={[config.classes, className]}>
+    <slot />
+</Tag>
