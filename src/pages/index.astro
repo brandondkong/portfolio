@@ -2,11 +2,22 @@
 import Base from "../layouts/Base.layout.astro";
 import Section from "../components/Section.astro";
 import Hero from "../components/Hero.astro";
+import Button from "../components/Button.astro";
 ---
 
 <Base>
-	<Section class="flex flex-col gap-12">
+	<Section hasTopBorder class="pt-14 pb-20 flex flex-col gap-12">
 		<Hero />
+	</Section>
+
+	<Section class="pt-8 pb-20 flex flex-col gap-12 py-8">
+		<div
+		class="flex flex-row items-center justify-between"
+		>
+			<h1 class="text-2xl font-medium tracking-tight">work</h1>
+			<Button>Show More</Button>
+		</div>
+		
 	</Section>
 </Base>
 
