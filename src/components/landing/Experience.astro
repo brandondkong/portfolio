@@ -1,0 +1,48 @@
+---
+import type { SanityDocument } from "@sanity/client";
+import { sanityClient } from "sanity:client";
+
+import Section from "../Section.astro";
+import Text from "../Text.astro";
+
+interface Experience extends SanityDocument {
+  company: string;
+  role: string;
+  startDate: string;
+  endDate: string | null;
+  description: string | null;
+  order: number;
+}
+
+const EXPERIENCE_QUERY = `*[_type == "experience"]|order(order asc){ _id, company, role, startDate, endDate, description, order }`;
+const experiences = await sanityClient.fetch<Experience[]>(EXPERIENCE_QUERY);
+
+function formatDate(dateStr: string): string {
+  const date = new Date(dateStr + "T00:00:00");
+  return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+}
+
+function formatRange(start: string, end: string | null): string {
+  return `${formatDate(start)} — ${end ? formatDate(end) : "Present"}`;
+}
+---
+
+<Section title="Experience" class="pt-8 pb-20 flex flex-col gap-12">
+  <div class="flex flex-col">
+    {experiences.map((exp, i) => (
+      <div class:list={["py-6 flex flex-col gap-2", i !== experiences.length - 1 && "border-b border-border"]}>
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+          <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+            <Text variant="body" class="font-medium">{exp.company}</Text>
+            <Text variant="label" class="text-muted hidden sm:inline">/</Text>
+            <Text variant="label" class="text-muted">{exp.role}</Text>
+          </div>
+          <Text variant="label" class="text-muted">{formatRange(exp.startDate, exp.endDate)}</Text>
+        </div>
+        {exp.description && (
+          <Text variant="label" class="text-muted max-w-2xl">{exp.description}</Text>
+        )}
+      </div>
+    ))}
+  </div>
+</Section>
