@@ -40,7 +40,7 @@
 		mouseY = e.clientY;
 
 		const target = e.target as HTMLElement;
-		const isHovering = target.closest("a, button, [role='button']");
+		const isHovering = target.closest("a, button, [role='button'], .project-card");
 		cursor.classList.toggle("hovering", !!isHovering);
 	});
 
