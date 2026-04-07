@@ -1,7 +1,23 @@
 @import "tailwindcss";
 
 @theme inline {
+    /* Registers Astro's injected --font-inter into the Tailwind theme */
     --font-inter: var(--font-inter);
+
+    --color-foreground: black;
+    --color-background: white;
+    --color-muted: #737373;
+    --color-border: #f5f5f5;
+    --color-surface: #f5f5f5;
+    --color-overlay: rgba(0, 0, 0, 0.8);
+
+    --text-display-sm: 72px;
+    --text-display-md: 120px;
+    --text-display-lg: 168px;
+
+    --duration-fast: 200ms;
+    --duration-normal: 500ms;
+    --ease-default: ease;
 }
 
 body {
