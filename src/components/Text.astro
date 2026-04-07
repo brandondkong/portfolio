@@ -1,5 +1,5 @@
 ---
-type Variant = "display" | "heading" | "body-lg" | "body" | "label" | "body-xl" | "normal";
+type Variant = "display" | "heading" | "body-lg" | "body" | "label" | "body-xl" | "link" | "normal";
 
 interface Props {
     variant: Variant;
@@ -39,9 +39,13 @@ const variantConfig: Record<Variant, VariantData> = {
         tag: "span",
         classes: "text-sm font-normal tracking-tight",
     },
-    normal: {
+    link: {
         tag: "p",
         classes: "text-sm md:text-base -tracking-[0.04em]",
+    },
+    normal: {
+        tag: "p",
+        classes: "text-sm md:text-base",
     }
 };
 
