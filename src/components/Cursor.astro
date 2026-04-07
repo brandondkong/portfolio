@@ -1,0 +1,44 @@
+<div id="cursor"></div>
+
+<style is:global>
+	* {
+		cursor: none !important;
+	}
+
+	#cursor {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		backdrop-filter: invert(1);
+		pointer-events: none;
+		z-index: 9999;
+	}
+</style>
+
+<script>
+	const cursor = document.getElementById("cursor")!;
+	const ease = 0.5;
+
+	let mouseX = 0;
+	let mouseY = 0;
+	let cursorX = 0;
+	let cursorY = 0;
+
+	document.addEventListener("mousemove", (e) => {
+		mouseX = e.clientX;
+		mouseY = e.clientY;
+	});
+
+	function animate() {
+		cursorX += (mouseX - cursorX) * ease;
+		cursorY += (mouseY - cursorY) * ease;
+		cursor.style.left = `${cursorX - 20}px`;
+		cursor.style.top = `${cursorY - 20}px`;
+		requestAnimationFrame(animate);
+	}
+
+	animate();
+</script>
