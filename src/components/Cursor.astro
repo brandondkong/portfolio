@@ -18,7 +18,7 @@
 		backdrop-filter: invert(1);
 		pointer-events: none;
 		z-index: 9999;
-		transition: transform 0.2s ease;
+		transition: transform var(--duration-fast) var(--ease-default);
 	}
 
 	#cursor.hovering {
@@ -47,8 +47,8 @@
 	function animate() {
 		cursorX += (mouseX - cursorX) * ease;
 		cursorY += (mouseY - cursorY) * ease;
-		cursor.style.left = `${cursorX - 20}px`;
-		cursor.style.top = `${cursorY - 20}px`;
+		cursor.style.left = `${cursorX - 14}px`;
+		cursor.style.top = `${cursorY - 14}px`;
 		requestAnimationFrame(animate);
 	}
 
