@@ -2,59 +2,28 @@
 import Base from "../layouts/Base.layout.astro";
 import Section from "../components/Section.astro";
 import Hero from "../components/Hero.astro";
-import Button from "../components/Button.astro";
+import Text from "../components/Text.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 
 import AmbaImage from "../assets/imgs/amba.jpg";
 ---
 
 <Base>
-	<Section hasTopBorder class="pt-14 pb-20 flex flex-col gap-12">
-		<Hero />
+	<Hero />
+
+	<Section title="Work" buttonText="Show More" class="pt-8 pb-20 flex flex-col gap-12">
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+			<ProjectCard name="Stone Mind" image={AmbaImage} />
+			<ProjectCard name="Violet Orbit" image={AmbaImage} />
+			<ProjectCard name="Brainstem Research" image={AmbaImage} />
+			<ProjectCard name="Ethereal" image={AmbaImage} />
+		</div>
 	</Section>
 
-	<Section class="pt-8 pb-20 flex flex-col gap-12 py-8">
-		<div
-		class="flex flex-row items-center justify-between"
-		>
-			<h1 class="text-2xl font-medium tracking-tight">Work</h1>
-			<Button>Show More</Button>
-		</div>
-		<div
-		class="grid grid-cols-1 md:grid-cols-2 gap-6"
-		>
-			<ProjectCard
-			name="Stone Mind"
-			image={AmbaImage}
-			/>
-			<ProjectCard
-			name="Violet Orbit"
-			image={AmbaImage}
-			/>
-			<ProjectCard
-			name="Brainstem Research"
-			image={AmbaImage}
-			/>
-			<ProjectCard
-			name="Ethereal"
-			image={AmbaImage}
-			/>
-		</div>
-	</Section>
-	<Section class="pt-8 pb-20 flex flex-col gap-12 py-8">
-		<div
-		class="flex flex-row items-center justify-between"
-		>
-			<h1 class="text-2xl font-medium tracking-tight">About</h1>
-			<Button>Show More</Button>
-		</div>
-		<div
-		class=""
-		>
-			<p class="text-3xl lg:text-5xl leading-8 lg:leading-14 font-normal md:font-medium tracking-tighter text-justify max-w-2xl">
-				I collaborate with businesses of all sizes worldwide, using the latest technologies. My designs have also earned multiple awards.
-			</p>
-		</div>
+	<Section title="About" buttonText="Show More" class="pt-8 pb-20 flex flex-col gap-12">
+		<Text variant="body-lg" class="text-justify max-w-2xl">
+			I collaborate with businesses of all sizes worldwide, using the latest technologies. My designs have also earned multiple awards.
+		</Text>
 	</Section>
 </Base>
 
