@@ -1,0 +1,26 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
+interface Props {
+    image: ImageMetadata;
+    name: string;
+};
+
+const { image, name } = Astro.props;
+---
+
+<div
+class="project-card w-full h-auto aspect-square border relative overflow-hidden group"
+>
+    <Image
+    src={image}
+    alt={name}
+    width={5000}
+    height={5000}
+    class="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+    />
+    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-black/80 to-transparent p-16 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end">
+        <p class="text-white font-normal text-5xl tracking-tight">{name}</p>
+    </div>
+</div>
