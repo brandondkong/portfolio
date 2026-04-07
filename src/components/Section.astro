@@ -1,13 +1,14 @@
 ---
 interface Props {
     class?: string;
+    hasTopBorder?: boolean;
 };
 
-const { class: className, ...rest } = Astro.props;
+const { class: className, hasTopBorder = false, ...rest } = Astro.props;
 ---
 
 <section
-class:list={["p-8 sm:p-12", className]}
+class:list={["px-6 sm:px-20", !hasTopBorder && "border-t border-neutral-100", className]}
 {...rest}
 >
     <slot />
