@@ -16,9 +16,11 @@ import Cursor from "../components/Cursor.astro";
         <Font cssVariable="--font-inter" />
     </head>
     <body>
-        <Navbar />
-        <slot />
-        <Cursor />
+        <div class="relative z-10 bg-background">
+            <Navbar />
+            <slot />
+        </div>
         <Footer />
+        <Cursor />
     </body>
 </html>
