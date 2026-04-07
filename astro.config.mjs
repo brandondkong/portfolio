@@ -16,10 +16,6 @@ export default defineConfig({
     name: "Inter",
     cssVariable: "--font-inter",
     weights: [400, 500, 600, 700, 800, 900],
-  },{
-    provider: fontProviders.fontsource(),
-    name: "Fragment Mono",
-    cssVariable: "--font-fragment-mono",
   }],
 
   integrations: [icon()]
