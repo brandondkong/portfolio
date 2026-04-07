@@ -2,11 +2,16 @@
 import type { SanityDocument } from "@sanity/client";
 import { sanityClient } from "sanity:client";
 
+import { urlFor } from "../../lib/sanity";
+
 import Section from "../Section.astro";
 import Text from "../Text.astro";
 
 interface Experience extends SanityDocument {
-  company: string;
+  company: {
+    name: string;
+    logo: { asset: { _ref: string; _type: string } } | null;
+  };
   role: string;
   startDate: string;
   endDate: string | null;
@@ -14,7 +19,7 @@ interface Experience extends SanityDocument {
   order: number;
 }
 
-const EXPERIENCE_QUERY = `*[_type == "experience"]|order(order asc){ _id, company, role, startDate, endDate, description, order }`;
+const EXPERIENCE_QUERY = `*[_type == "experience"]|order(order asc){ _id, company->{ name, logo }, role, startDate, endDate, description, order }`;
 const experiences = await sanityClient.fetch<Experience[]>(EXPERIENCE_QUERY);
 
 function formatDate(dateStr: string): string {
@@ -33,7 +38,18 @@ function formatRange(start: string, end: string | null): string {
       <div class:list={["py-6 flex flex-col gap-2", i !== experiences.length - 1 && "border-b border-border"]}>
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
           <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-            <Text variant="body" class="font-medium">{exp.company}</Text>
+            <div class="flex items-center gap-2">
+              {exp.company.logo && (
+                <img
+                  src={urlFor(exp.company.logo).width(40).height(40).url()}
+                  alt={exp.company.name}
+                  width={20}
+                  height={20}
+                  class="rounded"
+                />
+              )}
+              <Text variant="body" class="font-medium">{exp.company.name}</Text>
+            </div>
             <Text variant="label" class="text-muted hidden sm:inline">/</Text>
             <Text variant="label" class="text-muted">{exp.role}</Text>
           </div>
