@@ -5,6 +5,9 @@ import tailwindcss from '@tailwindcss/vite';
 
 import icon from "astro-icon";
 
+import sanity from "@sanity/astro";
+import react from "@astrojs/react";
+
 // https://astro.build/config
 export default defineConfig({
   vite: {
@@ -18,5 +21,10 @@ export default defineConfig({
     weights: [400, 500, 600, 700, 800, 900],
   }],
 
-  integrations: [icon()]
+  integrations: [icon(), sanity({
+    projectId: "mpaopctd",
+    dataset: "production",
+    useCdn: false,
+    studioBasePath: '/admin',
+  }), react()]
 });

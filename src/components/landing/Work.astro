@@ -14,7 +14,7 @@ interface Project extends SanityDocument {
   };
 }
 
-const PROJECTS_QUERY = `*[_type == "project" && defined(slug.current)]|order(_createdAt desc)[0...12]{ _id, title, slug, coverImage }`;
+const PROJECTS_QUERY = `*[_type == "project" && defined(slug.current)]|order(_createdAt desc)[0...3]{ _id, title, slug, coverImage }`;
 const projects = await sanityClient.fetch<Project[]>(PROJECTS_QUERY);
 ---
 
