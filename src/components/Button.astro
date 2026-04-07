@@ -1,7 +1,21 @@
 ---
+type Variant = "primary" | "inverted";
 
+interface Props {
+    variant?: Variant;
+    class?: string;
+};
+
+const { variant = "primary", class: className } = Astro.props;
+
+const base = "w-fit py-4 px-8 text-base transition-colors duration-fast font-normal tracking-tight";
+
+const variants: Record<Variant, string> = {
+    primary: "bg-surface text-foreground hover:bg-foreground hover:text-background",
+    inverted: "bg-foreground text-background hover:bg-surface hover:text-foreground",
+};
 ---
 
-<button class="py-4 px-8 text-sm bg-surface hover:bg-foreground hover:text-background transition-colors duration-fast font-normal tracking-tight">
+<button class:list={[base, variants[variant], className]}>
     <slot />
 </button>

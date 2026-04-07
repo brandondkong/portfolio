@@ -4,6 +4,9 @@
     /* Registers Astro's injected --font-inter into the Tailwind theme */
     --font-inter: var(--font-inter);
 
+    --color-footer-foreground: white;
+    --color-footer-background: black;
+
     --color-foreground: black;
     --color-background: white;
     --color-muted: #737373;
@@ -18,6 +21,15 @@
     --duration-fast: 200ms;
     --duration-normal: 500ms;
     --ease-default: ease;
+
+    --animate-ping-slow: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ping-slow {
+    75%, 100% {
+        transform: scale(3);
+        opacity: 0;
+    }
 }
 
 body {
