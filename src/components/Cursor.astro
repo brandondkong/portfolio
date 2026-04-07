@@ -1,8 +1,11 @@
 <div id="cursor"></div>
 
 <style is:global>
-	* {
-		cursor: none !important;
+	body {
+		cursor: none;
+	}
+	body * {
+		cursor: inherit;
 	}
 
 	#cursor {
@@ -15,6 +18,11 @@
 		backdrop-filter: invert(1);
 		pointer-events: none;
 		z-index: 9999;
+		transition: transform 0.2s ease;
+	}
+
+	#cursor.hovering {
+		transform: scale(1.8);
 	}
 </style>
 
@@ -30,6 +38,10 @@
 	document.addEventListener("mousemove", (e) => {
 		mouseX = e.clientX;
 		mouseY = e.clientY;
+
+		const target = e.target as HTMLElement;
+		const isHovering = target.closest("a, button, [role='button']");
+		cursor.classList.toggle("hovering", !!isHovering);
 	});
 
 	function animate() {
