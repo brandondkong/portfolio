@@ -1,29 +1,20 @@
 ---
 import Base from "../layouts/Base.layout.astro";
+import Hero from "../components/landing/Hero.astro";
+import Work from "../components/landing/Work.astro";
+import Experience from "../components/landing/Experience.astro";
 import Section from "../components/Section.astro";
-import Hero from "../components/Hero.astro";
 import Text from "../components/Text.astro";
-import ProjectCard from "../components/ProjectCard.astro";
-
-import AmbaImage from "../assets/imgs/amba.jpg";
 ---
 
 <Base>
-	<Hero />
+  <Hero />
+  <Work />
+  <Experience />
 
-	<Section title="Work" buttonText="Show More" class="pt-8 pb-20 flex flex-col gap-12">
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-			<ProjectCard name="Stone Mind" image={AmbaImage} />
-			<ProjectCard name="Violet Orbit" image={AmbaImage} />
-			<ProjectCard name="Brainstem Research" image={AmbaImage} />
-			<ProjectCard name="Ethereal" image={AmbaImage} />
-		</div>
-	</Section>
-
-	<Section title="About" buttonText="Show More" class="pt-8 pb-20 flex flex-col gap-12">
-		<Text variant="body-lg" class="text-justify max-w-2xl">
-			I collaborate with businesses of all sizes worldwide, using the latest technologies. My designs have also earned multiple awards.
-		</Text>
-	</Section>
+  <Section title="About" buttonText="Show More" class="pt-8 pb-20 flex flex-col gap-12">
+    <Text variant="body-lg" class="text-justify max-w-2xl">
+      I collaborate with businesses of all sizes worldwide, using the latest technologies. My designs have also earned multiple awards.
+    </Text>
+  </Section>
 </Base>
-
