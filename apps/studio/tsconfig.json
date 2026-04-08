@@ -1,0 +1,5 @@
+{
+    "extends": ["@kong/tsconfig/base.json"],
+    "include": ["**/*"],
+    "exclude": ["dist"]
+}

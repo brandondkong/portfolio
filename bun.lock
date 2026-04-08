@@ -24,19 +24,31 @@
         "react": "^19.2.4",
         "react-dom": "^19.2.4",
         "react-is": "^19.2.4",
-        "sanity": "^5.19.0",
         "sharp": "^0.34.5",
-        "styled-components": "^6.3.12",
         "tailwind-merge": "^3.5.0",
         "tailwindcss": "^4.2.2",
       },
       "devDependencies": {
         "@kong/eslint-config": "workspace:*",
         "@kong/prettier-config": "workspace:*",
-        "@kong/sanity": "workspace:*",
         "@kong/tsconfig": "workspace:*",
         "eslint": "^10.2.0",
         "prettier": "^3.8.1",
+      },
+    },
+    "apps/studio": {
+      "name": "studio",
+      "version": "0.1.0",
+      "dependencies": {
+        "@kong/sanity": "workspace:*",
+        "react": "^19.2.4",
+        "react-dom": "^19.2.4",
+        "react-is": "^19.2.4",
+        "sanity": "^5.19.0",
+        "styled-components": "^6.3.12",
+      },
+      "devDependencies": {
+        "@kong/tsconfig": "workspace:*",
       },
     },
     "packages/sanity": {
@@ -2405,6 +2417,8 @@
     "strip-bom": ["strip-bom@3.0.0", "", {}, "sha512-vavAMRXOgBVNF6nyEEmL3DBK19iRpDcoIwW+swQ+CbGiu7lju6t+JklA1MHweoWtadgt4ISVUsXLyDq34ddcwA=="],
 
     "strip-final-newline": ["strip-final-newline@4.0.0", "", {}, "sha512-aulFJcD6YK8V1G7iRB5tigAP4TsHBZZrOV8pjV++zdUwmeV8uzbY7yn6h9MswN62adStNZFuCIx4haBnRuMDaw=="],
+
+    "studio": ["studio@workspace:apps/studio"],
 
     "styled-components": ["styled-components@6.3.12", "", { "dependencies": { "@emotion/is-prop-valid": "1.4.0", "@emotion/unitless": "0.10.0", "@types/stylis": "4.2.7", "css-to-react-native": "3.2.0", "csstype": "3.2.3", "postcss": "8.4.49", "shallowequal": "1.1.0", "stylis": "4.3.6", "tslib": "2.8.1" }, "peerDependencies": { "react": ">= 16.8.0", "react-dom": ">= 16.8.0" }, "optionalPeers": ["react-dom"] }, "sha512-hFR6xsVkVYbsdcUlzPYFvFfoc6o2KlV0VvgRIQwSYMtdThM7SCxnjX9efh/cWce2kTq16I/Kl3xM98xiLptsXA=="],
 

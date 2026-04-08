@@ -33,7 +33,6 @@ export default defineConfig({
             projectId: 'mpaopctd',
             dataset: 'production',
             useCdn: false,
-            studioBasePath: '/admin',
         }),
         react(),
         sitemap(),
