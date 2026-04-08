@@ -3,5 +3,8 @@
         "classes:\\s*[\"']([^\"']*)[\"']",
         "(?:const|let)\\s+(?:base|variants).*?=\\s*[\"']([^\"']*)[\"']",
         "(?:primary|inverted|ghost):\\s*[\"']([^\"']*)[\"']"
-    ]
+    ],
+    "files.associations": {
+        "*.css": "tailwindcss"
+    }
 }
