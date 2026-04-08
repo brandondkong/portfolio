@@ -2,6 +2,7 @@
 import Text from '../../Text.astro';
 import Section from '../../Section.astro';
 import type { Work } from '../../../../sanity/workType';
+import Reveal from '../../Reveal.astro';
 
 interface Props {
     work: Work;
@@ -16,14 +17,14 @@ const { work } = Astro.props;
             title="Features"
             class="pt-section-top pb-section-bottom gap-section-gap flex flex-col"
         >
-            <div class="gap-content-gap flex max-w-2xl flex-col md:ml-auto">
+            <Reveal class="gap-content-gap flex max-w-2xl flex-col md:ml-auto">
                 {work.features.map((feature) => (
                     <div class="gap-tight-gap flex flex-col">
                         <Text variant="body-xl">{feature.title}</Text>
                         <Text variant="body-sm">{feature.description}</Text>
                     </div>
                 ))}
-            </div>
+            </Reveal>
         </Section>
     )
 }

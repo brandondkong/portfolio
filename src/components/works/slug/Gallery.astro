@@ -2,6 +2,8 @@
 import Section from '../../Section.astro';
 import { urlFor } from '../../../lib/sanity';
 import type { Work } from '../../../../sanity/workType';
+import Reveal from '../../Reveal.astro';
+import { twMerge } from 'tailwind-merge';
 
 interface Props {
     work: Work;
@@ -9,6 +11,12 @@ interface Props {
 
 const { work } = Astro.props;
 const count = work.gallery?.length ?? 0;
+
+const gridClass = twMerge(
+    'gap-content-gap grid',
+    count === 1 && 'max-w-2xl grid-cols-1',
+    count >= 2 && 'grid-cols-1 md:grid-cols-2',
+);
 ---
 
 {
@@ -17,13 +25,7 @@ const count = work.gallery?.length ?? 0;
             title="Gallery"
             class="pt-section-top pb-section-bottom gap-section-gap flex flex-col"
         >
-            <div
-                class:list={[
-                    'gap-content-gap grid',
-                    count === 1 && 'max-w-2xl grid-cols-1',
-                    count >= 2 && 'grid-cols-1 md:grid-cols-2',
-                ]}
-            >
+            <Reveal class={gridClass}>
                 {work.gallery.map((image) => (
                     <img
                         src={urlFor(image).width(1200).url()}
@@ -33,7 +35,7 @@ const count = work.gallery?.length ?? 0;
                         class="border-border w-full border"
                     />
                 ))}
-            </div>
+            </Reveal>
         </Section>
     )
 }

@@ -4,6 +4,7 @@ import Section from '../../Section.astro';
 import { urlFor } from '../../../lib/sanity';
 import type { Work } from '../../../../sanity/workType';
 import SocialLink from '../../SocialLink.astro';
+import Reveal from '../../Reveal.astro';
 
 interface WorkMetadata {
     label: string;
@@ -36,7 +37,7 @@ const workMetadata: WorkMetadata[] = [
     hideBorder
     class="pt-hero-top pb-section-bottom gap-section-gap md:gap-hero-gap flex flex-col md:grid md:grid-cols-2 md:items-center"
 >
-    <div
+    <Reveal
         class="order-last flex w-fit flex-col flex-wrap gap-x-4 md:order-0 md:col-span-2 md:ml-auto"
     >
         {
@@ -49,15 +50,17 @@ const workMetadata: WorkMetadata[] = [
                 </div>
             ))
         }
-    </div>
-    <img
-        src={urlFor(work.coverImage).width(800).height(800).url()}
-        alt={work.title}
-        width={800}
-        height={800}
-        class="border-border aspect-square w-full border"
-    />
-    <div
+    </Reveal>
+    <Reveal>
+        <img
+            src={urlFor(work.coverImage).width(800).height(800).url()}
+            alt={work.title}
+            width={800}
+            height={800}
+            class="border-border aspect-square w-full border"
+        />
+    </Reveal>
+    <Reveal
         class="gap-content-gap md:gap-section-gap -order-1 flex flex-col md:order-0 md:col-start-2"
     >
         <Text variant="title" class="break-all md:break-normal"
@@ -76,5 +79,5 @@ const workMetadata: WorkMetadata[] = [
                 </div>
             )
         }
-    </div>
+    </Reveal>
 </Section>

@@ -5,6 +5,7 @@ import Section from '../Section.astro';
 import Input from '../Input.astro';
 import Textbox from '../Textbox.astro';
 import Button from '../Button.astro';
+import Reveal from '../Reveal.astro';
 ---
 
 <Section hideBorder class="pt-hero-top gap-hero-gap flex flex-col">
@@ -15,7 +16,7 @@ import Button from '../Button.astro';
             Shoot a<br />Request
         </Text>
     </div>
-    <div
+    <Reveal
         class="gap-content-gap flex flex-col items-start justify-between lg:flex-row"
     >
         <div class="flex-1">
@@ -38,5 +39,5 @@ import Button from '../Button.astro';
             <Textbox name="message" placeholder="Your Message here" />
             <Button variant="solid">Submit</Button>
         </form>
-    </div>
+    </Reveal>
 </Section>
