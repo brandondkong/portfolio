@@ -1,15 +1,15 @@
 ---
 import type { GetStaticPaths } from "astro";
 import { sanityClient } from "sanity:client";
-import { urlFor } from "../../lib/sanity";
 import type { Work } from "../../../sanity/workType";
 import Base from "../../layouts/Base.layout.astro";
-import Text from "../../components/Text.astro";
-import Section from "../../components/Section.astro";
+import Hero from "../../components/works/slug/Hero.astro";
+import About from "../../components/works/slug/About.astro";
+import Features from "../../components/works/slug/Features.astro";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const works = await sanityClient.fetch<Work[]>(
-    `*[_type == "project" && defined(slug.current)]{ _id, title, slug, coverImage }`
+    `*[_type == "project" && defined(slug.current)]{ _id, title, slug, coverImage, description, features, links }`
   );
 
   return works.map((work) => ({
@@ -22,54 +22,11 @@ interface Props {
   work: Work;
 }
 
-interface WorkMetadata {
-  label: string;
-  value: string;
-};
-
-const workMetadata: WorkMetadata[] = [
-  {
-    label: "Industry",
-    value: "Art & Design"
-  },
-  {
-    label: "Client",
-    value: "Art & Design"
-  },
-  {
-    label: "Year",
-    value: "Art & Design"
-  },
-  {
-    label: "Experience",
-    value: "Art & Design"
-  },
-]
-
 const { work } = Astro.props;
 ---
 
 <Base title={work.title}>
-  <Section hideBorder class="pt-hero-top">
-    <div class="grid grid-cols-[auto_auto] gap-x-4 gap-y-1 justify-end">
-      {
-        workMetadata.map(metadata => (
-          <>
-            <Text variant="overline">{metadata.label}:</Text>
-            <Text variant="overline" class="text-foreground">{metadata.value}</Text>
-          </>
-        ))
-      }
-    </div>
-  </Section>
-  <Section hideBorder class="pt-hero-top pb-section-bottom grid grid-cols-2 items-center gap-section-gap">
-    <img
-      src={urlFor(work.coverImage).width(800).height(800).url()}
-      alt={work.title}
-      width={800}
-      height={800}
-      class="w-full border border-border aspect-square"
-    />
-    <Text variant="title">{work.title}</Text>
-  </Section>
+  <Hero work={work} />
+  <About work={work} />
+  <Features work={work} />
 </Base>

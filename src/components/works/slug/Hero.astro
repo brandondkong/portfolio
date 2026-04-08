@@ -1,22 +1,72 @@
 ---
 import Text from "../../Text.astro";
-import SocialLink from "../../SocialLink.astro";
 import Section from "../../Section.astro";
-import { GITHUB_LINK } from "../../../lib/constants";
+import { urlFor } from "../../../lib/sanity";
+import type { Work } from "../../../../sanity/workType";
+import SocialLink from "../../SocialLink.astro";
+
+interface WorkMetadata {
+  label: string;
+  value: string;
+}
+
+interface Props {
+  work: Work;
+}
+
+const { work } = Astro.props;
+
+const workMetadata: WorkMetadata[] = [
+  {
+    label: "Type",
+    value: "Open-Source Software"
+  },
+  {
+    label: "Stack",
+    value: "Next.js"
+  },
+  {
+    label: "Year",
+    value: "2026"
+  },
+]
 ---
 
-<Section hideBorder class="pt-hero-top pb-section-bottom flex flex-col gap-section-gap">
-	<div class="flex flex-col-reverse md:flex-row justify-between items-start gap-element-gap">
-		<Text variant="display">
-			Works
-		</Text>
-	</div>
-	<div class="flex flex-col lg:flex-row items-start justify-between gap-content-gap">
-		<SocialLink
-			text="brandondkong"
-			icon="brands/github"
-			href={GITHUB_LINK}
-			cursorText="GitHub"
-		/>
-	</div>
+<Section hideBorder class="pt-hero-top w-full">
+  <div class="flex flex-col flex-wrap gap-x-4 ml-auto w-fit">
+    {
+      workMetadata.map(metadata => (
+        <div class="flex gap-1 w-fit">
+          <Text variant="overline">{metadata.label}:</Text>
+          <Text variant="overline" class="text-foreground">{metadata.value}</Text>
+        </div>
+      ))
+    }
+  </div>
+</Section>
+<Section hideBorder class="pt-hero-top pb-section-bottom grid grid-cols-2 items-center gap-hero-gap">
+  <img
+    src={urlFor(work.coverImage).width(800).height(800).url()}
+    alt={work.title}
+    width={800}
+    height={800}
+    class="w-full border border-border aspect-square"
+  />
+    <div
+    class="flex flex-col gap-section-gap"
+    >
+        <Text variant="title">{work.title}</Text>
+        {work.links && work.links.length > 0 && (
+          <div class="flex flex-wrap gap-content-gap">
+            {work.links.map((link) => (
+              <SocialLink
+                text={link.label}
+                icon={link.icon}
+                href={link.url}
+              />
+            ))}
+          </div>
+        )}
+    </div>
+ 
 </Section>
