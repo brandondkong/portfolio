@@ -69,6 +69,7 @@
     let mouseY = 0;
     let cursorX = 0;
     let cursorY = 0;
+    let hasMoved = false;
 
     let hasText = false;
 
@@ -99,9 +100,18 @@
         };
     }
 
+    cursor.style.opacity = '0';
+
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
+
+        if (!hasMoved) {
+            cursorX = mouseX;
+            cursorY = mouseY;
+            cursor.style.opacity = '1';
+            hasMoved = true;
+        }
 
         const target = e.target as HTMLElement;
         const isHovering = target.closest(
