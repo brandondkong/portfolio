@@ -54,12 +54,13 @@ function formatRange(start: string, end: string | null): string {
                         {exp.company.logo && (
                             <img
                                 src={urlFor(exp.company.logo)
-                                    .width(80)
-                                    .height(80)
+                                    .width(64)
+                                    .height(64)
                                     .url()}
                                 alt={exp.company.name}
                                 width={32}
                                 height={32}
+                                loading="lazy"
                                 class="rounded"
                             />
                         )}

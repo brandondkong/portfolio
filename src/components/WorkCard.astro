@@ -16,6 +16,8 @@ const { work } = Astro.props;
 >
     <img
         src={urlFor(work.coverImage).width(800).height(800).url()}
+        srcset={`${urlFor(work.coverImage).width(400).height(400).url()} 400w, ${urlFor(work.coverImage).width(800).height(800).url()} 800w`}
+        sizes="(max-width: 768px) 100vw, 50vw"
         alt={work.title}
         width={800}
         height={800}
