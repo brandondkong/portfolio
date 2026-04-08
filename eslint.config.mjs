@@ -11,9 +11,6 @@ export default [
         files: ['**/*.ts'],
         languageOptions: {
             parser: tsParser,
-            parserOptions: {
-                project: true,
-            },
         },
         plugins: {
             '@typescript-eslint': tsPlugin,
