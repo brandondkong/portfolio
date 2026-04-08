@@ -1,5 +1,5 @@
 ---
-type Variant = "display" | "title" | "heading" | "body-lg" | "body" | "body-xl" | "label" | "overline" | "link" | "normal";
+type Variant = "display" | "title" | "heading" | "body-lg" | "body" | "body-xl" | "body-sm" | "label" | "overline" | "link" | "normal";
 
 interface Props {
     variant: Variant;
@@ -41,13 +41,17 @@ const variantConfig: Record<Variant, VariantData> = {
         tag: "p",
         classes: "text-2xl font-medium tracking-tighter",
     },
+    "body-sm": {
+        tag: "p",
+        classes: "text-xl font-medium tracking-tighter",
+    },
     label: {
         tag: "span",
         classes: "text-sm font-normal tracking-tight",
     },
     overline: {
         tag: "span",
-        classes: "text-base font-light tracking-wide uppercase text-subtle",
+        classes: "text-base font-light tracking-normal uppercase text-subtle",
     },
     link: {
         tag: "p",
@@ -60,7 +64,7 @@ const variantConfig: Record<Variant, VariantData> = {
 };
 
 const config = variantConfig[variant];
-const Tag = as || config.tag;
+const Tag = (as || config.tag) as keyof HTMLElementTagNameMap;
 ---
 
 <Tag class={twMerge(config.classes, className)}>
