@@ -2,7 +2,6 @@
 import { sanityClient } from 'sanity:client';
 import type { Work } from '../../sanity/workType';
 import WorkCard from './WorkCard.astro';
-import { urlFor } from '../lib/sanity';
 
 interface Props {
     includeAll?: boolean;
@@ -19,8 +18,7 @@ const works = await sanityClient.fetch<Work[]>(WORKS_QUERY);
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-content-gap">
     {works.map((work) => (
       <WorkCard
-        name={work.title}
-        image={urlFor(work.coverImage).width(800).height(800).url()}
+        work={work}
       />
     ))}
   </div>
