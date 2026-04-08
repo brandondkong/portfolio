@@ -32,11 +32,11 @@ function formatRange(start: string, end: string | null): string {
 }
 ---
 
-<Section title="Experience" class="pt-8 pb-20 flex flex-col gap-12">
+<Section title="Experience" class="pt-section-top pb-section-bottom flex flex-col gap-section-gap">
   <div class="flex flex-col">
     {experiences.map((exp, i) => (
-      <div class:list={["py-10 sm:py-14 flex flex-col gap-6", i !== experiences.length - 1 && "border-b border-border"]}>
-        <div class="flex items-center gap-3">
+      <div class:list={["py-10 sm:py-14 flex flex-col gap-content-gap", i !== experiences.length - 1 && "border-b border-border"]}>
+        <div class="flex items-center gap-tight-gap">
           {exp.company.logo && (
             <img
               src={urlFor(exp.company.logo).width(80).height(80).url()}
@@ -48,9 +48,9 @@ function formatRange(start: string, end: string | null): string {
           )}
           <Text variant="label" class="text-muted uppercase tracking-wide">{formatRange(exp.startDate, exp.endDate)}</Text>
         </div>
-        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 lg:gap-12">
-          <div class="flex flex-col gap-2">
-            <h3 class="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight italic">{exp.company.name}</h3>
+        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-element-gap lg:gap-section-gap">
+          <div class="flex flex-col gap-tight-gap">
+            <Text variant="body-xl" as="h3" class="font-semibold italic">{exp.company.name}</Text>
             <Text variant="body" class="text-muted">{exp.role}</Text>
           </div>
           {exp.description && (

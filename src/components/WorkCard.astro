@@ -1,0 +1,26 @@
+---
+import Text from './Text.astro';
+
+interface Props {
+    image: string;
+    name: string;
+};
+
+const { image, name } = Astro.props;
+---
+
+<div
+class="work-card w-full h-auto aspect-square border border-border relative overflow-hidden group"
+>
+    <img
+    src={image}
+    alt={name}
+    width={800}
+    height={800}
+    loading="lazy"
+    class="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-(--duration-normal)"
+    />
+    <div class="absolute inset-x-0 bottom-0 h-3/4 bg-linear-to-t from-overlay to-transparent p-6 sm:p-14 opacity-100 xl:opacity-0 xl:group-hover:opacity-100 transition-opacity duration-normal flex items-end">
+        <Text variant="body-xl" class="text-background">{name}</Text>
+    </div>
+</div>

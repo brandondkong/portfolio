@@ -18,6 +18,16 @@
     --text-display-md: 120px;
     --text-display-lg: 168px;
 
+    --spacing-section-x: 24px;
+    --spacing-section-x-sm: 80px;
+    --spacing-hero-top: 56px;
+    --spacing-section-top: 32px;
+    --spacing-section-bottom: 80px;
+    --spacing-section-gap: 48px;
+    --spacing-content-gap: 24px;
+    --spacing-element-gap: 16px;
+    --spacing-tight-gap: 8px;
+
     --duration-fast: 200ms;
     --duration-normal: 500ms;
     --ease-default: ease;

@@ -4,9 +4,10 @@ type Variant = "primary" | "inverted";
 interface Props {
     variant?: Variant;
     class?: string;
+    href?: string;
 };
 
-const { variant = "primary", class: className } = Astro.props;
+const { variant = "primary", href, class: className } = Astro.props;
 
 const base = "w-fit py-4 px-8 text-base transition-colors duration-fast font-normal tracking-tight";
 
@@ -14,8 +15,10 @@ const variants: Record<Variant, string> = {
     primary: "bg-surface text-foreground hover:bg-foreground hover:text-background",
     inverted: "bg-foreground text-background hover:bg-surface hover:text-foreground",
 };
+
+const Tag = href ? "a" : "button";
 ---
 
-<button class:list={[base, variants[variant], className]}>
+<Tag href={href} class:list={[base, variants[variant], className]}>
     <slot />
-</button>
+</Tag>

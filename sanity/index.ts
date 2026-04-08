@@ -1,5 +1,5 @@
-import { projectType } from "./projectType";
+import { workType } from "./workType";
 import { companyType } from "./companyType";
 import { experienceType } from "./experienceType";
 
-export const schemaTypes = [projectType, companyType, experienceType];
+export const schemaTypes = [workType, companyType, experienceType];

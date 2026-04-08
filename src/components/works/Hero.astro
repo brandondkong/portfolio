@@ -1,0 +1,21 @@
+---
+import Text from "../Text.astro";
+import SocialLink from "../SocialLink.astro";
+import Section from "../Section.astro";
+---
+
+<Section hideBorder class="pt-hero-top pb-section-bottom flex flex-col gap-section-gap">
+	<div class="flex flex-col-reverse md:flex-row justify-between items-start gap-element-gap">
+		<Text variant="display">
+			Works
+		</Text>
+	</div>
+	<div class="flex flex-col lg:flex-row items-start justify-between gap-content-gap">
+		<SocialLink
+			text="brandondkong"
+			icon="brands/github"
+			href="https://github.com/brandondkong"
+			cursorText="GitHub"
+		/>
+	</div>
+</Section>

@@ -7,19 +7,20 @@ interface Props {
     hideBorder?: boolean;
     title?: string;
     buttonText?: string;
+    href?: string;
 };
 
-const { class: className, hideBorder = false, title, buttonText, ...rest } = Astro.props;
+const { class: className, href, hideBorder = false, title, buttonText, ...rest } = Astro.props;
 ---
 
 <section
-class:list={["px-6 sm:px-20", !hideBorder && "border-t border-border", className]}
+class:list={["px-section-x sm:px-section-x-sm", !hideBorder && "border-t border-border", className]}
 {...rest}
 >
     {title && (
         <div class="flex flex-row items-center justify-between">
             <Text variant="heading">{title}</Text>
-            {buttonText && <Button>{buttonText}</Button>}
+            {buttonText && <Button href={href}>{buttonText}</Button>}
         </div>
     )}
     <slot />

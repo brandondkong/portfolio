@@ -1,30 +1,10 @@
 ---
-import type { SanityDocument } from "@sanity/client";
-import { sanityClient } from "sanity:client";
-import { urlFor } from "../../lib/sanity";
+import type { Work } from "../../../sanity/workType";
 
 import Section from "../Section.astro";
-import ProjectCard from "../ProjectCard.astro";
-
-interface Project extends SanityDocument {
-  title: string;
-  slug: { current: string };
-  coverImage: {
-    asset: { _ref: string; _type: string };
-  };
-}
-
-const PROJECTS_QUERY = `*[_type == "project" && defined(slug.current)]|order(_createdAt desc)[0...3]{ _id, title, slug, coverImage }`;
-const projects = await sanityClient.fetch<Project[]>(PROJECTS_QUERY);
+import WorkGrid from "../WorkGrid.astro";
 ---
 
-<Section title="Work" buttonText="Show More" class="pt-8 pb-20 flex flex-col gap-12">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    {projects.map((project) => (
-      <ProjectCard
-        name={project.title}
-        image={urlFor(project.coverImage).width(800).height(800).url()}
-      />
-    ))}
-  </div>
+<Section title="Work" href="/works" buttonText="Show More" class="pt-section-top pb-section-bottom flex flex-col gap-section-gap">
+  <WorkGrid />
 </Section>

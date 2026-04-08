@@ -1,13 +1,13 @@
 ---
 import { Image } from "astro:assets";
-import { Icon } from "astro-icon/components";
 import Text from "../Text.astro";
-import Portrait from "../../assets/imgs/portrait.jpg";
+import SocialLink from "../SocialLink.astro";
+import Portrait from "../../assets/imgs/portrait.png";
 import Section from "../Section.astro";
 ---
 
-<Section hideBorder class="pt-14 pb-20 flex flex-col gap-12">
-	<div class="flex flex-col-reverse md:flex-row justify-between items-start gap-4">
+<Section hideBorder class="pt-hero-top pb-section-bottom flex flex-col gap-section-gap">
+	<div class="flex flex-col-reverse md:flex-row justify-between items-start gap-element-gap">
 		<Text variant="display">
 			Brandon<br />Kong
 		</Text>
@@ -20,11 +20,13 @@ import Section from "../Section.astro";
 			loading="eager"
 		/>
 	</div>
-	<div class="flex flex-col lg:flex-row items-start justify-between gap-8">
-		<div class="flex items-center gap-4">
-			<Text variant="body">brandon@kong.ly</Text>
-			<Icon name="copy" size="20" />
-		</div>
+	<div class="flex flex-col lg:flex-row items-start justify-between gap-content-gap">
+		<SocialLink
+			text="brandon@kong.ly"
+			icon="copy"
+			cursorText="Copy"
+			copy
+		/>
 		<Text variant="body-lg" class="max-w-xl indent-20 text-justify">
 			Hello, I&apos;m a software engineer based in Chicago focused on secure
 			authentication&nbsp;infrastructure.
