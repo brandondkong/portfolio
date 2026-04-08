@@ -10,7 +10,14 @@ interface Props {
 import { twMerge } from 'tailwind-merge';
 import { formBase } from '../lib/styles';
 
-const { name, placeholder, rows = 4, class: className, required, ...rest } = Astro.props;
+const {
+    name,
+    placeholder,
+    rows = 4,
+    class: className,
+    required,
+    ...rest
+} = Astro.props;
 ---
 
 <textarea

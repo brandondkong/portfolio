@@ -86,7 +86,9 @@ const links = [
             toggle.setAttribute('aria-expanded', 'true');
             overlay.classList.remove('opacity-0', 'pointer-events-none');
             document.getElementById('icon-dots')!.classList.add('opacity-0');
-            document.getElementById('icon-close')!.classList.remove('opacity-0');
+            document
+                .getElementById('icon-close')!
+                .classList.remove('opacity-0');
             document.body.classList.add('overflow-hidden');
 
             const firstLink = overlay.querySelector('a');
@@ -104,7 +106,8 @@ const links = [
 
         overlay.addEventListener('keydown', (e) => {
             if (e.key !== 'Tab') return;
-            const focusable = overlay.querySelectorAll<HTMLElement>('a, button');
+            const focusable =
+                overlay.querySelectorAll<HTMLElement>('a, button');
             if (!focusable.length) return;
             const first = focusable[0];
             const last = focusable[focusable.length - 1];
