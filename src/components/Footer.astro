@@ -37,7 +37,7 @@ const year = new Date().getFullYear();
         >
             {
                 socialMediaLinks.map((socialMedia) => (
-                    <a href={socialMedia.href} target="_blank">
+                    <a href={socialMedia.href} target="_blank" rel="noopener noreferrer">
                         <Text variant="link">{socialMedia.label}</Text>
                     </a>
                 ))
@@ -58,6 +58,7 @@ const year = new Date().getFullYear();
                 <div class="flex items-center gap-3">
                     <div
                         class="relative flex h-3 w-3 items-center justify-center"
+                        aria-hidden="true"
                     >
                         <div
                             class="animate-ping-slow bg-footer-foreground absolute h-full w-full rounded-full opacity-75"
