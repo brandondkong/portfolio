@@ -32,8 +32,8 @@ const workMetadata: WorkMetadata[] = [
 ]
 ---
 
-<Section hideBorder class="pt-hero-top w-full">
-  <div class="flex flex-col flex-wrap gap-x-4 ml-auto w-fit">
+<Section hideBorder class="pt-hero-top pb-section-bottom flex flex-col md:grid md:grid-cols-2 md:items-center gap-section-gap md:gap-hero-gap">
+  <div class="flex flex-col flex-wrap gap-x-4 md:ml-auto w-fit order-last md:order-0 md:col-span-2">
     {
       workMetadata.map(metadata => (
         <div class="flex gap-1 w-fit">
@@ -43,8 +43,6 @@ const workMetadata: WorkMetadata[] = [
       ))
     }
   </div>
-</Section>
-<Section hideBorder class="pt-hero-top pb-section-bottom grid grid-cols-2 items-center gap-hero-gap">
   <img
     src={urlFor(work.coverImage).width(800).height(800).url()}
     alt={work.title}
@@ -52,21 +50,18 @@ const workMetadata: WorkMetadata[] = [
     height={800}
     class="w-full border border-border aspect-square"
   />
-    <div
-    class="flex flex-col gap-section-gap"
-    >
-        <Text variant="title">{work.title}</Text>
-        {work.links && work.links.length > 0 && (
-          <div class="flex flex-wrap gap-content-gap">
-            {work.links.map((link) => (
-              <SocialLink
-                text={link.label}
-                icon={link.icon}
-                href={link.url}
-              />
-            ))}
-          </div>
-        )}
-    </div>
- 
+  <div class="flex flex-col gap-content-gap md:gap-section-gap -order-1 md:order-0 md:col-start-2">
+      <Text variant="title" class="break-all md:break-normal">{work.title}</Text>
+      {work.links && work.links.length > 0 && (
+        <div class="flex flex-wrap gap-content-gap">
+          {work.links.map((link) => (
+            <SocialLink
+              text={link.label}
+              icon={link.icon}
+              href={link.url}
+            />
+          ))}
+        </div>
+      )}
+  </div>
 </Section>
