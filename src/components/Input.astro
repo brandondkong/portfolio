@@ -7,6 +7,7 @@ interface Props {
 }
 
 import { twMerge } from 'tailwind-merge';
+import { formBase } from '../lib/styles';
 
 const {
     name,
@@ -15,15 +16,12 @@ const {
     class: className,
     ...rest
 } = Astro.props;
-
-const base =
-    'py-4 px-8 text-base font-normal tracking-tight bg-surface text-foreground placeholder:text-muted border border-border transition-colors duration-fast focus:outline-none focus:border-foreground';
 ---
 
 <input
     type={type}
     name={name}
     placeholder={placeholder}
-    class={twMerge(base, className)}
+    class={twMerge(formBase, className)}
     {...rest}
 />
