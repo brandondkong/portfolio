@@ -11,7 +11,7 @@ import { twMerge } from "tailwind-merge";
 
 const { variant = "primary", href, class: className } = Astro.props;
 
-const base = "w-fit py-4 px-8 text-base transition-colors duration-fast font-normal tracking-tight";
+const base = "py-4 px-8 text-base transition-colors duration-fast font-normal tracking-tight";
 
 const variants: Record<Variant, string> = {
     primary: "bg-surface text-foreground hover:bg-foreground hover:text-background",
