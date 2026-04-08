@@ -1,51 +1,55 @@
 ---
-import { Icon } from "astro-icon/components";
-import Text from "./Text.astro";
+import { Icon } from 'astro-icon/components';
+import Text from './Text.astro';
 
 interface Props {
-	text: string;
-	icon: string;
-	href?: string;
-	cursorText?: string;
-	copy?: boolean;
+    text: string;
+    icon: string;
+    href?: string;
+    cursorText?: string;
+    copy?: boolean;
 }
 
 const { text, icon, href, cursorText, copy } = Astro.props;
 
-const Tag = href ? "a" : "button";
+const Tag = href ? 'a' : 'button';
 const attrs = href
-	? { href, target: "_blank", rel: "noopener noreferrer" }
-	: {};
+    ? { href, target: '_blank', rel: 'noopener noreferrer' }
+    : {};
 ---
 
 <Tag
-	{...attrs}
-	class="social-link flex items-center gap-element-gap"
-	data-cursor-text={cursorText}
-	data-copy={copy ? text : undefined}
+    {...attrs}
+    class="social-link gap-element-gap flex items-center"
+    data-cursor-text={cursorText}
+    data-copy={copy ? text : undefined}
 >
-	<Text variant="body">{text}</Text>
-	<Icon name={icon} size="20" />
+    <Text variant="body">{text}</Text>
+    <Icon name={icon} size="20" />
 </Tag>
 
 <script>
-	document.querySelectorAll<HTMLElement>(".social-link[data-copy]").forEach((el) => {
-		el.addEventListener("click", (e) => {
-			e.preventDefault();
-			const value = el.dataset.copy!;
-			const originalText = el.dataset.cursorText!;
-			navigator.clipboard.writeText(value);
+    document
+        .querySelectorAll<HTMLElement>('.social-link[data-copy]')
+        .forEach((el) => {
+            el.addEventListener('click', (e) => {
+                e.preventDefault();
+                const value = el.dataset.copy!;
+                const originalText = el.dataset.cursorText!;
+                navigator.clipboard.writeText(value);
 
-			el.dataset.cursorText = "Copied";
-			const cursorTextEl = document.getElementById("cursor-text");
-			if (cursorTextEl) cursorTextEl.textContent = "Copied";
-			if ((window as any).__updateCursorSize) (window as any).__updateCursorSize("Copied");
+                el.dataset.cursorText = 'Copied';
+                const cursorTextEl = document.getElementById('cursor-text');
+                if (cursorTextEl) cursorTextEl.textContent = 'Copied';
+                if ((window as any).__updateCursorSize)
+                    (window as any).__updateCursorSize('Copied');
 
-			setTimeout(() => {
-				el.dataset.cursorText = originalText;
-				if (cursorTextEl) cursorTextEl.textContent = originalText;
-				if ((window as any).__updateCursorSize) (window as any).__updateCursorSize(originalText);
-			}, 1500);
-		});
-	});
+                setTimeout(() => {
+                    el.dataset.cursorText = originalText;
+                    if (cursorTextEl) cursorTextEl.textContent = originalText;
+                    if ((window as any).__updateCursorSize)
+                        (window as any).__updateCursorSize(originalText);
+                }, 1500);
+            });
+        });
 </script>

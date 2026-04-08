@@ -1,32 +1,39 @@
 ---
-import Section from "../../Section.astro";
-import { urlFor } from "../../../lib/sanity";
-import type { Work } from "../../../../sanity/workType";
+import Section from '../../Section.astro';
+import { urlFor } from '../../../lib/sanity';
+import type { Work } from '../../../../sanity/workType';
 
 interface Props {
-  work: Work;
+    work: Work;
 }
 
 const { work } = Astro.props;
 const count = work.gallery?.length ?? 0;
 ---
 
-{work.gallery && count > 0 && (
-  <Section title="Gallery" class="pt-section-top pb-section-bottom flex flex-col gap-section-gap">
-    <div class:list={[
-      "grid gap-content-gap",
-      count === 1 && "grid-cols-1 max-w-2xl",
-      count >= 2 && "grid-cols-1 md:grid-cols-2",
-    ]}>
-      {work.gallery.map((image) => (
-        <img
-          src={urlFor(image).width(1200).url()}
-          alt=""
-          width={1200}
-          height={800}
-          class="w-full border border-border"
-        />
-      ))}
-    </div>
-  </Section>
-)}
+{
+    work.gallery && count > 0 && (
+        <Section
+            title="Gallery"
+            class="pt-section-top pb-section-bottom gap-section-gap flex flex-col"
+        >
+            <div
+                class:list={[
+                    'gap-content-gap grid',
+                    count === 1 && 'max-w-2xl grid-cols-1',
+                    count >= 2 && 'grid-cols-1 md:grid-cols-2',
+                ]}
+            >
+                {work.gallery.map((image) => (
+                    <img
+                        src={urlFor(image).width(1200).url()}
+                        alt=""
+                        width={1200}
+                        height={800}
+                        class="border-border w-full border"
+                    />
+                ))}
+            </div>
+        </Section>
+    )
+}

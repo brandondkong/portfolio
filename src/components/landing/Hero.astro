@@ -1,36 +1,43 @@
 ---
-import { Image } from "astro:assets";
-import Text from "../Text.astro";
-import SocialLink from "../SocialLink.astro";
-import Portrait from "../../assets/imgs/portrait.png";
-import Section from "../Section.astro";
-import { GITHUB_LINK } from "../../lib/constants";
+import { Image } from 'astro:assets';
+import Text from '../Text.astro';
+import SocialLink from '../SocialLink.astro';
+import Portrait from '../../assets/imgs/portrait.png';
+import Section from '../Section.astro';
+import { GITHUB_LINK } from '../../lib/constants';
 ---
 
-<Section hideBorder class="pt-hero-top pb-section-bottom flex flex-col gap-section-gap">
-	<div class="flex flex-col-reverse md:flex-row justify-between items-start gap-element-gap">
-		<Text variant="display">
-			Brandon<br />Kong
-		</Text>
-		<Image
-			src={Portrait}
-			alt="Portrait"
-			class="rounded-full w-26 h-26 md:w-26 xl:w-42 md:h-auto"
-			width={5000}
-			height={5000}
-			loading="eager"
-		/>
-	</div>
-	<div class="flex flex-col lg:flex-row items-start justify-between gap-content-gap">
-		<SocialLink
-			text="brandondkong"
-			icon="brands/github"
-			cursorText="GitHub"
-			href={GITHUB_LINK}
-		/>
-		<Text variant="body-lg" class="max-w-xl indent-20 text-justify">
-			Hello, I&apos;m a software engineer based in Chicago focused on secure
-			authentication&nbsp;infrastructure.
-		</Text>
-	</div>
+<Section
+    hideBorder
+    class="pt-hero-top pb-section-bottom gap-section-gap flex flex-col"
+>
+    <div
+        class="gap-element-gap flex flex-col-reverse items-start justify-between md:flex-row"
+    >
+        <Text variant="display">
+            Brandon<br />Kong
+        </Text>
+        <Image
+            src={Portrait}
+            alt="Portrait"
+            class="h-26 w-26 rounded-full md:h-auto md:w-26 xl:w-42"
+            width={5000}
+            height={5000}
+            loading="eager"
+        />
+    </div>
+    <div
+        class="gap-content-gap flex flex-col items-start justify-between lg:flex-row"
+    >
+        <SocialLink
+            text="brandondkong"
+            icon="brands/github"
+            cursorText="GitHub"
+            href={GITHUB_LINK}
+        />
+        <Text variant="body-lg" class="max-w-xl text-justify indent-20">
+            Hello, I&apos;m a software engineer based in Chicago focused on
+            secure authentication&nbsp;infrastructure.
+        </Text>
+    </div>
 </Section>

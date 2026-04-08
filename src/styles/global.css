@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme inline {
     /* Registers Astro's injected --font-inter into the Tailwind theme */
@@ -40,7 +40,8 @@
 }
 
 @keyframes ping-slow {
-    75%, 100% {
+    75%,
+    100% {
         transform: scale(3);
         opacity: 0;
     }
@@ -49,4 +50,3 @@
 body {
     font-family: var(--font-inter);
 }
-

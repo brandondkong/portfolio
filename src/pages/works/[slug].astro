@@ -1,36 +1,36 @@
 ---
-import type { GetStaticPaths } from "astro";
-import { sanityClient } from "sanity:client";
-import type { Work } from "../../../sanity/workType";
-import Base from "../../layouts/Base.layout.astro";
-import Hero from "../../components/works/slug/Hero.astro";
-import About from "../../components/works/slug/About.astro";
-import Features from "../../components/works/slug/Features.astro";
-import Gallery from "../../components/works/slug/Gallery.astro";
-import Explore from "../../components/works/slug/Explore.astro";
+import type { GetStaticPaths } from 'astro';
+import { sanityClient } from 'sanity:client';
+import type { Work } from '../../../sanity/workType';
+import Base from '../../layouts/Base.layout.astro';
+import Hero from '../../components/works/slug/Hero.astro';
+import About from '../../components/works/slug/About.astro';
+import Features from '../../components/works/slug/Features.astro';
+import Gallery from '../../components/works/slug/Gallery.astro';
+import Explore from '../../components/works/slug/Explore.astro';
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const works = await sanityClient.fetch<Work[]>(
-    `*[_type == "project" && defined(slug.current)]{ _id, title, slug, coverImage, description, features, links, gallery }`
-  );
+    const works = await sanityClient.fetch<Work[]>(
+        `*[_type == "project" && defined(slug.current)]{ _id, title, slug, coverImage, description, features, links, gallery }`,
+    );
 
-  return works.map((work) => ({
-    params: { slug: work.slug.current },
-    props: { work },
-  }));
+    return works.map((work) => ({
+        params: { slug: work.slug.current },
+        props: { work },
+    }));
 };
 
 interface Props {
-  work: Work;
+    work: Work;
 }
 
 const { work } = Astro.props;
 ---
 
 <Base title={work.title}>
-  <Hero work={work} />
-  <About work={work} />
-  <Features work={work} />
-  <Gallery work={work} />
-  <Explore work={work} />
+    <Hero work={work} />
+    <About work={work} />
+    <Features work={work} />
+    <Gallery work={work} />
+    <Explore work={work} />
 </Base>

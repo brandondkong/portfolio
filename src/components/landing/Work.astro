@@ -1,10 +1,15 @@
 ---
-import type { Work } from "../../../sanity/workType";
+import type { Work } from '../../../sanity/workType';
 
-import Section from "../Section.astro";
-import WorkGrid from "../WorkGrid.astro";
+import Section from '../Section.astro';
+import WorkGrid from '../WorkGrid.astro';
 ---
 
-<Section title="Work" href="/works" buttonText="Show More" class="pt-section-top pb-section-bottom flex flex-col gap-section-gap">
-  <WorkGrid />
+<Section
+    title="Work"
+    href="/works"
+    buttonText="Show More"
+    class="pt-section-top pb-section-bottom gap-section-gap flex flex-col"
+>
+    <WorkGrid />
 </Section>

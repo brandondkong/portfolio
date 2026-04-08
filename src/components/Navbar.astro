@@ -1,64 +1,92 @@
 ---
 const links = [
-    { label: "Home", href: "/" },
-    { label: "Works", href: "/works" },
-    { label: "Contact", href: "/contact" },
+    { label: 'Home', href: '/' },
+    { label: 'Works', href: '/works' },
+    { label: 'Contact', href: '/contact' },
 ];
 ---
 
-<nav class="border-b border-border px-8 py-9 flex items-center justify-between w-full relative z-50">
-    <a href="/" class="font-bold text-3xl leading-0 uppercase tracking-tight">kong.ly</a>
-    <button id="menu-toggle" class="relative w-[18px] h-[18px] cursor-pointer" aria-label="Toggle menu">
-        <div id="icon-dots" class="absolute inset-0 grid grid-cols-2 gap-2 place-items-center transition-opacity duration-fast">
-            <div class="w-[5px] h-[5px] bg-foreground"></div>
-            <div class="w-[5px] h-[5px] bg-foreground"></div>
-            <div class="w-[5px] h-[5px] bg-foreground"></div>
-            <div class="w-[5px] h-[5px] bg-foreground"></div>
+<nav
+    class="border-border relative z-50 flex w-full items-center justify-between border-b px-8 py-9"
+>
+    <a href="/" class="text-3xl leading-0 font-bold tracking-tight uppercase"
+        >kong.ly</a
+    >
+    <button
+        id="menu-toggle"
+        class="relative h-[18px] w-[18px] cursor-pointer"
+        aria-label="Toggle menu"
+    >
+        <div
+            id="icon-dots"
+            class="duration-fast absolute inset-0 grid grid-cols-2 place-items-center gap-2 transition-opacity"
+        >
+            <div class="bg-foreground h-[5px] w-[5px]"></div>
+            <div class="bg-foreground h-[5px] w-[5px]"></div>
+            <div class="bg-foreground h-[5px] w-[5px]"></div>
+            <div class="bg-foreground h-[5px] w-[5px]"></div>
         </div>
-        <div id="icon-close" class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-fast">
-            <div class="absolute w-[18px] h-[1.5px] bg-foreground rotate-45"></div>
-            <div class="absolute w-[18px] h-[1.5px] bg-foreground -rotate-45"></div>
+        <div
+            id="icon-close"
+            class="duration-fast absolute inset-0 flex items-center justify-center opacity-0 transition-opacity"
+        >
+            <div class="bg-foreground absolute h-[1.5px] w-[18px] rotate-45">
+            </div>
+            <div class="bg-foreground absolute h-[1.5px] w-[18px] -rotate-45">
+            </div>
         </div>
     </button>
 </nav>
 
-<div id="menu-overlay" class="fixed inset-0 z-40 bg-background flex flex-col justify-center px-section-x opacity-0 pointer-events-none transition-opacity duration-normal">
-    <ul class="flex flex-col gap-section-gap">
-        {links.map((link) => (
-            <li>
-                <a
-                    href={link.href}
-                    class="font-semibold uppercase text-display-sm md:text-display-md leading-none -tracking-[7.5%] transition-colors duration-fast text-muted hover:text-foreground"
-                >
-                    {link.label}
-                </a>
-            </li>
-        ))}
+<div
+    id="menu-overlay"
+    class="bg-background px-section-x duration-normal pointer-events-none fixed inset-0 z-40 flex flex-col justify-center opacity-0 transition-opacity"
+>
+    <ul class="gap-section-gap flex flex-col">
+        {
+            links.map((link) => (
+                <li>
+                    <a
+                        href={link.href}
+                        class="text-display-sm md:text-display-md duration-fast text-muted hover:text-foreground leading-none font-semibold -tracking-[7.5%] uppercase transition-colors"
+                    >
+                        {link.label}
+                    </a>
+                </li>
+            ))
+        }
     </ul>
 </div>
 
 <script>
-    const toggle = document.getElementById("menu-toggle")!;
-    const overlay = document.getElementById("menu-overlay")!;
+    const toggle = document.getElementById('menu-toggle')!;
+    const overlay = document.getElementById('menu-overlay')!;
     let open = false;
 
-    toggle.addEventListener("click", () => {
+    toggle.addEventListener('click', () => {
         open = !open;
-        overlay.classList.toggle("opacity-0", !open);
-        overlay.classList.toggle("pointer-events-none", !open);
-        document.getElementById("icon-dots")!.classList.toggle("opacity-0", open);
-        document.getElementById("icon-close")!.classList.toggle("opacity-0", !open);
-        document.body.classList.toggle("overflow-hidden", open);
+        overlay.classList.toggle('opacity-0', !open);
+        overlay.classList.toggle('pointer-events-none', !open);
+        document
+            .getElementById('icon-dots')!
+            .classList.toggle('opacity-0', open);
+        document
+            .getElementById('icon-close')!
+            .classList.toggle('opacity-0', !open);
+        document.body.classList.toggle('overflow-hidden', open);
     });
 
-    overlay.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => {
+    overlay.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
             open = false;
-            overlay.classList.add("opacity-0", "pointer-events-none");
-            document.getElementById("icon-dots")!.classList.remove("opacity-0");
-            document.getElementById("icon-close")!.classList.add("opacity-0");
-            document.body.classList.remove("overflow-hidden");
+            overlay.classList.add('opacity-0', 'pointer-events-none');
+            document
+                .getElementById('icon-dots')!
+                .classList.remove('opacity-0');
+            document
+                .getElementById('icon-close')!
+                .classList.add('opacity-0');
+            document.body.classList.remove('overflow-hidden');
         });
     });
 </script>
-

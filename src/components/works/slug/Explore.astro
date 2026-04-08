@@ -1,15 +1,20 @@
 ---
-import Section from "../../Section.astro";
-import type { Work } from "../../../../sanity/workType";
-import WorkGrid from "../../WorkGrid.astro";
+import Section from '../../Section.astro';
+import type { Work } from '../../../../sanity/workType';
+import WorkGrid from '../../WorkGrid.astro';
 
 interface Props {
-  work: Work;
+    work: Work;
 }
 
 const { work } = Astro.props;
 ---
 
-<Section title="More to Explore" buttonText="Show More" href="/works" class="pt-section-top flex flex-col gap-section-gap">
+<Section
+    title="More to Explore"
+    buttonText="Show More"
+    href="/works"
+    class="pt-section-top gap-section-gap flex flex-col"
+>
     <WorkGrid excludedIds={[work._id]} />
 </Section>

@@ -5,24 +5,26 @@ import Text from './Text.astro';
 
 interface Props {
     work: Work;
-};
+}
 
 const { work } = Astro.props;
 ---
 
 <a
-href={`/works/${work.slug.current}`}
-class="work-card w-full h-auto aspect-square border border-border relative overflow-hidden group"
+    href={`/works/${work.slug.current}`}
+    class="work-card border-border group relative aspect-square h-auto w-full overflow-hidden border"
 >
     <img
-    src={urlFor(work.coverImage).width(800).height(800).url()}
-    alt={work.title}
-    width={800}
-    height={800}
-    loading="lazy"
-    class="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-(--duration-normal)"
+        src={urlFor(work.coverImage).width(800).height(800).url()}
+        alt={work.title}
+        width={800}
+        height={800}
+        loading="lazy"
+        class="absolute top-0 left-0 h-full w-full object-cover transition-transform duration-(--duration-normal) group-hover:scale-110"
     />
-    <div class="absolute inset-x-0 bottom-0 h-3/4 bg-linear-to-t from-overlay to-transparent p-6 sm:p-14 opacity-100 xl:opacity-0 xl:group-hover:opacity-100 transition-opacity duration-normal flex items-end">
+    <div
+        class="from-overlay duration-normal absolute inset-x-0 bottom-0 flex h-3/4 items-end bg-linear-to-t to-transparent p-6 opacity-100 transition-opacity sm:p-14 xl:opacity-0 xl:group-hover:opacity-100"
+    >
         <Text variant="body-xl" class="text-background">{work.title}</Text>
     </div>
 </a>
