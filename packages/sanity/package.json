@@ -1,0 +1,14 @@
+{
+    "name": "@kong/sanity",
+    "version": "0.1.0",
+    "type": "module",
+    "exports": {
+        ".": "./src/index.ts"
+    },
+    "dependencies": {
+        "sanity": "^5.19.0"
+    },
+    "devDependencies": {
+        "@kong/tsconfig": "workspace:*"
+    }
+}

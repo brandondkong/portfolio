@@ -1,0 +1,3 @@
+{
+    "extends": ["@kong/tsconfig/base.json"]
+}
