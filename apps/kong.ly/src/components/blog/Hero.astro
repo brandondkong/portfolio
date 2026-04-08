@@ -1,0 +1,23 @@
+---
+import Text from '../Text.astro';
+import Section from '../Section.astro';
+import BlogGrid from '../BlogGrid.astro';
+---
+
+<Section
+    hideBorder
+    class="pt-hero-top pb-section-bottom gap-hero-gap flex flex-col"
+>
+    <div
+        class="gap-element-gap flex flex-col-reverse items-start justify-between md:flex-row"
+    >
+        <Text variant="display" reveal> Blog </Text>
+    </div>
+    <div
+        class="gap-element-gap flex w-full flex-col items-start justify-between"
+    >
+        <div class="w-full">
+            <BlogGrid />
+        </div>
+    </div>
+</Section>
