@@ -115,11 +115,11 @@ const year = new Date().getFullYear();
         inner.style.transform = `translateY(${offset}px)`;
 
         function onScroll() {
-            const maxScroll =
-                document.documentElement.scrollHeight - window.innerHeight;
+            const rect = footer!.getBoundingClientRect();
+            const viewportH = window.innerHeight;
             const progress = Math.max(
                 0,
-                Math.min(1, window.scrollY / maxScroll),
+                Math.min(1, (viewportH - rect.top) / viewportH),
             );
             inner!.style.transform = `translateY(${offset * (1 - progress)}px)`;
         }
