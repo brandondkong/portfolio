@@ -29,6 +29,12 @@ const attrs = href
 </Tag>
 
 <script>
+    declare global {
+        interface Window {
+            __updateCursorSize?: (text: string) => void;
+        }
+    }
+
     document
         .querySelectorAll<HTMLElement>('.social-link[data-copy]')
         .forEach((el) => {
@@ -41,14 +47,12 @@ const attrs = href
                 el.dataset.cursorText = 'Copied';
                 const cursorTextEl = document.getElementById('cursor-text');
                 if (cursorTextEl) cursorTextEl.textContent = 'Copied';
-                if ((window as any).__updateCursorSize)
-                    (window as any).__updateCursorSize('Copied');
+                window.__updateCursorSize?.('Copied');
 
                 setTimeout(() => {
                     el.dataset.cursorText = originalText;
                     if (cursorTextEl) cursorTextEl.textContent = originalText;
-                    if ((window as any).__updateCursorSize)
-                        (window as any).__updateCursorSize(originalText);
+                    window.__updateCursorSize?.(originalText);
                 }, 1500);
             });
         });

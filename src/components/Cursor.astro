@@ -82,7 +82,7 @@
         cursor.style.setProperty('--cursor-h', `${size.height}px`);
     }
 
-    (window as any).__updateCursorSize = updateCursorSize;
+    window.__updateCursorSize = updateCursorSize;
 
     function measureText(text: string): { width: number; height: number } {
         const measurer = document.createElement('span');
