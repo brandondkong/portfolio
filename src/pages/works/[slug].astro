@@ -3,6 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import { sanityClient } from 'sanity:client';
 import type { Work } from '../../../sanity/workType';
 import Base from '../../layouts/Base.layout.astro';
+import JsonLd from '../../components/JsonLd.astro';
 import Hero from '../../components/works/slug/Hero.astro';
 import About from '../../components/works/slug/About.astro';
 import Features from '../../components/works/slug/Features.astro';
@@ -28,6 +29,18 @@ const { work } = Astro.props;
 ---
 
 <Base title={work.title} description={work.description}>
+    <JsonLd
+        data={{
+            '@context': 'https://schema.org',
+            '@type': 'CreativeWork',
+            name: work.title,
+            description: work.description,
+            author: {
+                '@type': 'Person',
+                name: 'Brandon Kong',
+            },
+        }}
+    />
     <Hero work={work} />
     <About work={work} />
     <Features work={work} />
