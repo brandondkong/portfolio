@@ -6,7 +6,6 @@ import tailwindcss from '@tailwindcss/vite';
 import icon from 'astro-icon';
 
 import sanity from '@sanity/astro';
-import react from '@astrojs/react';
 import node from '@astrojs/node';
 import sitemap from '@astrojs/sitemap';
 
@@ -34,7 +33,6 @@ export default defineConfig({
             dataset: 'production',
             useCdn: false,
         }),
-        react(),
         sitemap(),
     ],
 });
