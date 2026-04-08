@@ -47,6 +47,19 @@
     }
 }
 
+[data-reveal] {
+    visibility: hidden;
+}
+
+@keyframes reveal-up {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
 body {
     font-family: var(--font-inter);
 }

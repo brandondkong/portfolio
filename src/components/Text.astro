@@ -16,11 +16,12 @@ interface Props {
     variant: Variant;
     as?: string;
     class?: string;
+    reveal?: boolean;
 }
 
 import { twMerge } from 'tailwind-merge';
 
-const { variant, as, class: className } = Astro.props as Props;
+const { variant, as, class: className, reveal = false } = Astro.props as Props;
 
 interface VariantData {
     tag: string;
@@ -82,6 +83,45 @@ const config = variantConfig[variant];
 const Tag = (as || config.tag) as keyof HTMLElementTagNameMap;
 ---
 
-<Tag class={twMerge(config.classes, className)}>
+<Tag class={twMerge(config.classes, className)} data-reveal={reveal || undefined}>
     <slot />
 </Tag>
+
+<script is:inline>
+    function initReveal() {
+        document.querySelectorAll('[data-reveal]').forEach(function (el) {
+            var lines = [[]];
+
+            el.childNodes.forEach(function (node) {
+                if (node.nodeType === 1 && node.tagName === 'BR') {
+                    lines.push([]);
+                } else {
+                    lines[lines.length - 1].push(node);
+                }
+            });
+
+            el.innerHTML = '';
+
+            lines.forEach(function (lineNodes, i) {
+                var clip = document.createElement('span');
+                clip.style.display = 'block';
+                clip.style.clipPath = 'inset(0 -0.1em 0 0)';
+
+                var inner = document.createElement('span');
+                inner.style.display = 'block';
+                inner.style.animation =
+                    'reveal-up 2s cubic-bezier(0.15, 1, 0.3, 1) ' + i * 0.2 + 's both';
+
+                lineNodes.forEach(function (node) { inner.appendChild(node); });
+                clip.appendChild(inner);
+                el.appendChild(clip);
+            });
+
+            el.removeAttribute('data-reveal');
+            el.style.visibility = 'visible';
+        });
+    }
+
+    initReveal();
+    document.addEventListener('astro:page-load', initReveal);
+</script>
