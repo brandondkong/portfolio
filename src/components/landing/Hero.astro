@@ -5,6 +5,7 @@ import SocialLink from '../SocialLink.astro';
 import Portrait from '../../assets/imgs/portrait.png';
 import Section from '../Section.astro';
 import { GITHUB_LINK } from '../../lib/constants';
+import Reveal from '../Reveal.astro';
 ---
 
 <Section
@@ -26,7 +27,8 @@ import { GITHUB_LINK } from '../../lib/constants';
             loading="eager"
         />
     </div>
-    <div
+    <Reveal
+        distance="256px"
         class="gap-content-gap flex flex-col items-start justify-between lg:flex-row"
     >
         <SocialLink
@@ -39,5 +41,5 @@ import { GITHUB_LINK } from '../../lib/constants';
             Hello, I&apos;m a software engineer based in Chicago focused on
             secure authentication&nbsp;infrastructure.
         </Text>
-    </div>
+    </Reveal>
 </Section>

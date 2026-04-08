@@ -47,6 +47,19 @@
     }
 }
 
+[data-reveal-fade] {
+    opacity: 0;
+    translate: 0 var(--reveal-distance, 24px);
+    transition:
+        opacity var(--reveal-duration, 0.8s) cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0s),
+        translate var(--reveal-duration, 0.8s) cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0s);
+}
+
+[data-reveal-fade].revealed {
+    opacity: 1;
+    translate: none;
+}
+
 [data-reveal] {
     visibility: hidden;
 }

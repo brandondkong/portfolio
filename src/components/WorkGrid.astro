@@ -2,6 +2,7 @@
 import { sanityClient } from 'sanity:client';
 import type { Work } from '../../sanity/workType';
 import WorkCard from './WorkCard.astro';
+import Reveal from './Reveal.astro';
 
 interface Props {
     includeAll?: boolean;
@@ -18,6 +19,6 @@ const WORKS_QUERY = includeAll
 const works = await sanityClient.fetch<Work[]>(WORKS_QUERY, { excludedIds });
 ---
 
-<div class="gap-content-gap grid grid-cols-1 lg:grid-cols-2">
+<Reveal class="gap-content-gap grid grid-cols-1 lg:grid-cols-2">
     {works.map((work) => <WorkCard work={work} />)}
-</div>
+</Reveal>

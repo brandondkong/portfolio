@@ -1,5 +1,6 @@
 ---
 import Button from './Button.astro';
+import Reveal from './Reveal.astro';
 import Text from './Text.astro';
 
 interface Props {
@@ -24,7 +25,7 @@ const {
 
 <section
     class={twMerge(
-        'px-section-x sm:px-section-x-sm',
+        'px-section-x sm:px-section-x-sm [clip-path:inset(0)]',
         !hideBorder && 'border-t border-border',
         className,
     )}
@@ -32,10 +33,12 @@ const {
 >
     {
         title && (
-            <div class="flex flex-row items-center justify-between">
-                <Text variant="heading">{title}</Text>
-                {buttonText && <Button href={href}>{buttonText}</Button>}
-            </div>
+            <Reveal distance="64px">
+                <div class="flex flex-row items-center justify-between">
+                    <Text variant="heading">{title}</Text>
+                    {buttonText && <Button href={href}>{buttonText}</Button>}
+                </div>
+            </Reveal>
         )
     }
     <slot />
