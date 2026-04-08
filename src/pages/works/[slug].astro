@@ -27,7 +27,7 @@ interface Props {
 const { work } = Astro.props;
 ---
 
-<Base title={work.title}>
+<Base title={work.title} description={work.description}>
     <Hero work={work} />
     <About work={work} />
     <Features work={work} />
