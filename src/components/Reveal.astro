@@ -7,7 +7,7 @@ interface Props {
     duration?: string;
 }
 
-const { class: className, as = 'div', delay = 0, distance="64px", duration = "2s" } = Astro.props;
+const { class: className, as = 'div', delay = 0, distance="128px", duration = "2s" } = Astro.props;
 const Tag = as as keyof HTMLElementTagNameMap;
 
 const styles = [

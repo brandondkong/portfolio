@@ -1,4 +1,5 @@
 ---
+import Reveal from '../Reveal.astro';
 import Section from '../Section.astro';
 import Text from '../Text.astro';
 ---
@@ -8,9 +9,12 @@ import Text from '../Text.astro';
     buttonText="Show More"
     class="pt-section-top gap-section-gap flex flex-col"
 >
-    <Text variant="body-lg" class="max-w-2xl text-justify">
-        I&apos;ve founded startups, built developer tools, and analyzed data for
-        NASA. I move between design and deep systems work, always focused on
-        making complex technology simple.
-    </Text>
+    <Reveal>
+        <Text variant="body-lg" class="max-w-2xl text-justify">
+            I&apos;ve founded startups, built developer tools, and analyzed data for
+            NASA. I move between design and deep systems work, always focused on
+            making complex technology simple.
+        </Text>
+    </Reveal>
+    
 </Section>
