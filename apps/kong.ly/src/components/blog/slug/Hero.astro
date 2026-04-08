@@ -1,0 +1,57 @@
+---
+import Text from '../../Text.astro';
+import Section from '../../Section.astro';
+import Reveal from '../../Reveal.astro';
+import { urlFor } from '../../../lib/sanity';
+import type { Post } from '@kong/sanity';
+
+interface Props {
+    post: Post;
+}
+
+const { post } = Astro.props;
+
+const date = new Date(post.publishedAt).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+});
+---
+
+<Section
+    hideBorder
+    class="pt-hero-top pb-section-bottom gap-section-gap flex flex-col"
+>
+    <Reveal class="gap-content-gap flex flex-col">
+        <Text variant="overline">{date}</Text>
+        <Text variant="title" as="h1" class="break-all md:break-normal">
+            {post.title}
+        </Text>
+        {
+            post.tags && post.tags.length > 0 && (
+                <div class="gap-tight-gap flex flex-wrap">
+                    {post.tags.map((tag) => (
+                        <span class="bg-surface text-muted rounded-full px-3 py-1 text-sm">
+                            {tag}
+                        </span>
+                    ))}
+                </div>
+            )
+        }
+    </Reveal>
+    {
+        post.coverImage && (
+            <Reveal>
+                <img
+                    src={urlFor(post.coverImage).width(1200).height(600).url()}
+                    srcset={`${urlFor(post.coverImage).width(600).height(300).url()} 600w, ${urlFor(post.coverImage).width(1200).height(600).url()} 1200w`}
+                    sizes="(max-width: 768px) 100vw, 80vw"
+                    alt={post.title}
+                    width={1200}
+                    height={600}
+                    class="w-full object-cover"
+                />
+            </Reveal>
+        )
+    }
+</Section>
