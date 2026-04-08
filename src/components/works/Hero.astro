@@ -2,6 +2,7 @@
 import Text from "../Text.astro";
 import SocialLink from "../SocialLink.astro";
 import Section from "../Section.astro";
+import { GITHUB_LINK } from "../../lib/constants";
 ---
 
 <Section hideBorder class="pt-hero-top pb-section-bottom flex flex-col gap-section-gap">
@@ -14,7 +15,7 @@ import Section from "../Section.astro";
 		<SocialLink
 			text="brandondkong"
 			icon="brands/github"
-			href="https://github.com/brandondkong"
+			href={GITHUB_LINK}
 			cursorText="GitHub"
 		/>
 	</div>
