@@ -69,12 +69,8 @@ const links = [
         function closeMenu() {
             open = false;
             overlay.classList.add('opacity-0', 'pointer-events-none');
-            document
-                .getElementById('icon-dots')!
-                .classList.remove('opacity-0');
-            document
-                .getElementById('icon-close')!
-                .classList.add('opacity-0');
+            document.getElementById('icon-dots')!.classList.remove('opacity-0');
+            document.getElementById('icon-close')!.classList.add('opacity-0');
             document.body.classList.remove('overflow-hidden');
         }
 

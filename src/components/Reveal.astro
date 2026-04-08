@@ -7,7 +7,13 @@ interface Props {
     duration?: string;
 }
 
-const { class: className, as = 'div', delay = 0.25, distance="128px", duration = "2s" } = Astro.props;
+const {
+    class: className,
+    as = 'div',
+    delay = 0.25,
+    distance = '128px',
+    duration = '2s',
+} = Astro.props;
 const Tag = as as keyof HTMLElementTagNameMap;
 
 const styles = [
@@ -19,11 +25,7 @@ const styles = [
     .join('; ');
 ---
 
-<Tag
-    class={className}
-    data-reveal-fade
-    style={styles || undefined}
->
+<Tag class={className} data-reveal-fade style={styles || undefined}>
     <slot />
 </Tag>
 
@@ -41,7 +43,7 @@ const styles = [
                     }
                 });
             },
-            { rootMargin: '100px', threshold: 0 }
+            { rootMargin: '100px', threshold: 0 },
         );
 
         elements.forEach(function (el) {

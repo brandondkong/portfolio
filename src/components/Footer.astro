@@ -30,7 +30,7 @@ const year = new Date().getFullYear();
     class="bg-footer-background text-footer-foreground sticky bottom-0 z-0 min-h-screen overflow-hidden"
 >
     <div
-        class="px-section-x sm:px-section-x-sm flex min-h-screen flex-col justify-between pt-footer-top pb-footer-bottom sm:pb-footer-bottom-sm"
+        class="px-section-x sm:px-section-x-sm pt-footer-top pb-footer-bottom sm:pb-footer-bottom-sm flex min-h-screen flex-col justify-between"
     >
         <div
             class="gap-content-gap flex items-center justify-start sm:justify-end"
@@ -60,10 +60,12 @@ const year = new Date().getFullYear();
                         class="relative flex h-3 w-3 items-center justify-center"
                     >
                         <div
-                            class="animate-ping-slow absolute h-full w-full rounded-full bg-footer-foreground opacity-75"
+                            class="animate-ping-slow bg-footer-foreground absolute h-full w-full rounded-full opacity-75"
                         >
                         </div>
-                        <div class="relative h-2 w-2 rounded-full bg-footer-foreground">
+                        <div
+                            class="bg-footer-foreground relative h-2 w-2 rounded-full"
+                        >
                         </div>
                     </div>
                     <Text variant="normal"> Available for work</Text>

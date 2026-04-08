@@ -83,7 +83,10 @@ const config = variantConfig[variant];
 const Tag = (as || config.tag) as keyof HTMLElementTagNameMap;
 ---
 
-<Tag class={twMerge(config.classes, className)} data-reveal={reveal || undefined}>
+<Tag
+    class={twMerge(config.classes, className)}
+    data-reveal={reveal || undefined}
+>
     <slot />
 </Tag>
 
@@ -110,9 +113,13 @@ const Tag = (as || config.tag) as keyof HTMLElementTagNameMap;
                 var inner = document.createElement('span');
                 inner.style.display = 'block';
                 inner.style.animation =
-                    'reveal-up 2s cubic-bezier(0.16, 1, 0.3, 1) ' + i * 0.2 + 's both';
+                    'reveal-up 2s cubic-bezier(0.16, 1, 0.3, 1) ' +
+                    i * 0.2 +
+                    's both';
 
-                lineNodes.forEach(function (node) { inner.appendChild(node); });
+                lineNodes.forEach(function (node) {
+                    inner.appendChild(node);
+                });
                 clip.appendChild(inner);
                 el.appendChild(clip);
             });
