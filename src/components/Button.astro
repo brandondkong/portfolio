@@ -1,5 +1,5 @@
 ---
-type Variant = "primary" | "inverted";
+type Variant = "primary" | "inverted" | "ghost";
 
 interface Props {
     variant?: Variant;
@@ -14,6 +14,7 @@ const base = "w-fit py-4 px-8 text-base transition-colors duration-fast font-nor
 const variants: Record<Variant, string> = {
     primary: "bg-surface text-foreground hover:bg-foreground hover:text-background",
     inverted: "bg-foreground text-background hover:bg-surface hover:text-foreground",
+    ghost: "bg-footer-surface text-footer-foreground hover:bg-footer-foreground hover:text-footer-background",
 };
 
 const Tag = href ? "a" : "button";
