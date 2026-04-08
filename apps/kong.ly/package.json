@@ -1,7 +1,8 @@
 {
-    "name": "",
+    "name": "kong.ly",
     "type": "module",
     "version": "0.0.1",
+    "private": true,
     "engines": {
         "node": ">=22.12.0"
     },
@@ -37,15 +38,10 @@
         "tailwindcss": "^4.2.2"
     },
     "devDependencies": {
-        "@typescript-eslint/eslint-plugin": "^8.58.1",
-        "@typescript-eslint/parser": "^8.58.1",
-        "astro-eslint-parser": "^1.4.0",
+        "@kong/eslint-config": "workspace:*",
+        "@kong/prettier-config": "workspace:*",
+        "@kong/tsconfig": "workspace:*",
         "eslint": "^10.2.0",
-        "eslint-plugin-astro": "^1.7.0",
-        "eslint-plugin-react": "^7.37.5",
-        "eslint-plugin-react-hooks": "^7.0.1",
-        "prettier": "^3.8.1",
-        "prettier-plugin-astro": "^0.14.1",
-        "prettier-plugin-tailwindcss": "^0.7.2"
+        "prettier": "^3.8.1"
     }
 }
