@@ -1,0 +1,12 @@
+{
+    "name": "portfolio",
+    "private": true,
+    "workspaces": ["apps/*", "packages/*", "tooling/*"],
+    "scripts": {
+        "dev": "bun run --filter kong.ly dev",
+        "build": "bun run --filter kong.ly build",
+        "lint": "bun run --filter '*' lint",
+        "format": "bun run --filter '*' format",
+        "format:check": "bun run --filter '*' format:check"
+    }
+}
