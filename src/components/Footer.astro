@@ -30,7 +30,7 @@ const year = new Date().getFullYear();
     class="bg-footer-background text-footer-foreground sticky bottom-0 z-0 min-h-screen overflow-hidden"
 >
     <div
-        class="px-section-x sm:px-section-x-sm flex min-h-screen flex-col justify-between pt-36 pb-4 sm:pb-16"
+        class="px-section-x sm:px-section-x-sm flex min-h-screen flex-col justify-between pt-footer-top pb-footer-bottom sm:pb-footer-bottom-sm"
     >
         <div
             class="gap-content-gap flex items-center justify-start sm:justify-end"
@@ -44,14 +44,14 @@ const year = new Date().getFullYear();
             }
         </div>
 
-        <div class="flex flex-col gap-8 sm:gap-10">
+        <div class="gap-content-gap flex flex-col">
             <Text
                 variant="body-xl"
                 class="from-footer-foreground to-footer-foreground/20 bg-linear-to-r bg-clip-text text-transparent"
             >
                 Got an idea worth building?<br />Let&apos;s make it real.
             </Text>
-            <div class="flex flex-col-reverse gap-8 sm:flex-row">
+            <div class="gap-content-gap flex flex-col-reverse sm:flex-row">
                 <Button href="/contact" variant="ghost" class="w-full sm:w-fit">
                     Get in Touch
                 </Button>
@@ -60,10 +60,10 @@ const year = new Date().getFullYear();
                         class="relative flex h-3 w-3 items-center justify-center"
                     >
                         <div
-                            class="animate-ping-slow absolute h-full w-full rounded-full bg-white opacity-75"
+                            class="animate-ping-slow absolute h-full w-full rounded-full bg-footer-foreground opacity-75"
                         >
                         </div>
-                        <div class="relative h-2 w-2 rounded-full bg-white">
+                        <div class="relative h-2 w-2 rounded-full bg-footer-foreground">
                         </div>
                     </div>
                     <Text variant="normal"> Available for work</Text>
