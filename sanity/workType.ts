@@ -12,15 +12,18 @@ export interface WorkLink {
     icon: string;
 }
 
+export interface WorkImage {
+    asset: { _ref: string; _type: string };
+}
+
 export interface Work extends SanityDocument {
     title: string;
     slug: { current: string };
-    coverImage: {
-        asset: { _ref: string; _type: string };
-    };
+    coverImage: WorkImage;
     description?: string;
     features?: WorkFeature[];
     links?: WorkLink[];
+    gallery?: WorkImage[];
 }
 
 export const workType = defineType({
@@ -94,6 +97,11 @@ export const workType = defineType({
                     ],
                 },
             ],
+        }),
+        defineField({
+            name: "gallery",
+            type: "array",
+            of: [{ type: "image" }],
         }),
     ]
 })
