@@ -6,6 +6,7 @@ import Base from "../../layouts/Base.layout.astro";
 import Hero from "../../components/works/slug/Hero.astro";
 import About from "../../components/works/slug/About.astro";
 import Features from "../../components/works/slug/Features.astro";
+import Explore from "../../components/works/slug/Explore.astro";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const works = await sanityClient.fetch<Work[]>(
@@ -29,4 +30,5 @@ const { work } = Astro.props;
   <Hero work={work} />
   <About work={work} />
   <Features work={work} />
+  <Explore work={work} />
 </Base>
