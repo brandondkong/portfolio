@@ -58,6 +58,18 @@
         opacity: 1;
         transition: opacity 0.2s 0.1s ease;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+        body {
+            cursor: auto;
+        }
+        body * {
+            cursor: auto;
+        }
+        #cursor {
+            display: none !important;
+        }
+    }
 </style>
 
 <script>

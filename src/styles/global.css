@@ -82,3 +82,23 @@
 body {
     font-family: var(--font-inter);
 }
+
+@media (prefers-reduced-motion: reduce) {
+    [data-reveal-fade] {
+        transition: none;
+        opacity: 1;
+        translate: none;
+    }
+
+    [data-reveal] {
+        visibility: visible;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
