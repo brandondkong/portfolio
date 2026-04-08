@@ -1,0 +1,33 @@
+---
+import Text from "../Text.astro";
+import SocialLink from "../SocialLink.astro";
+import Section from "../Section.astro";
+import Input from "../Input.astro";
+import Textbox from "../Textbox.astro";
+import Button from "../Button.astro";
+---
+
+<Section hideBorder class="pt-hero-top pb-section-bottom flex flex-col gap-hero-gap">
+	<div class="flex flex-col-reverse md:flex-row justify-between items-start gap-element-gap">
+		<Text variant="display">
+			Shoot a<br />Request
+		</Text>
+	</div>
+	<div class="flex flex-col lg:flex-row items-start justify-between gap-content-gap">
+        <div class="flex-1">
+            <SocialLink
+			text="brandon@kong.ly"
+			icon="copy"
+			cursorText="Copy"
+            copy
+		    />
+        </div>
+		
+		<form class="w-full flex-[1.5] flex flex-col gap-content-gap">
+            <Input name="name" placeholder="Your Name" class="w-full" />
+            <Input type="email" name="email" placeholder="Your Email" class="w-full" />
+            <Textbox name="message" placeholder="Your Message here" />
+            <Button variant="solid">Submit</Button>
+		</form>
+	</div>
+</Section>
