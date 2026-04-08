@@ -8,10 +8,12 @@ import icon from 'astro-icon';
 import sanity from '@sanity/astro';
 import react from '@astrojs/react';
 import node from '@astrojs/node';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
     adapter: node({ mode: 'standalone' }),
+    site: 'https://kong.ly',
     vite: {
         plugins: [tailwindcss()],
     },
@@ -34,5 +36,6 @@ export default defineConfig({
             studioBasePath: '/admin',
         }),
         react(),
+        sitemap(),
     ],
 });
