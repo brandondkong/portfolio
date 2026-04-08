@@ -8,6 +8,7 @@ const links = [
 
 <nav
     class="border-border relative z-50 flex w-full items-center justify-between border-b px-8 py-9"
+    transition:persist
 >
     <a href="/" class="text-3xl leading-0 font-bold tracking-tight uppercase"
         >kong.ly</a
@@ -41,6 +42,7 @@ const links = [
 <div
     id="menu-overlay"
     class="bg-background px-section-x duration-normal pointer-events-none fixed inset-0 z-40 flex flex-col justify-center opacity-0 transition-opacity"
+    transition:persist
 >
     <ul class="gap-section-gap flex flex-col">
         {
@@ -59,25 +61,12 @@ const links = [
 </div>
 
 <script>
-    const toggle = document.getElementById('menu-toggle')!;
-    const overlay = document.getElementById('menu-overlay')!;
-    let open = false;
+    function initNavbar() {
+        const toggle = document.getElementById('menu-toggle')!;
+        const overlay = document.getElementById('menu-overlay')!;
+        let open = false;
 
-    toggle.addEventListener('click', () => {
-        open = !open;
-        overlay.classList.toggle('opacity-0', !open);
-        overlay.classList.toggle('pointer-events-none', !open);
-        document
-            .getElementById('icon-dots')!
-            .classList.toggle('opacity-0', open);
-        document
-            .getElementById('icon-close')!
-            .classList.toggle('opacity-0', !open);
-        document.body.classList.toggle('overflow-hidden', open);
-    });
-
-    overlay.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', () => {
+        function closeMenu() {
             open = false;
             overlay.classList.add('opacity-0', 'pointer-events-none');
             document
@@ -87,6 +76,30 @@ const links = [
                 .getElementById('icon-close')!
                 .classList.add('opacity-0');
             document.body.classList.remove('overflow-hidden');
+        }
+
+        toggle.addEventListener('click', () => {
+            open = !open;
+            overlay.classList.toggle('opacity-0', !open);
+            overlay.classList.toggle('pointer-events-none', !open);
+            document
+                .getElementById('icon-dots')!
+                .classList.toggle('opacity-0', open);
+            document
+                .getElementById('icon-close')!
+                .classList.toggle('opacity-0', !open);
+            document.body.classList.toggle('overflow-hidden', open);
         });
-    });
+
+        overlay.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', () => {
+                closeMenu();
+            });
+        });
+
+        document.addEventListener('astro:before-preparation', closeMenu);
+    }
+
+    initNavbar();
+    document.addEventListener('astro:page-load', initNavbar);
 </script>

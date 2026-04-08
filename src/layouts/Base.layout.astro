@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import Font from 'astro/components/Font.astro';
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
@@ -13,6 +14,7 @@ import Cursor from '../components/Cursor.astro';
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Brandon Kong</title>
         <Font cssVariable="--font-inter" />
+        <ClientRouter prefetch="viewport" />
     </head>
     <body>
         <div class="bg-background relative z-10 pb-16 md:pb-30">
