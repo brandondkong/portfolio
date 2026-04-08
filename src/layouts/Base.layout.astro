@@ -14,11 +14,7 @@ interface Props {
     image?: string;
 }
 
-const {
-    title,
-    description = SITE.description,
-    image,
-} = Astro.props;
+const { title, description = SITE.description, image } = Astro.props;
 
 const pageTitle = title ? `${title} — ${SITE.name}` : SITE.title;
 const canonicalUrl = new URL(Astro.url.pathname, SITE.url).href;
