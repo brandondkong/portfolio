@@ -1,0 +1,13 @@
+{
+    "name": "@kong/prettier-config",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "exports": {
+        ".": "./index.mjs"
+    },
+    "dependencies": {
+        "prettier-plugin-astro": "^0.14.1",
+        "prettier-plugin-tailwindcss": "^0.7.2"
+    }
+}
