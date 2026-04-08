@@ -6,7 +6,8 @@
         ".": "./src/index.ts"
     },
     "dependencies": {
-        "sanity": "^5.19.0"
+        "sanity": "^5.19.0",
+        "@sanity/client": "^7.20.0"
     },
     "devDependencies": {
         "@kong/tsconfig": "workspace:*"
