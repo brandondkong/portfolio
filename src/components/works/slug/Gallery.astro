@@ -26,10 +26,10 @@ const gridClass = twMerge(
             class="pt-section-top pb-section-bottom gap-section-gap flex flex-col"
         >
             <Reveal class={gridClass}>
-                {work.gallery.map((image) => (
+                {work.gallery.map((image, index) => (
                     <img
                         src={urlFor(image).width(1200).url()}
-                        alt=""
+                        alt={`${work.title} screenshot ${index + 1}`}
                         width={1200}
                         height={800}
                         class="border-border w-full border"
