@@ -1,22 +1,19 @@
 ---
 import Text from "../Text.astro";
-import SocialLink from "../SocialLink.astro";
 import Section from "../Section.astro";
-import { GITHUB_LINK } from "../../lib/constants";
+import WorkGrid from "../WorkGrid.astro";
 ---
 
-<Section hideBorder class="pt-hero-top pb-section-bottom flex flex-col gap-section-gap">
+<Section hideBorder class="pt-hero-top pb-section-bottom flex flex-col gap-hero-gap">
 	<div class="flex flex-col-reverse md:flex-row justify-between items-start gap-element-gap">
 		<Text variant="display">
 			Works
 		</Text>
 	</div>
-	<div class="flex flex-col lg:flex-row items-start justify-between gap-content-gap">
-		<SocialLink
-			text="brandondkong"
-			icon="brands/github"
-			href={GITHUB_LINK}
-			cursorText="GitHub"
-		/>
+	<div class="flex flex-col items-start justify-between gap-element-gap w-full">
+		<div class="w-full">
+			<WorkGrid includeAll />
+		</div>
+		
 	</div>
 </Section>
