@@ -111,7 +111,7 @@ const year = new Date().getFullYear();
         const inner = footer?.firstElementChild as HTMLElement | null;
         if (!footer || !inner) return;
 
-        const offset = 1300;
+        const offset = 300;
         inner.style.transform = `translateY(${offset}px)`;
 
         function onScroll() {
