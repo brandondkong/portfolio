@@ -7,6 +7,8 @@ interface Props {
     href?: string;
 };
 
+import { twMerge } from "tailwind-merge";
+
 const { variant = "primary", href, class: className } = Astro.props;
 
 const base = "w-fit py-4 px-8 text-base transition-colors duration-fast font-normal tracking-tight";
@@ -20,6 +22,6 @@ const variants: Record<Variant, string> = {
 const Tag = href ? "a" : "button";
 ---
 
-<Tag href={href} class:list={[base, variants[variant], className]}>
+<Tag href={href} class={twMerge(base, variants[variant], className)}>
     <slot />
 </Tag>

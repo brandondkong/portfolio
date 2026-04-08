@@ -1,11 +1,13 @@
 ---
-type Variant = "display" | "heading" | "body-lg" | "body" | "label" | "body-xl" | "link" | "normal";
+type Variant = "display" | "title" | "heading" | "body-lg" | "body" | "body-xl" | "label" | "overline" | "link" | "normal";
 
 interface Props {
     variant: Variant;
     as?: string;
     class?: string;
 };
+
+import { twMerge } from "tailwind-merge";
 
 const { variant, as, class: className } = Astro.props as Props;
 
@@ -18,6 +20,10 @@ const variantConfig: Record<Variant, VariantData> = {
     display: {
         tag: "h1",
         classes: "font-semibold uppercase text-display-sm md:text-display-md lg:text-display-lg leading-none -tracking-[7.5%] break-all",
+    },
+    title: {
+        tag: "h2",
+        classes: "font-semibold text-display-sm lg:text-title leading-none -tracking-[5%]",
     },
     "body-xl": {
         tag: "h2",
@@ -39,6 +45,10 @@ const variantConfig: Record<Variant, VariantData> = {
         tag: "span",
         classes: "text-sm font-normal tracking-tight",
     },
+    overline: {
+        tag: "span",
+        classes: "text-base font-light tracking-wide uppercase text-subtle",
+    },
     link: {
         tag: "p",
         classes: "text-sm md:text-base -tracking-[0.04em]",
@@ -53,6 +63,6 @@ const config = variantConfig[variant];
 const Tag = as || config.tag;
 ---
 
-<Tag class:list={[config.classes, className]}>
+<Tag class={twMerge(config.classes, className)}>
     <slot />
 </Tag>

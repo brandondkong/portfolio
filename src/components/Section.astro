@@ -10,11 +10,13 @@ interface Props {
     href?: string;
 };
 
+import { twMerge } from "tailwind-merge";
+
 const { class: className, href, hideBorder = false, title, buttonText, ...rest } = Astro.props;
 ---
 
 <section
-class:list={["px-section-x sm:px-section-x-sm", !hideBorder && "border-t border-border", className]}
+class={twMerge("px-section-x sm:px-section-x-sm", !hideBorder && "border-t border-border", className)}
 {...rest}
 >
     {title && (
