@@ -3,28 +3,34 @@ import { defineConfig, fontProviders } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 
-import icon from "astro-icon";
+import icon from 'astro-icon';
 
-import sanity from "@sanity/astro";
-import react from "@astrojs/react";
+import sanity from '@sanity/astro';
+import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
-  vite: {
-    plugins: [tailwindcss()]
-  },
+    vite: {
+        plugins: [tailwindcss()],
+    },
 
-  fonts: [{
-    provider: fontProviders.fontsource(),
-    name: "Inter",
-    cssVariable: "--font-inter",
-    weights: [300, 400, 500, 600, 700, 800, 900],
-  }],
+    fonts: [
+        {
+            provider: fontProviders.fontsource(),
+            name: 'Inter',
+            cssVariable: '--font-inter',
+            weights: [300, 400, 500, 600, 700, 800, 900],
+        },
+    ],
 
-  integrations: [icon(), sanity({
-    projectId: "mpaopctd",
-    dataset: "production",
-    useCdn: false,
-    studioBasePath: '/admin',
-  }), react()]
+    integrations: [
+        icon(),
+        sanity({
+            projectId: 'mpaopctd',
+            dataset: 'production',
+            useCdn: false,
+            studioBasePath: '/admin',
+        }),
+        react(),
+    ],
 });
