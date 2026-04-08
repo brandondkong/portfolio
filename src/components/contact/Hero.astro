@@ -29,14 +29,15 @@ import Reveal from '../Reveal.astro';
         </div>
 
         <form class="gap-content-gap flex w-full flex-[1.5] flex-col">
-            <Input name="name" placeholder="Your Name" class="w-full" />
+            <Input name="name" placeholder="Your Name" class="w-full" required />
             <Input
                 type="email"
                 name="email"
                 placeholder="Your Email"
                 class="w-full"
+                required
             />
-            <Textbox name="message" placeholder="Your Message here" />
+            <Textbox name="message" placeholder="Your Message here" required />
             <Button variant="solid">Submit</Button>
         </form>
     </Reveal>

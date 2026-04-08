@@ -4,17 +4,20 @@ interface Props {
     placeholder?: string;
     rows?: number;
     class?: string;
+    required?: boolean;
 }
 
 import { twMerge } from 'tailwind-merge';
 import { formBase } from '../lib/styles';
 
-const { name, placeholder, rows = 4, class: className, ...rest } = Astro.props;
+const { name, placeholder, rows = 4, class: className, required, ...rest } = Astro.props;
 ---
 
 <textarea
     name={name}
     placeholder={placeholder}
+    aria-label={placeholder}
+    required={required}
     rows={rows}
     class={twMerge(formBase, 'resize-y', className)}
     {...rest}></textarea>
