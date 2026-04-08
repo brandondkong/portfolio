@@ -103,7 +103,7 @@
 		mouseY = e.clientY;
 
 		const target = e.target as HTMLElement;
-		const isHovering = target.closest("a, button, [role='button'], .work-card");
+		const isHovering = target.closest("a, button, [role='button'], input, textarea");
 		const cursorTarget = target.closest<HTMLElement>("[data-cursor-text]");
 
 		cursor.classList.toggle("hovering", !!isHovering && !cursorTarget);
