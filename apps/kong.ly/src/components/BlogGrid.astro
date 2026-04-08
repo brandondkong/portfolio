@@ -1,0 +1,20 @@
+---
+import { sanityClient } from 'sanity:client';
+import type { Post } from '@kong/sanity';
+import BlogCard from './BlogCard.astro';
+import Reveal from './Reveal.astro';
+
+interface Props {
+    limit?: number;
+}
+
+const { limit } = Astro.props;
+
+const limitClause = limit ? `[0...${limit}]` : '';
+const POSTS_QUERY = `*[_type == "post" && defined(slug.current)] | order(publishedAt desc)${limitClause}{ _id, title, slug, coverImage, excerpt, publishedAt, tags }`;
+const posts = await sanityClient.fetch<Post[]>(POSTS_QUERY);
+---
+
+<Reveal class="gap-content-gap grid grid-cols-1 lg:grid-cols-2">
+    {posts.map((post) => <BlogCard post={post} />)}
+</Reveal>
