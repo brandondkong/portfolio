@@ -17,10 +17,13 @@ const links = [
         id="menu-toggle"
         class="relative h-[18px] w-[18px] cursor-pointer"
         aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="menu-overlay"
     >
         <div
             id="icon-dots"
             class="duration-fast absolute inset-0 grid grid-cols-2 place-items-center gap-2 transition-opacity"
+            aria-hidden="true"
         >
             <div class="bg-foreground h-[5px] w-[5px]"></div>
             <div class="bg-foreground h-[5px] w-[5px]"></div>
@@ -30,6 +33,7 @@ const links = [
         <div
             id="icon-close"
             class="duration-fast absolute inset-0 flex items-center justify-center opacity-0 transition-opacity"
+            aria-hidden="true"
         >
             <div class="bg-foreground absolute h-[1.5px] w-[18px] rotate-45">
             </div>
@@ -41,6 +45,8 @@ const links = [
 
 <div
     id="menu-overlay"
+    role="dialog"
+    aria-label="Navigation menu"
     class="bg-background px-section-x duration-normal pointer-events-none fixed inset-0 z-40 flex flex-col justify-center opacity-0 transition-opacity"
     transition:persist
 >
@@ -68,23 +74,48 @@ const links = [
 
         function closeMenu() {
             open = false;
+            toggle.setAttribute('aria-expanded', 'false');
             overlay.classList.add('opacity-0', 'pointer-events-none');
             document.getElementById('icon-dots')!.classList.remove('opacity-0');
             document.getElementById('icon-close')!.classList.add('opacity-0');
             document.body.classList.remove('overflow-hidden');
         }
 
+        function openMenu() {
+            open = true;
+            toggle.setAttribute('aria-expanded', 'true');
+            overlay.classList.remove('opacity-0', 'pointer-events-none');
+            document.getElementById('icon-dots')!.classList.add('opacity-0');
+            document.getElementById('icon-close')!.classList.remove('opacity-0');
+            document.body.classList.add('overflow-hidden');
+
+            const firstLink = overlay.querySelector('a');
+            if (firstLink) firstLink.focus();
+        }
+
         toggle.addEventListener('click', () => {
-            open = !open;
-            overlay.classList.toggle('opacity-0', !open);
-            overlay.classList.toggle('pointer-events-none', !open);
-            document
-                .getElementById('icon-dots')!
-                .classList.toggle('opacity-0', open);
-            document
-                .getElementById('icon-close')!
-                .classList.toggle('opacity-0', !open);
-            document.body.classList.toggle('overflow-hidden', open);
+            if (open) closeMenu();
+            else openMenu();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && open) closeMenu();
+        });
+
+        overlay.addEventListener('keydown', (e) => {
+            if (e.key !== 'Tab') return;
+            const focusable = overlay.querySelectorAll<HTMLElement>('a, button');
+            if (!focusable.length) return;
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
         });
 
         overlay.querySelectorAll('a').forEach((link) => {
