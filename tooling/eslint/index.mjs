@@ -8,6 +8,20 @@ export default [
     },
     ...eslintPluginAstro.configs['flat/recommended'],
     {
+        files: ['**/*.astro'],
+        languageOptions: {
+            parserOptions: {
+                parser: tsParser,
+            },
+        },
+    },
+    {
+        files: ['**/*.astro/*.js', '**/*.astro/*.ts'],
+        languageOptions: {
+            parser: tsParser,
+        },
+    },
+    {
         files: ['**/*.ts'],
         languageOptions: {
             parser: tsParser,

@@ -1,5 +1,5 @@
 {
-    "extends": "@kong/tsconfig/base.json",
+    "extends": ["astro/tsconfigs/strict", "@kong/tsconfig/base.json"],
     "include": [".astro/types.d.ts", "**/*"],
     "exclude": ["dist"]
 }
