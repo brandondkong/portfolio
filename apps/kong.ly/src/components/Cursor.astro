@@ -89,6 +89,7 @@
 </style>
 
 <script>
+    if (window.matchMedia('(pointer: fine)').matches) {
     const cursor = document.getElementById('cursor')!;
     const cursorTextEl = document.getElementById('cursor-text')!;
     const ease = 0.5;
@@ -178,4 +179,5 @@
     }
 
     animate();
+    }
 </script>
