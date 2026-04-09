@@ -13,6 +13,8 @@ const { asset, alt, caption } = node;
                 srcset={`${urlFor({ asset }).width(600).url()} 600w, ${urlFor({ asset }).width(1200).url()} 1200w`}
                 sizes="(max-width: 768px) 100vw, 80vw"
                 alt={alt || 'Blog post image'}
+                width={1200}
+                height={675}
                 loading="lazy"
                 class="w-full"
             />

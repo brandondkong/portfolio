@@ -26,6 +26,8 @@ const gridClass = twMerge(
                 {work.gallery.map((image, index) => (
                     <img
                         src={urlFor(image).width(1200).height(800).url()}
+                        srcset={`${urlFor(image).width(600).height(400).url()} 600w, ${urlFor(image).width(1200).height(800).url()} 1200w`}
+                        sizes="(max-width: 768px) 100vw, 50vw"
                         alt={`${work.title} screenshot ${index + 1}`}
                         width={1200}
                         height={800}
