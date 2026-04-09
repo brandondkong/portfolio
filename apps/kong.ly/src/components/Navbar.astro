@@ -8,22 +8,25 @@ const links = [
 ---
 
 <nav
-    class="border-border relative z-50 flex w-full items-center justify-between border-b px-8 py-9"
+    class="bg-background border-border relative z-50 flex w-full items-center justify-between border-b px-8 py-9"
     transition:persist
 >
-    <a href="/" class="text-3xl leading-0 font-bold tracking-tight uppercase"
+    <a
+        id="nav-logo"
+        href="/"
+        class="text-3xl leading-none font-bold tracking-tight uppercase"
         >kong.ly</a
     >
     <button
         id="menu-toggle"
-        class="relative h-[18px] w-[18px] cursor-pointer"
+        class="relative flex h-11 w-11 cursor-pointer items-center justify-center"
         aria-label="Toggle menu"
         aria-expanded="false"
         aria-controls="menu-overlay"
     >
         <div
             id="icon-dots"
-            class="duration-fast absolute inset-0 grid grid-cols-2 place-items-center gap-2 transition-opacity"
+            class="duration-fast grid h-[18px] w-[18px] grid-cols-2 place-items-center gap-2 transition-opacity"
             aria-hidden="true"
         >
             <div class="bg-foreground h-[5px] w-[5px]"></div>
@@ -33,7 +36,7 @@ const links = [
         </div>
         <div
             id="icon-close"
-            class="duration-fast absolute inset-0 flex items-center justify-center opacity-0 transition-opacity"
+            class="duration-fast absolute flex h-[18px] w-[18px] items-center justify-center opacity-0 transition-opacity"
             aria-hidden="true"
         >
             <div class="bg-foreground absolute h-[1.5px] w-[18px] rotate-45">
@@ -48,6 +51,8 @@ const links = [
     id="menu-overlay"
     role="dialog"
     aria-label="Navigation menu"
+    aria-modal="true"
+    inert
     class="bg-background px-section-x duration-normal pointer-events-none fixed inset-0 z-40 flex flex-col justify-center opacity-0 transition-opacity"
     transition:persist
 >
@@ -68,7 +73,14 @@ const links = [
 </div>
 
 <script>
+    let navbarController: AbortController | null = null;
+
     function initNavbar() {
+        navbarController?.abort();
+        navbarController = new AbortController();
+        const signal = navbarController.signal;
+
+        const logo = document.getElementById('nav-logo')!;
         const toggle = document.getElementById('menu-toggle')!;
         const overlay = document.getElementById('menu-overlay')!;
         let open = false;
@@ -77,6 +89,7 @@ const links = [
             open = false;
             toggle.setAttribute('aria-expanded', 'false');
             overlay.classList.add('opacity-0', 'pointer-events-none');
+            overlay.inert = true;
             document.getElementById('icon-dots')!.classList.remove('opacity-0');
             document.getElementById('icon-close')!.classList.add('opacity-0');
             document.body.classList.remove('overflow-hidden');
@@ -86,6 +99,7 @@ const links = [
             open = true;
             toggle.setAttribute('aria-expanded', 'true');
             overlay.classList.remove('opacity-0', 'pointer-events-none');
+            overlay.inert = false;
             document.getElementById('icon-dots')!.classList.add('opacity-0');
             document
                 .getElementById('icon-close')!
@@ -99,19 +113,19 @@ const links = [
         toggle.addEventListener('click', () => {
             if (open) closeMenu();
             else openMenu();
-        });
+        }, { signal });
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && open) closeMenu();
-        });
+        }, { signal });
 
-        overlay.addEventListener('keydown', (e) => {
-            if (e.key !== 'Tab') return;
-            const focusable =
+        document.addEventListener('keydown', (e) => {
+            if (e.key !== 'Tab' || !open) return;
+            const overlayFocusable =
                 overlay.querySelectorAll<HTMLElement>('a, button');
-            if (!focusable.length) return;
-            const first = focusable[0];
-            const last = focusable[focusable.length - 1];
+            if (!overlayFocusable.length) return;
+            const first = logo;
+            const last = overlayFocusable[overlayFocusable.length - 1];
 
             if (e.shiftKey && document.activeElement === first) {
                 e.preventDefault();
@@ -120,15 +134,15 @@ const links = [
                 e.preventDefault();
                 first.focus();
             }
-        });
+        }, { signal });
 
         overlay.querySelectorAll('a').forEach((link) => {
             link.addEventListener('click', () => {
                 closeMenu();
-            });
+            }, { signal });
         });
 
-        document.addEventListener('astro:before-preparation', closeMenu);
+        document.addEventListener('astro:before-preparation', closeMenu, { signal });
     }
 
     initNavbar();
