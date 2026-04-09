@@ -7,6 +7,8 @@ import JsonLd from '../../components/JsonLd.astro';
 import Hero from '../../components/blog/slug/Hero.astro';
 import Content from '../../components/blog/slug/Content.astro';
 import Explore from '../../components/blog/slug/Explore.astro';
+import { urlFor } from '../../lib/sanity';
+import { SITE } from '../../lib/constants';
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const posts = await sanityClient.fetch<Post[]>(
@@ -24,9 +26,13 @@ interface Props {
 }
 
 const { post } = Astro.props;
+const ogImage = post.coverImage
+    ? urlFor(post.coverImage).width(1200).height(630).url()
+    : undefined;
+const canonicalUrl = new URL(`/blog/${post.slug.current}`, SITE.url).href;
 ---
 
-<Base title={post.title} description={post.excerpt}>
+<Base title={post.title} description={post.excerpt} image={ogImage} type="article">
     <JsonLd
         data={{
             '@context': 'https://schema.org',
@@ -34,10 +40,43 @@ const { post } = Astro.props;
             headline: post.title,
             description: post.excerpt,
             datePublished: post.publishedAt,
+            image: ogImage,
+            url: canonicalUrl,
+            mainEntityOfPage: {
+                '@type': 'WebPage',
+                '@id': canonicalUrl,
+            },
             author: {
                 '@type': 'Person',
                 name: 'Brandon Kong',
+                url: SITE.url,
             },
+            publisher: {
+                '@type': 'Person',
+                name: 'Brandon Kong',
+                url: SITE.url,
+            },
+            ...(post.tags && post.tags.length > 0 && { keywords: post.tags }),
+        }}
+    />
+    <JsonLd
+        data={{
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+                {
+                    '@type': 'ListItem',
+                    position: 1,
+                    name: 'Blog',
+                    item: `${SITE.url}/blog`,
+                },
+                {
+                    '@type': 'ListItem',
+                    position: 2,
+                    name: post.title,
+                    item: canonicalUrl,
+                },
+            ],
         }}
     />
     <Hero post={post} />

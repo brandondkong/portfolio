@@ -9,6 +9,8 @@ import About from '../../components/works/slug/About.astro';
 import Features from '../../components/works/slug/Features.astro';
 import Gallery from '../../components/works/slug/Gallery.astro';
 import Explore from '../../components/works/slug/Explore.astro';
+import { urlFor } from '../../lib/sanity';
+import { SITE } from '../../lib/constants';
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const works = await sanityClient.fetch<Work[]>(
@@ -26,19 +28,46 @@ interface Props {
 }
 
 const { work } = Astro.props;
+const ogImage = work.coverImage
+    ? urlFor(work.coverImage).width(1200).height(630).url()
+    : undefined;
+const canonicalUrl = new URL(`/works/${work.slug.current}`, SITE.url).href;
 ---
 
-<Base title={work.title} description={work.description}>
+<Base title={work.title} description={work.description} image={ogImage}>
     <JsonLd
         data={{
             '@context': 'https://schema.org',
             '@type': 'CreativeWork',
             name: work.title,
             description: work.description,
+            image: ogImage,
+            url: canonicalUrl,
             author: {
                 '@type': 'Person',
                 name: 'Brandon Kong',
+                url: SITE.url,
             },
+        }}
+    />
+    <JsonLd
+        data={{
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+                {
+                    '@type': 'ListItem',
+                    position: 1,
+                    name: 'Works',
+                    item: `${SITE.url}/works`,
+                },
+                {
+                    '@type': 'ListItem',
+                    position: 2,
+                    name: work.title,
+                    item: canonicalUrl,
+                },
+            ],
         }}
     />
     <Hero work={work} />
