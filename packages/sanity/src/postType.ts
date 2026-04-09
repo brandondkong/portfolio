@@ -1,5 +1,6 @@
 import { defineField, defineType } from 'sanity';
 import type { SanityDocument } from '@sanity/client';
+import type { PortableTextBlock } from '@portabletext/types';
 
 export interface PostImage {
     asset: { _ref: string; _type: string };
@@ -10,7 +11,7 @@ export interface Post extends SanityDocument {
     slug: { current: string };
     coverImage?: PostImage;
     excerpt?: string;
-    body: unknown[];
+    body: PortableTextBlock[];
     tags?: string[];
     publishedAt: string;
 }
@@ -43,7 +44,24 @@ export const postType = defineType({
         defineField({
             name: 'body',
             type: 'array',
-            of: [{ type: 'block' }, { type: 'image' }],
+            of: [
+                { type: 'block' },
+                {
+                    type: 'image',
+                    fields: [
+                        defineField({
+                            name: 'caption',
+                            type: 'string',
+                            title: 'Caption',
+                        }),
+                        defineField({
+                            name: 'alt',
+                            type: 'string',
+                            title: 'Alt text',
+                        }),
+                    ],
+                },
+            ],
             validation: (rule) => rule.required(),
         }),
         defineField({
