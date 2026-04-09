@@ -13,6 +13,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
     adapter: vercel(),
     site: 'https://kong.ly',
+    trailingSlash: 'never',
     vite: {
         plugins: [tailwindcss()],
     },
