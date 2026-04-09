@@ -3,12 +3,17 @@ import Button from './Button.astro';
 import Reveal from './Reveal.astro';
 import Text from './Text.astro';
 
+type PaddingTop = 'hero' | 'section' | 'none';
+type PaddingBottom = 'section' | 'none';
+
 interface Props {
     class?: string;
     hideBorder?: boolean;
     title?: string;
     buttonText?: string;
     href?: string;
+    paddingTop?: PaddingTop;
+    paddingBottom?: PaddingBottom;
 }
 
 import { twMerge } from 'tailwind-merge';
@@ -19,13 +24,28 @@ const {
     hideBorder = false,
     title,
     buttonText,
+    paddingTop = 'section',
+    paddingBottom = 'section',
     ...rest
 } = Astro.props;
+
+const paddingTopClass: Record<PaddingTop, string> = {
+    hero: 'pt-hero-top',
+    section: 'pt-section-top',
+    none: '',
+};
+
+const paddingBottomClass: Record<PaddingBottom, string> = {
+    section: 'pb-section-bottom',
+    none: '',
+};
 ---
 
 <section
     class={twMerge(
         'px-section-x sm:px-section-x-sm [clip-path:inset(0)]',
+        paddingTopClass[paddingTop],
+        paddingBottomClass[paddingBottom],
         !hideBorder && 'border-t border-border',
         className,
     )}

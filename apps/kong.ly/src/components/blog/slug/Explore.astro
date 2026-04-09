@@ -14,7 +14,8 @@ const { post } = Astro.props;
     title="More Posts"
     buttonText="All Posts"
     href="/blog"
-    class="pt-section-top gap-section-gap flex flex-col"
+    paddingBottom="none"
+    class="gap-section-gap flex flex-col"
 >
     <BlogGrid excludedIds={[post._id]} limit={4} />
 </Section>

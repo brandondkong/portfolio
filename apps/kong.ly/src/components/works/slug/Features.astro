@@ -15,7 +15,7 @@ const { work } = Astro.props;
     work.features && work.features.length > 0 && (
         <Section
             title="Features"
-            class="pt-section-top pb-section-bottom gap-section-gap flex flex-col"
+            class="gap-section-gap flex flex-col"
         >
             <Reveal class="gap-content-gap flex max-w-2xl flex-col md:ml-auto">
                 {work.features.map((feature) => (

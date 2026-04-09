@@ -14,7 +14,8 @@ const { work } = Astro.props;
     title="More to Explore"
     buttonText="Show More"
     href="/works"
-    class="pt-section-top gap-section-gap flex flex-col"
+    paddingBottom="none"
+    class="gap-section-gap flex flex-col"
 >
     <WorkGrid excludedIds={[work._id]} />
 </Section>
