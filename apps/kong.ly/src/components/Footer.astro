@@ -41,8 +41,10 @@ const year = new Date().getFullYear();
                         href={socialMedia.href}
                         target="_blank"
                         rel="noopener noreferrer"
+                        class="inline-flex items-center gap-1 py-2"
                     >
                         <Text variant="link">{socialMedia.label}</Text>
+                        <span class="sr-only">(opens in new tab)</span>
                     </a>
                 ))
             }
@@ -82,10 +84,10 @@ const year = new Date().getFullYear();
             <div class="gap-content-gap grid grid-cols-2 sm:grid-cols-3">
                 <div>
                     <Text variant="normal">
-                        <a href="tel:+18478349772">+1 (847) 834-9772</a>
+                        <a href="tel:+18478349772" class="inline-block py-2">+1 (847) 834-9772</a>
                     </Text>
                     <Text variant="normal">
-                        <a href="mailto:brandon@kong.ly">brandon@kong.ly</a>
+                        <a href="mailto:brandon@kong.ly" class="inline-block py-2">brandon@kong.ly</a>
                     </Text>
                 </div>
 

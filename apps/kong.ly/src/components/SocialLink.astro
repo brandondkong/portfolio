@@ -27,8 +27,8 @@ const attrs = href
 >
     <Text variant="body">{text}</Text>
     <Icon name={icon} size="20" />
+    {href && <span class="sr-only">(opens in new tab)</span>}
 </Tag>
-<span id="copy-status" class="sr-only" role="status" aria-live="polite"></span>
 
 <script>
     declare global {
@@ -37,7 +37,19 @@ const attrs = href
         }
     }
 
+    function ensureCopyStatus() {
+        if (!document.getElementById('copy-status')) {
+            const el = document.createElement('span');
+            el.id = 'copy-status';
+            el.className = 'sr-only';
+            el.setAttribute('role', 'status');
+            el.setAttribute('aria-live', 'polite');
+            document.body.appendChild(el);
+        }
+    }
+
     function initCopyLinks() {
+        ensureCopyStatus();
         document
             .querySelectorAll<HTMLElement>('.social-link[data-copy]')
             .forEach((el) => {
