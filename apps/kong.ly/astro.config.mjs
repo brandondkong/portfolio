@@ -6,12 +6,12 @@ import tailwindcss from '@tailwindcss/vite';
 import icon from 'astro-icon';
 
 import sanity from '@sanity/astro';
-import node from '@astrojs/node';
+import vercel from '@astrojs/vercel';
 import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-    adapter: node({ mode: 'standalone' }),
+    adapter: vercel(),
     site: 'https://kong.ly',
     vite: {
         plugins: [tailwindcss()],
