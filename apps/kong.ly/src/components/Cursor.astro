@@ -1,13 +1,15 @@
-<div id="cursor" transition:persist>
+<div id="cursor" aria-hidden="true" transition:persist>
     <span id="cursor-text"></span>
 </div>
 
 <style is:global>
-    body {
-        cursor: none;
-    }
-    body * {
-        cursor: inherit;
+    @media (pointer: fine) {
+        body {
+            cursor: none;
+        }
+        body * {
+            cursor: inherit;
+        }
     }
 
     #cursor {
@@ -17,6 +19,7 @@
         width: 28px;
         height: 28px;
         border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.4);
         backdrop-filter: invert(1);
         pointer-events: none;
         z-index: 9999;
@@ -26,10 +29,23 @@
             border-radius 0.3s ease,
             backdrop-filter 0.3s ease,
             background-color 0.3s ease;
-        display: flex;
+        display: none;
         align-items: center;
         justify-content: center;
         overflow: hidden;
+    }
+
+    @supports (backdrop-filter: invert(1)) or
+        (-webkit-backdrop-filter: invert(1)) {
+        #cursor {
+            background-color: transparent;
+        }
+    }
+
+    @media (pointer: fine) {
+        #cursor {
+            display: flex;
+        }
     }
 
     #cursor.hovering {
