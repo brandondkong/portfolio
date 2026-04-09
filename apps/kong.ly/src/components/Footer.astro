@@ -110,7 +110,11 @@ const year = new Date().getFullYear();
 </footer>
 
 <script>
+    let cleanupParallax: (() => void) | null = null;
+
     function initFooterParallax() {
+        cleanupParallax?.();
+
         const footer = document.getElementById('footer');
         const inner = footer?.firstElementChild as HTMLElement | null;
         if (!footer || !inner) return;
@@ -120,9 +124,10 @@ const year = new Date().getFullYear();
 
         let viewportH = window.innerHeight;
 
-        window.visualViewport?.addEventListener('resize', () => {
+        const onResize = () => {
             viewportH = window.visualViewport!.height;
-        });
+        };
+        window.visualViewport?.addEventListener('resize', onResize);
 
         function onScroll() {
             const mainContent = document.getElementById('main');
@@ -137,6 +142,12 @@ const year = new Date().getFullYear();
 
         window.addEventListener('scroll', onScroll, { passive: true });
         onScroll();
+
+        cleanupParallax = () => {
+            window.removeEventListener('scroll', onScroll);
+            window.visualViewport?.removeEventListener('resize', onResize);
+            cleanupParallax = null;
+        };
     }
 
     initFooterParallax();
