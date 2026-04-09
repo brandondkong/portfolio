@@ -6,6 +6,7 @@ import Base from '../../layouts/Base.layout.astro';
 import JsonLd from '../../components/JsonLd.astro';
 import Hero from '../../components/blog/slug/Hero.astro';
 import Content from '../../components/blog/slug/Content.astro';
+import Explore from '../../components/blog/slug/Explore.astro';
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const posts = await sanityClient.fetch<Post[]>(
@@ -41,4 +42,5 @@ const { post } = Astro.props;
     />
     <Hero post={post} />
     <Content post={post} />
+    <Explore post={post} />
 </Base>

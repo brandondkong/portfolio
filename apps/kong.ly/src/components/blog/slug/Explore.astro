@@ -1,0 +1,20 @@
+---
+import Section from '../../Section.astro';
+import type { Post } from '@kong/sanity';
+import BlogGrid from '../../BlogGrid.astro';
+
+interface Props {
+    post: Post;
+}
+
+const { post } = Astro.props;
+---
+
+<Section
+    title="More Posts"
+    buttonText="All Posts"
+    href="/blog"
+    class="pt-section-top gap-section-gap flex flex-col"
+>
+    <BlogGrid excludedIds={[post._id]} limit={4} />
+</Section>
