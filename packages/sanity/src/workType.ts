@@ -16,11 +16,17 @@ export interface WorkImage {
     asset: { _ref: string; _type: string };
 }
 
+export interface WorkMetadata {
+    label: string;
+    value: string;
+}
+
 export interface Work extends SanityDocument {
     title: string;
     slug: { current: string };
     coverImage: WorkImage;
     description?: string;
+    metadata?: WorkMetadata[];
     features?: WorkFeature[];
     links?: WorkLink[];
     gallery?: WorkImage[];
@@ -51,6 +57,33 @@ export const workType = defineType({
             name: 'description',
             type: 'text',
             validation: (rule) => rule.max(300),
+        }),
+        defineField({
+            name: 'metadata',
+            title: 'Metadata',
+            description: 'Key-value pairs shown on the work detail page (e.g. Type, Stack, Year)',
+            type: 'array',
+            of: [
+                {
+                    type: 'object',
+                    fields: [
+                        defineField({
+                            name: 'label',
+                            type: 'string',
+                            validation: (rule) => rule.required(),
+                        }),
+                        defineField({
+                            name: 'value',
+                            type: 'string',
+                            validation: (rule) => rule.required(),
+                        }),
+                    ],
+                    preview: {
+                        select: { title: 'label', subtitle: 'value' },
+                    },
+                },
+            ],
+            validation: (rule) => rule.max(5),
         }),
         defineField({
             name: 'features',

@@ -6,31 +6,11 @@ import type { Work } from '@kong/sanity';
 import SocialLink from '../../SocialLink.astro';
 import Reveal from '../../Reveal.astro';
 
-interface WorkMetadata {
-    label: string;
-    value: string;
-}
-
 interface Props {
     work: Work;
 }
 
 const { work } = Astro.props;
-
-const workMetadata: WorkMetadata[] = [
-    {
-        label: 'Type',
-        value: 'Open-Source Software',
-    },
-    {
-        label: 'Stack',
-        value: 'Next.js',
-    },
-    {
-        label: 'Year',
-        value: '2026',
-    },
-];
 ---
 
 <Section
@@ -38,20 +18,20 @@ const workMetadata: WorkMetadata[] = [
     paddingTop="hero"
     class="gap-section-gap md:gap-hero-gap flex flex-col md:grid md:grid-cols-2 md:items-center"
 >
-    <Reveal
-        class="order-last flex w-fit flex-col flex-wrap gap-x-4 md:order-0 md:col-span-2 md:ml-auto"
-    >
-        {
-            workMetadata.map((metadata) => (
-                <div class="flex w-fit gap-1">
-                    <Text variant="overline">{metadata.label}:</Text>
-                    <Text variant="overline" class="text-foreground">
-                        {metadata.value}
-                    </Text>
-                </div>
-            ))
-        }
-    </Reveal>
+    {
+        work.metadata && work.metadata.length > 0 && (
+            <Reveal class="order-last flex w-fit flex-col flex-wrap gap-x-4 md:order-0 md:col-span-2 md:ml-auto">
+                {work.metadata.map((meta) => (
+                    <div class="flex w-fit gap-1">
+                        <Text variant="overline">{meta.label}:</Text>
+                        <Text variant="overline" class="text-foreground">
+                            {meta.value}
+                        </Text>
+                    </div>
+                ))}
+            </Reveal>
+        )
+    }
     <Reveal>
         <img
             src={urlFor(work.coverImage).width(800).height(800).url()}

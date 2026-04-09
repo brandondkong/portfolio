@@ -8,5 +8,5 @@ import { siteSettingsType } from './siteSettingsType';
 
 export const schemaTypes = [workType, companyType, experienceType, postType, skillType, educationType, siteSettingsType];
 export { workType, companyType, experienceType, postType, skillType, educationType, siteSettingsType };
-export type { Work, WorkFeature, WorkLink, WorkImage } from './workType';
+export type { Work, WorkFeature, WorkLink, WorkImage, WorkMetadata } from './workType';
 export type { Post, PostImage } from './postType';
