@@ -1,0 +1,22 @@
+---
+import { urlFor } from '../../../lib/sanity';
+
+const { node } = Astro.props;
+const { asset, alt, caption } = node;
+---
+
+{
+    asset && (
+        <figure>
+            <img
+                src={urlFor({ asset }).width(1200).url()}
+                srcset={`${urlFor({ asset }).width(600).url()} 600w, ${urlFor({ asset }).width(1200).url()} 1200w`}
+                sizes="(max-width: 768px) 100vw, 80vw"
+                alt={alt || ''}
+                loading="lazy"
+                class="w-full"
+            />
+            {caption && <figcaption class="text-subtle mt-2 text-center text-sm">{caption}</figcaption>}
+        </figure>
+    )
+}
