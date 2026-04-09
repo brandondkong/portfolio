@@ -5,9 +5,10 @@ import Text from './Text.astro';
 
 interface Props {
     post: Post;
+    headingLevel?: 'h2' | 'h3';
 }
 
-const { post } = Astro.props;
+const { post, headingLevel = 'h3' } = Astro.props;
 
 const date = new Date(post.publishedAt).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -38,7 +39,7 @@ const date = new Date(post.publishedAt).toLocaleDateString('en-US', {
     }
     <div class="gap-element-gap border-border flex flex-col border-t p-6">
         <Text variant="overline">{date}</Text>
-        <Text variant="heading" as="h3">{post.title}</Text>
+        <Text variant="heading" as={headingLevel}>{post.title}</Text>
         {
             post.excerpt && (
                 <Text variant="body" class="text-muted">

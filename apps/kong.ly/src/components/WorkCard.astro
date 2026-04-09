@@ -5,9 +5,10 @@ import Text from './Text.astro';
 
 interface Props {
     work: Work;
+    headingLevel?: 'h2' | 'h3';
 }
 
-const { work } = Astro.props;
+const { work, headingLevel = 'h3' } = Astro.props;
 ---
 
 <a
@@ -27,6 +28,6 @@ const { work } = Astro.props;
     <div
         class="from-overlay duration-normal absolute inset-x-0 bottom-0 flex h-3/4 items-end bg-linear-to-t to-transparent p-6 opacity-100 transition-opacity sm:p-14 xl:opacity-0 xl:group-hover:opacity-100"
     >
-        <Text variant="body-xl" class="text-background">{work.title}</Text>
+        <Text variant="body-xl" as={headingLevel} class="text-background">{work.title}</Text>
     </div>
 </a>

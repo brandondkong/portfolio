@@ -7,9 +7,10 @@ import Reveal from './Reveal.astro';
 interface Props {
     limit?: number;
     excludedIds?: string[];
+    headingLevel?: 'h2' | 'h3';
 }
 
-const { limit, excludedIds = [] } = Astro.props;
+const { limit, excludedIds = [], headingLevel = 'h3' } = Astro.props;
 
 const excludeFilter =
     excludedIds.length > 0 ? ` && !(_id in $excludedIds)` : '';
@@ -19,5 +20,5 @@ const posts = await sanityClient.fetch<Post[]>(POSTS_QUERY, { excludedIds });
 ---
 
 <Reveal class="gap-content-gap grid grid-cols-1 lg:grid-cols-2">
-    {posts.map((post) => <BlogCard post={post} />)}
+    {posts.map((post) => <BlogCard post={post} headingLevel={headingLevel} />)}
 </Reveal>

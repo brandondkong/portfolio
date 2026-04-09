@@ -7,9 +7,10 @@ import Reveal from './Reveal.astro';
 interface Props {
     includeAll?: boolean;
     excludedIds?: string[];
+    headingLevel?: 'h2' | 'h3';
 }
 
-const { includeAll = false, excludedIds = [] } = Astro.props;
+const { includeAll = false, excludedIds = [], headingLevel = 'h3' } = Astro.props;
 
 const excludeFilter =
     excludedIds.length > 0 ? ` && !(_id in $excludedIds)` : '';
@@ -20,5 +21,5 @@ const works = await sanityClient.fetch<Work[]>(WORKS_QUERY, { excludedIds });
 ---
 
 <Reveal class="gap-content-gap grid grid-cols-1 lg:grid-cols-2">
-    {works.map((work) => <WorkCard work={work} />)}
+    {works.map((work) => <WorkCard work={work} headingLevel={headingLevel} />)}
 </Reveal>
