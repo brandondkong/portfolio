@@ -23,10 +23,12 @@ const attrs = href
     class="social-link gap-element-gap flex items-center"
     data-cursor-text={cursorText}
     data-copy={copy ? text : undefined}
+    aria-label={copy ? `Copy ${text} to clipboard` : undefined}
 >
     <Text variant="body">{text}</Text>
     <Icon name={icon} size="20" />
 </Tag>
+<span id="copy-status" class="sr-only" role="status" aria-live="polite"></span>
 
 <script>
     declare global {
@@ -35,25 +37,36 @@ const attrs = href
         }
     }
 
-    document
-        .querySelectorAll<HTMLElement>('.social-link[data-copy]')
-        .forEach((el) => {
-            el.addEventListener('click', (e) => {
-                e.preventDefault();
-                const value = el.dataset.copy!;
-                const originalText = el.dataset.cursorText!;
-                navigator.clipboard.writeText(value);
+    function initCopyLinks() {
+        document
+            .querySelectorAll<HTMLElement>('.social-link[data-copy]')
+            .forEach((el) => {
+                if (el.dataset.copyBound) return;
+                el.dataset.copyBound = 'true';
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const value = el.dataset.copy!;
+                    const originalText = el.dataset.cursorText!;
+                    navigator.clipboard.writeText(value);
 
-                el.dataset.cursorText = 'Copied';
-                const cursorTextEl = document.getElementById('cursor-text');
-                if (cursorTextEl) cursorTextEl.textContent = 'Copied';
-                window.__updateCursorSize?.('Copied');
+                    el.dataset.cursorText = 'Copied';
+                    const cursorTextEl = document.getElementById('cursor-text');
+                    if (cursorTextEl) cursorTextEl.textContent = 'Copied';
+                    window.__updateCursorSize?.('Copied');
 
-                setTimeout(() => {
-                    el.dataset.cursorText = originalText;
-                    if (cursorTextEl) cursorTextEl.textContent = originalText;
-                    window.__updateCursorSize?.(originalText);
-                }, 1500);
+                    const statusEl = document.getElementById('copy-status');
+                    if (statusEl) statusEl.textContent = `${value} copied to clipboard`;
+
+                    setTimeout(() => {
+                        el.dataset.cursorText = originalText;
+                        if (cursorTextEl) cursorTextEl.textContent = originalText;
+                        window.__updateCursorSize?.(originalText);
+                        if (statusEl) statusEl.textContent = '';
+                    }, 1500);
+                });
             });
-        });
+    }
+
+    initCopyLinks();
+    document.addEventListener('astro:page-load', initCopyLinks);
 </script>
