@@ -50,7 +50,10 @@ function formatRange(start: string, end: string | null): string {
                     <div class="gap-tight-gap flex items-center">
                         {edu.logo && (
                             <img
-                                src={urlFor(edu.logo).width(64).height(64).url()}
+                                src={urlFor(edu.logo)
+                                    .width(64)
+                                    .height(64)
+                                    .url()}
                                 alt={edu.institution}
                                 width={32}
                                 height={32}
