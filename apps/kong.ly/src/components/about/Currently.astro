@@ -1,9 +1,9 @@
 ---
 import { sanityClient } from 'sanity:client';
 
-import Reveal from '../Reveal.astro';
-import Section from '../Section.astro';
-import Text from '../Text.astro';
+import Reveal from '../common/Reveal.astro';
+import Section from '../common/Section.astro';
+import Text from '../common/Text.astro';
 
 const settings = await sanityClient.fetch<{ currentlyText: string | null }>(
     `*[_type == "siteSettings"][0]{ currentlyText }`,
