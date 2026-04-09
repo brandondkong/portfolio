@@ -6,13 +6,16 @@ import Reveal from './Reveal.astro';
 
 interface Props {
     limit?: number;
+    excludedIds?: string[];
 }
 
-const { limit } = Astro.props;
+const { limit, excludedIds = [] } = Astro.props;
 
+const excludeFilter =
+    excludedIds.length > 0 ? ` && !(_id in $excludedIds)` : '';
 const limitClause = limit ? `[0...${limit}]` : '';
-const POSTS_QUERY = `*[_type == "post" && defined(slug.current)] | order(publishedAt desc)${limitClause}{ _id, title, slug, coverImage, excerpt, publishedAt, tags }`;
-const posts = await sanityClient.fetch<Post[]>(POSTS_QUERY);
+const POSTS_QUERY = `*[_type == "post" && defined(slug.current)${excludeFilter}] | order(publishedAt desc)${limitClause}{ _id, title, slug, coverImage, excerpt, publishedAt, tags }`;
+const posts = await sanityClient.fetch<Post[]>(POSTS_QUERY, { excludedIds });
 ---
 
 <Reveal class="gap-content-gap grid grid-cols-1 lg:grid-cols-2">

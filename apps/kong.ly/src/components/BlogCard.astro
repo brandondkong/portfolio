@@ -18,23 +18,25 @@ const date = new Date(post.publishedAt).toLocaleDateString('en-US', {
 
 <a
     href={`/blog/${post.slug.current}`}
-    class="border-border group flex flex-col gap-4 border p-6"
+    class="border-border group flex flex-col overflow-hidden border"
 >
     {
         post.coverImage && (
-            <img
-                src={urlFor(post.coverImage).width(800).height(400).url()}
-                srcset={`${urlFor(post.coverImage).width(400).height(200).url()} 400w, ${urlFor(post.coverImage).width(800).height(400).url()} 800w`}
-                sizes="(max-width: 768px) 100vw, 50vw"
-                alt={post.title}
-                width={800}
-                height={400}
-                loading="lazy"
-                class="aspect-[2/1] w-full object-cover transition-transform duration-(--duration-normal) group-hover:scale-[1.02]"
-            />
+            <div class="aspect-2/1 w-full overflow-hidden">
+                <img
+                    src={urlFor(post.coverImage).width(800).height(400).url()}
+                    srcset={`${urlFor(post.coverImage).width(400).height(200).url()} 400w, ${urlFor(post.coverImage).width(800).height(400).url()} 800w`}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    alt={post.title}
+                    width={800}
+                    height={400}
+                    loading="lazy"
+                    class="h-full w-full object-cover transition-transform duration-(--duration-normal) group-hover:scale-110"
+                />
+            </div>
         )
     }
-    <div class="gap-element-gap flex flex-col">
+    <div class="gap-element-gap border-border flex flex-col border-t p-6">
         <Text variant="overline">{date}</Text>
         <Text variant="heading" as="h3">{post.title}</Text>
         {post.excerpt && <Text variant="body" class="text-muted">{post.excerpt}</Text>}
