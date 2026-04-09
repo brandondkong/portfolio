@@ -8,5 +8,9 @@
         "lint": "bun run --filter '*' lint",
         "format": "bun run --filter '*' format",
         "format:check": "bun run --filter '*' format:check"
+    },
+    "devDependencies": {
+        "@sanity/code-input": "^7.1.0",
+        "studio": "workspace:*"
     }
 }
