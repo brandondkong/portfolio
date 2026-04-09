@@ -11,7 +11,7 @@
     --color-foreground: black;
     --color-background: white;
     --color-muted: #525252;
-    --color-subtle: #737373;
+    --color-subtle: #595959;
     --color-border: #f5f5f5;
     --color-surface: #f5f5f5;
     --color-overlay: rgba(0, 0, 0, 0.8);
@@ -81,6 +81,18 @@
 
 body {
     font-family: var(--font-inter);
+}
+
+a:focus-visible,
+button:focus-visible,
+[role='button']:focus-visible {
+    outline: 2px solid var(--color-foreground);
+    outline-offset: 2px;
+}
+
+footer a:focus-visible,
+footer button:focus-visible {
+    outline-color: var(--color-footer-foreground);
 }
 
 .prose {
@@ -167,6 +179,11 @@ body {
 
 .prose a:hover {
     color: var(--color-muted);
+}
+
+.prose a:focus-visible {
+    outline: 2px solid var(--color-foreground);
+    outline-offset: 2px;
 }
 
 .prose ul,
