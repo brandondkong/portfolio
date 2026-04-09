@@ -71,8 +71,13 @@ const ogImage = image ?? new URL('/og-default.png', SITE.url).href;
         <ClientRouter />
         <noscript>
             <style>
-                [data-reveal] { visibility: visible; }
-                [data-reveal-fade] { opacity: 1; translate: none; }
+                [data-reveal] {
+                    visibility: visible;
+                }
+                [data-reveal-fade] {
+                    opacity: 1;
+                    translate: none;
+                }
             </style>
         </noscript>
     </head>
@@ -90,5 +95,6 @@ const ogImage = image ?? new URL('/og-default.png', SITE.url).href;
         <Footer />
         <Cursor />
         <SpeedInsights />
+
     </body>
 </html>

@@ -110,39 +110,57 @@ const links = [
             if (firstLink) firstLink.focus();
         }
 
-        toggle.addEventListener('click', () => {
-            if (open) closeMenu();
-            else openMenu();
-        }, { signal });
+        toggle.addEventListener(
+            'click',
+            () => {
+                if (open) closeMenu();
+                else openMenu();
+            },
+            { signal },
+        );
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && open) closeMenu();
-        }, { signal });
+        document.addEventListener(
+            'keydown',
+            (e) => {
+                if (e.key === 'Escape' && open) closeMenu();
+            },
+            { signal },
+        );
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key !== 'Tab' || !open) return;
-            const overlayFocusable =
-                overlay.querySelectorAll<HTMLElement>('a, button');
-            if (!overlayFocusable.length) return;
-            const first = logo;
-            const last = overlayFocusable[overlayFocusable.length - 1];
+        document.addEventListener(
+            'keydown',
+            (e) => {
+                if (e.key !== 'Tab' || !open) return;
+                const overlayFocusable =
+                    overlay.querySelectorAll<HTMLElement>('a, button');
+                if (!overlayFocusable.length) return;
+                const first = logo;
+                const last = overlayFocusable[overlayFocusable.length - 1];
 
-            if (e.shiftKey && document.activeElement === first) {
-                e.preventDefault();
-                last.focus();
-            } else if (!e.shiftKey && document.activeElement === last) {
-                e.preventDefault();
-                first.focus();
-            }
-        }, { signal });
+                if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
+            },
+            { signal },
+        );
 
         overlay.querySelectorAll('a').forEach((link) => {
-            link.addEventListener('click', () => {
-                closeMenu();
-            }, { signal });
+            link.addEventListener(
+                'click',
+                () => {
+                    closeMenu();
+                },
+                { signal },
+            );
         });
 
-        document.addEventListener('astro:before-preparation', closeMenu, { signal });
+        document.addEventListener('astro:before-preparation', closeMenu, {
+            signal,
+        });
     }
 
     initNavbar();

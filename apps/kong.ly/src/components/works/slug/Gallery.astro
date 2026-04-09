@@ -21,10 +21,7 @@ const gridClass = twMerge(
 
 {
     work.gallery && count > 0 && (
-        <Section
-            title="Gallery"
-            class="gap-section-gap flex flex-col"
-        >
+        <Section title="Gallery" class="gap-section-gap flex flex-col">
             <Reveal class={gridClass}>
                 {work.gallery.map((image, index) => (
                     <img

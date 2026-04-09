@@ -19,11 +19,7 @@ const skills = await sanityClient.fetch<Skill[]>(
 );
 ---
 
-<Section
-    hideBorder
-    title="Skills"
-    class="gap-section-gap flex flex-col"
->
+<Section hideBorder title="Skills" class="gap-section-gap flex flex-col">
     <Reveal class="flex flex-wrap gap-4">
         {
             skills.map((skill) => (

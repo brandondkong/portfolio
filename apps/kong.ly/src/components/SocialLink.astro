@@ -55,11 +55,13 @@ const attrs = href
                     window.__updateCursorSize?.('Copied');
 
                     const statusEl = document.getElementById('copy-status');
-                    if (statusEl) statusEl.textContent = `${value} copied to clipboard`;
+                    if (statusEl)
+                        statusEl.textContent = `${value} copied to clipboard`;
 
                     setTimeout(() => {
                         el.dataset.cursorText = originalText;
-                        if (cursorTextEl) cursorTextEl.textContent = originalText;
+                        if (cursorTextEl)
+                            cursorTextEl.textContent = originalText;
                         window.__updateCursorSize?.(originalText);
                         if (statusEl) statusEl.textContent = '';
                     }, 1500);

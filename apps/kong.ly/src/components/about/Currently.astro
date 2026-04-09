@@ -12,10 +12,7 @@ const settings = await sanityClient.fetch<{ currentlyText: string | null }>(
 
 {
     settings?.currentlyText && (
-        <Section
-            title="Currently"
-            class="gap-section-gap flex flex-col"
-        >
+        <Section title="Currently" class="gap-section-gap flex flex-col">
             <Reveal>
                 <Text variant="body-lg" class="max-w-2xl text-justify">
                     {settings.currentlyText}
