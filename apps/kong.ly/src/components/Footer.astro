@@ -122,7 +122,8 @@ const year = new Date().getFullYear();
             const mainContent = document.getElementById('main');
             if (!mainContent) return;
             const mainBottom = mainContent.getBoundingClientRect().bottom;
-            const viewportH = window.visualViewport?.height ?? window.innerHeight;
+            const viewportH =
+                window.visualViewport?.height ?? window.innerHeight;
             const progress = Math.max(
                 0,
                 Math.min(1, 1 - mainBottom / viewportH),
