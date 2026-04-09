@@ -118,12 +118,16 @@ const year = new Date().getFullYear();
         const offset = 300;
         inner.style.transform = `translateY(${offset}px)`;
 
+        let viewportH = window.innerHeight;
+
+        window.visualViewport?.addEventListener('resize', () => {
+            viewportH = window.visualViewport!.height;
+        });
+
         function onScroll() {
             const mainContent = document.getElementById('main');
             if (!mainContent) return;
             const mainBottom = mainContent.getBoundingClientRect().bottom;
-            const viewportH =
-                window.visualViewport?.height ?? window.innerHeight;
             const progress = Math.max(
                 0,
                 Math.min(1, 1 - mainBottom / viewportH),
