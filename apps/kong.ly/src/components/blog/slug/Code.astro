@@ -1,0 +1,9 @@
+---
+const { node } = Astro.props;
+const { code, language, filename } = node;
+---
+
+<div>
+    {filename && <div class="text-subtle bg-surface rounded-t-lg px-4 py-2 text-xs">{filename}</div>}
+    <pre class={filename ? '!mt-0 !rounded-t-none' : ''}><code class={language ? `language-${language}` : ''}>{code}</code></pre>
+</div>
