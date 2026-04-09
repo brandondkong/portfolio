@@ -13,9 +13,8 @@ const settings = await sanityClient.fetch<{ currentlyText: string | null }>(
 {
     settings?.currentlyText && (
         <Section
-            hideBorder
             title="Currently"
-            class="pt-section-top gap-section-gap flex flex-col"
+            class="pt-section-top pb-section-bottom gap-section-gap flex flex-col"
         >
             <Reveal>
                 <Text variant="body-lg" class="max-w-2xl text-justify">

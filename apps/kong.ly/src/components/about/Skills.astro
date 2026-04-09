@@ -20,6 +20,7 @@ const skills = await sanityClient.fetch<Skill[]>(
 ---
 
 <Section
+    hideBorder
     title="Skills"
     class="pt-section-top pb-section-bottom gap-section-gap flex flex-col"
 >
@@ -29,7 +30,7 @@ const skills = await sanityClient.fetch<Skill[]>(
                 <div class="border-border flex items-center gap-3 border px-5 py-3">
                     {skill.icon && (
                         <img
-                            src={urlFor(skill.icon).width(48).height(48).url()}
+                            src={urlFor(skill.icon).width(100).height(100).url()}
                             alt={skill.name}
                             width={24}
                             height={24}
