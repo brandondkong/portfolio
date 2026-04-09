@@ -1,4 +1,5 @@
 ---
+import { GITHUB_LINK, LINKEDIN_LINK } from '../lib/constants';
 import Button from './Button.astro';
 import Text from './Text.astro';
 
@@ -10,14 +11,14 @@ interface SocialMedia {
 const socialMediaLinks: SocialMedia[] = [
     {
         label: 'GitHub',
-        href: 'https://github.com/brandondkong',
+        href: GITHUB_LINK,
     },
     {
         label: 'LinkedIn',
-        href: 'https://linkedin.com/in/brandondkong',
+        href: LINKEDIN_LINK,
     },
     {
-        label: 'X',
+        label: 'Twitter',
         href: 'https://x.com/brandondkong',
     },
 ];

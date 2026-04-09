@@ -1,4 +1,5 @@
 export const GITHUB_LINK = 'https://github.com/brandondkong';
+export const LINKEDIN_LINK = 'https://linkedin.com/in/brandondkong';
 
 export const SITE = {
     name: 'Brandon Kong',
