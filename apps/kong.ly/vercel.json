@@ -5,7 +5,7 @@
             "destination": "https://cloud.umami.is/script.js"
         },
         {
-            "source": "/a/send",
+            "source": "/a/api/send",
             "destination": "https://cloud.umami.is/api/send"
         }
     ]
