@@ -15,6 +15,7 @@ export const skillType = defineType({
             name: 'icon',
             title: 'Icon',
             type: 'image',
+            description: 'Square, at least 200×200px. Transparent PNG or SVG.',
         }),
         defineField({
             name: 'order',

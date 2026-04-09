@@ -11,6 +11,7 @@ export const siteSettingsType = defineType({
             description: 'Free-text blurb for the "Currently" section on the about page',
             type: 'text',
             rows: 4,
+            validation: (rule) => rule.max(300),
         }),
     ],
     preview: {

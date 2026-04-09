@@ -34,7 +34,7 @@ export const workType = defineType({
         defineField({
             name: 'title',
             type: 'string',
-            validation: (rule) => rule.required(),
+            validation: (rule) => rule.required().max(30),
         }),
         defineField({
             name: 'slug',
@@ -44,11 +44,13 @@ export const workType = defineType({
         defineField({
             name: 'coverImage',
             type: 'image',
+            description: 'Recommended: 1600×1600px minimum (1:1 square ratio)',
             validation: (rule) => rule.required(),
         }),
         defineField({
             name: 'description',
             type: 'text',
+            validation: (rule) => rule.max(300),
         }),
         defineField({
             name: 'features',
@@ -60,12 +62,12 @@ export const workType = defineType({
                         defineField({
                             name: 'title',
                             type: 'string',
-                            validation: (rule) => rule.required(),
+                            validation: (rule) => rule.required().max(40),
                         }),
                         defineField({
                             name: 'description',
                             type: 'text',
-                            validation: (rule) => rule.required(),
+                            validation: (rule) => rule.required().max(200),
                         }),
                     ],
                 },

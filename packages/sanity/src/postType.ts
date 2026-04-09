@@ -24,7 +24,7 @@ export const postType = defineType({
         defineField({
             name: 'title',
             type: 'string',
-            validation: (rule) => rule.required(),
+            validation: (rule) => rule.required().max(70),
         }),
         defineField({
             name: 'slug',
@@ -35,11 +35,13 @@ export const postType = defineType({
         defineField({
             name: 'coverImage',
             type: 'image',
+            description: 'Recommended: 1600×800px minimum (2:1 ratio)',
         }),
         defineField({
             name: 'excerpt',
             type: 'text',
             rows: 3,
+            validation: (rule) => rule.max(160),
         }),
         defineField({
             name: 'body',

@@ -15,6 +15,7 @@ export const educationType = defineType({
             name: 'logo',
             title: 'Logo',
             type: 'image',
+            description: 'Square, at least 128×128px. Transparent PNG or SVG.',
         }),
         defineField({
             name: 'degree',
