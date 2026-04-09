@@ -16,6 +16,11 @@ export default defineConfig({
     trailingSlash: 'never',
     vite: {
         plugins: [tailwindcss()],
+        server: {
+            watch: {
+                ignored: ['**/.vercel/**'],
+            },
+        },
     },
 
     fonts: [
