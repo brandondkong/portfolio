@@ -51,7 +51,7 @@ const year = new Date().getFullYear();
         <div class="gap-content-gap flex flex-col">
             <Text
                 variant="body-xl"
-                class="from-footer-foreground to-footer-foreground/20 bg-linear-to-r bg-clip-text text-transparent"
+                class="from-footer-foreground to-footer-foreground/60 bg-linear-to-r bg-clip-text text-transparent"
             >
                 Got an idea worth building?<br />Let&apos;s make it real.
             </Text>
@@ -81,8 +81,12 @@ const year = new Date().getFullYear();
         <div class="gap-content-gap flex flex-col">
             <div class="gap-content-gap grid grid-cols-2 sm:grid-cols-3">
                 <div>
-                    <Text variant="normal"> +1 (847) 834-9772 </Text>
-                    <Text variant="normal"> brandon@kong.ly </Text>
+                    <Text variant="normal">
+                        <a href="tel:+18478349772">+1 (847) 834-9772</a>
+                    </Text>
+                    <Text variant="normal">
+                        <a href="mailto:brandon@kong.ly">brandon@kong.ly</a>
+                    </Text>
                 </div>
 
                 <div class="text-right sm:text-left">
@@ -119,13 +123,21 @@ const year = new Date().getFullYear();
         const inner = footer?.firstElementChild as HTMLElement | null;
         if (!footer || !inner) return;
 
+        const reducedMotion = window.matchMedia(
+            '(prefers-reduced-motion: reduce)',
+        ).matches;
+        if (reducedMotion) {
+            inner.style.transform = 'none';
+            return;
+        }
+
         const offset = 300;
         inner.style.transform = `translateY(${offset}px)`;
 
         let viewportH = window.innerHeight;
 
         const onResize = () => {
-            viewportH = window.visualViewport!.height;
+            viewportH = window.visualViewport?.height ?? window.innerHeight;
         };
         window.visualViewport?.addEventListener('resize', onResize);
 
