@@ -13,20 +13,20 @@ const { post } = Astro.props;
 
 const date = new Date(post.publishedAt).toLocaleDateString('en-US', {
     year: 'numeric',
-    month: 'long',
+    month: 'short',
     day: 'numeric',
 });
 ---
 
 <Section
     hideBorder
-    class="pt-hero-top pb-section-bottom gap-section-gap flex flex-col"
+    class="pt-hero-top pb-section-bottom gap-section-gap flex flex-col items-center max-w-5xl mx-auto"
 >
-    <Reveal class="gap-content-gap flex flex-col">
-        <Text variant="overline">{date}</Text>
+    <Reveal class="gap-content-gap flex flex-col w-full">
         <Text variant="title" as="h1" class="break-all md:break-normal">
             {post.title}
         </Text>
+        <Text variant="overline" class="text-subtle">{date}</Text>
         {
             post.tags && post.tags.length > 0 && (
                 <div class="gap-tight-gap flex flex-wrap">
@@ -49,7 +49,7 @@ const date = new Date(post.publishedAt).toLocaleDateString('en-US', {
                     alt={post.title}
                     width={1200}
                     height={600}
-                    class="w-full object-cover"
+                    class="w-full object-contain"
                 />
             </Reveal>
         )
