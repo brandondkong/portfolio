@@ -1,0 +1,83 @@
+---
+import type { SanityDocument } from '@sanity/client';
+import { sanityClient } from 'sanity:client';
+
+import { urlFor } from '../../lib/sanity';
+
+import Reveal from '../Reveal.astro';
+import Section from '../Section.astro';
+import Text from '../Text.astro';
+
+interface Education extends SanityDocument {
+    institution: string;
+    logo: { asset: { _ref: string; _type: string } } | null;
+    degree: string;
+    startDate: string;
+    endDate: string | null;
+    order: number;
+}
+
+const educations = await sanityClient.fetch<Education[]>(
+    `*[_type == "education"]|order(order asc){ _id, institution, logo, degree, startDate, endDate, order }`,
+);
+
+function formatDate(dateStr: string): string {
+    const date = new Date(dateStr + 'T00:00:00');
+    return date.toLocaleDateString('en-US', {
+        month: 'short',
+        year: 'numeric',
+    });
+}
+
+function formatRange(start: string, end: string | null): string {
+    return `${formatDate(start)} — ${end ? formatDate(end) : 'Present'}`;
+}
+---
+
+<Section
+    title="Education"
+    class="pt-section-top pb-section-bottom gap-section-gap flex flex-col"
+>
+    <Reveal class="flex flex-col">
+        {
+            educations.map((edu, i) => (
+                <div
+                    class:list={[
+                        'gap-content-gap flex flex-col py-10 sm:py-14',
+                        i !== educations.length - 1 && 'border-border border-b',
+                    ]}
+                >
+                    <div class="gap-tight-gap flex items-center">
+                        {edu.logo && (
+                            <img
+                                src={urlFor(edu.logo).width(64).height(64).url()}
+                                alt={edu.institution}
+                                width={32}
+                                height={32}
+                                loading="lazy"
+                                class="rounded"
+                            />
+                        )}
+                        <Text variant="overline">
+                            {formatRange(edu.startDate, edu.endDate)}
+                        </Text>
+                    </div>
+                    <div class="gap-element-gap lg:gap-section-gap flex flex-col lg:flex-row lg:items-start lg:justify-between">
+                        <div class="gap-tight-gap flex flex-col">
+                            <Text
+                                variant="body-xl"
+                                as="h3"
+                                class="font-semibold italic"
+                            >
+                                {edu.institution}
+                            </Text>
+                            <Text variant="body" class="text-muted">
+                                {edu.degree}
+                            </Text>
+                        </div>
+                    </div>
+                </div>
+            ))
+        }
+    </Reveal>
+</Section>
