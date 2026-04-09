@@ -6,6 +6,7 @@ import Input from '../Input.astro';
 import Textbox from '../Textbox.astro';
 import Button from '../Button.astro';
 import Reveal from '../Reveal.astro';
+import { LINKEDIN_LINK } from '../../lib/constants';
 ---
 
 <Section
@@ -26,10 +27,10 @@ import Reveal from '../Reveal.astro';
     >
         <div class="flex-1">
             <SocialLink
-                text="brandon@kong.ly"
-                icon="copy"
-                cursorText="Copy"
-                copy
+                text="brandondkong"
+                icon="brands/linkedin"
+                cursorText="LinkedIn"
+                href={LINKEDIN_LINK}
             />
         </div>
 
