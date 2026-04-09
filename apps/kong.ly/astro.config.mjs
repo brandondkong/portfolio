@@ -24,6 +24,12 @@ export default defineConfig({
             cssVariable: '--font-inter',
             weights: [300, 400, 500, 600, 700, 800, 900],
         },
+        {
+            provider: fontProviders.fontsource(),
+            name: 'Lora',
+            cssVariable: '--font-lora',
+            weights: [400, 500, 600, 700],
+        },
     ],
 
     integrations: [
