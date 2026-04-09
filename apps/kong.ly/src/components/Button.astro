@@ -5,11 +5,12 @@ interface Props {
     variant?: Variant;
     class?: string;
     href?: string;
+    [key: string]: any;
 }
 
 import { twMerge } from 'tailwind-merge';
 
-const { variant = 'primary', href, class: className } = Astro.props;
+const { variant = 'primary', href, class: className, ...rest } = Astro.props;
 
 const base =
     'py-4 px-8 text-base transition-colors duration-fast font-normal tracking-tight';
@@ -26,6 +27,6 @@ const variants: Record<Variant, string> = {
 const Tag = href ? 'a' : 'button';
 ---
 
-<Tag href={href} class={twMerge(base, variants[variant], className)}>
+<Tag href={href} class={twMerge(base, variants[variant], className)} {...rest}>
     <slot />
 </Tag>

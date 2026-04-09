@@ -17,6 +17,7 @@
         "format:check": "prettier --check ."
     },
     "dependencies": {
+        "@astrojs/check": "^0.9.8",
         "@astrojs/sitemap": "^3.7.2",
         "@astrojs/vercel": "^10.0.4",
         "@kong/sanity": "workspace:*",
@@ -30,7 +31,8 @@
         "astro-portabletext": "^0.13.0",
         "sharp": "^0.34.5",
         "tailwind-merge": "^3.5.0",
-        "tailwindcss": "^4.2.2"
+        "tailwindcss": "^4.2.2",
+        "typescript": "^6.0.2"
     },
     "devDependencies": {
         "@kong/eslint-config": "workspace:*",
