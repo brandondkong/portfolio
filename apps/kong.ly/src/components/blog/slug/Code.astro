@@ -1,9 +1,47 @@
 ---
+import { createHighlighter } from 'shiki';
+import Button from '../../common/Button.astro';
+import { Icon } from 'astro-icon/components';
+
 const { node } = Astro.props;
 const { code, language, filename } = node;
+
+const highlighter = await createHighlighter({
+    themes: ['github-light'],
+    langs: language ? [language] : [],
+});
+
+const html = highlighter.codeToHtml(code, {
+    lang: language || 'text',
+    theme: 'github-light',
+});
 ---
 
-<div>
+<div class="code-block group relative">
     {filename && <div class="text-subtle bg-surface rounded-t-lg px-4 py-2 text-xs">{filename}</div>}
-    <pre class={filename ? '!mt-0 !rounded-t-none' : ''}><code class={language ? `language-${language}` : ''}>{code}</code></pre>
+    <div class={filename ? '[&>pre]:mt-0! [&>pre]:rounded-t-none!' : ''} set:html={html} />
+    <Button
+    variant="unstyled"
+    class="flex flex-row gap-2 items-center absolute top-2 right-2 cursor-pointer rounded-md bg-white/80 px-2 py-1 text-xs text-neutral-500 transition-opacity hover:text-neutral-800 sm:opacity-0 sm:group-hover:opacity-100"
+    data-code={code}
+    aria-label="Copy code"
+    >
+        <span data-label>Copy</span>
+        <Icon
+        name='copy'
+        />
+    </Button>
 </div>
+
+<script>
+    document.querySelectorAll('.code-block button').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+            const code = (btn as HTMLElement).dataset.code;
+            const label = btn.querySelector('[data-label]');
+            if (!code || !label) return;
+            await navigator.clipboard.writeText(code);
+            label.textContent = 'Copied!';
+            setTimeout(() => (label.textContent = 'Copy'), 2000);
+        });
+    });
+</script>
