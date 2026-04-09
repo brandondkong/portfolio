@@ -39,7 +39,13 @@ const date = new Date(post.publishedAt).toLocaleDateString('en-US', {
     <div class="gap-element-gap border-border flex flex-col border-t p-6">
         <Text variant="overline">{date}</Text>
         <Text variant="heading" as="h3">{post.title}</Text>
-        {post.excerpt && <Text variant="body" class="text-muted">{post.excerpt}</Text>}
+        {
+            post.excerpt && (
+                <Text variant="body" class="text-muted">
+                    {post.excerpt}
+                </Text>
+            )
+        }
         {
             post.tags && post.tags.length > 0 && (
                 <div class="gap-tight-gap flex flex-wrap">

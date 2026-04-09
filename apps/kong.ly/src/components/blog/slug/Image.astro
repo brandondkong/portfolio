@@ -16,7 +16,11 @@ const { asset, alt, caption } = node;
                 loading="lazy"
                 class="w-full"
             />
-            {caption && <figcaption class="text-subtle mt-2 text-center text-sm">{caption}</figcaption>}
+            {caption && (
+                <figcaption class="text-subtle mt-2 text-center text-sm">
+                    {caption}
+                </figcaption>
+            )}
         </figure>
     )
 }
