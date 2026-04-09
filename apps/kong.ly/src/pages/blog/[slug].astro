@@ -32,7 +32,12 @@ const ogImage = post.coverImage
 const canonicalUrl = new URL(`/blog/${post.slug.current}`, SITE.url).href;
 ---
 
-<Base title={post.title} description={post.excerpt} image={ogImage} type="article">
+<Base
+    title={post.title}
+    description={post.excerpt}
+    image={ogImage}
+    type="article"
+>
     <JsonLd
         data={{
             '@context': 'https://schema.org',

@@ -90,94 +90,95 @@
 
 <script>
     if (window.matchMedia('(pointer: fine)').matches) {
-    const cursor = document.getElementById('cursor')!;
-    const cursorTextEl = document.getElementById('cursor-text')!;
-    const ease = 0.5;
+        const cursor = document.getElementById('cursor')!;
+        const cursorTextEl = document.getElementById('cursor-text')!;
+        const ease = 0.5;
 
-    let mouseX = 0;
-    let mouseY = 0;
-    let cursorX = 0;
-    let cursorY = 0;
-    let hasMoved = false;
+        let mouseX = 0;
+        let mouseY = 0;
+        let cursorX = 0;
+        let cursorY = 0;
+        let hasMoved = false;
 
-    let hasText = false;
+        let hasText = false;
 
-    const paddingX = 32;
-    const paddingY = 16;
+        const paddingX = 32;
+        const paddingY = 16;
 
-    function updateCursorSize(text: string) {
-        const size = measureText(text);
-        cursor.style.setProperty('--cursor-w', `${size.width}px`);
-        cursor.style.setProperty('--cursor-h', `${size.height}px`);
-    }
+        function updateCursorSize(text: string) {
+            const size = measureText(text);
+            cursor.style.setProperty('--cursor-w', `${size.width}px`);
+            cursor.style.setProperty('--cursor-h', `${size.height}px`);
+        }
 
-    window.__updateCursorSize = updateCursorSize;
+        window.__updateCursorSize = updateCursorSize;
 
-    function measureText(text: string): { width: number; height: number } {
-        const measurer = document.createElement('span');
-        measurer.style.cssText = `
+        function measureText(text: string): { width: number; height: number } {
+            const measurer = document.createElement('span');
+            measurer.style.cssText = `
 			position: fixed; visibility: hidden; white-space: nowrap;
 			font-size: 18px; font-weight: 500;
 		`;
-        measurer.textContent = text;
-        document.body.appendChild(measurer);
-        const rect = measurer.getBoundingClientRect();
-        document.body.removeChild(measurer);
-        return {
-            width: rect.width + paddingX * 2,
-            height: rect.height + paddingY * 2,
-        };
-    }
-
-    cursor.style.opacity = '0';
-
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-
-        if (!hasMoved) {
-            cursorX = mouseX;
-            cursorY = mouseY;
-            cursor.style.opacity = '1';
-            hasMoved = true;
+            measurer.textContent = text;
+            document.body.appendChild(measurer);
+            const rect = measurer.getBoundingClientRect();
+            document.body.removeChild(measurer);
+            return {
+                width: rect.width + paddingX * 2,
+                height: rect.height + paddingY * 2,
+            };
         }
 
-        const target = e.target as HTMLElement;
-        const isHovering = target.closest(
-            "a, button, [role='button'], input, textarea",
-        );
-        const cursorTarget = target.closest<HTMLElement>('[data-cursor-text]');
+        cursor.style.opacity = '0';
 
-        cursor.classList.toggle('hovering', !!isHovering && !cursorTarget);
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
 
-        if (cursorTarget) {
-            if (!hasText) {
-                const text = cursorTarget.dataset.cursorText!;
-                cursorTextEl.textContent = text;
-                updateCursorSize(text);
-
-                cursor.classList.add('has-text');
-                hasText = true;
+            if (!hasMoved) {
+                cursorX = mouseX;
+                cursorY = mouseY;
+                cursor.style.opacity = '1';
+                hasMoved = true;
             }
-        } else if (hasText) {
-            cursor.classList.remove('has-text');
-            cursor.style.removeProperty('--cursor-w');
-            cursor.style.removeProperty('--cursor-h');
-            cursorTextEl.textContent = '';
-            hasText = false;
+
+            const target = e.target as HTMLElement;
+            const isHovering = target.closest(
+                "a, button, [role='button'], input, textarea",
+            );
+            const cursorTarget =
+                target.closest<HTMLElement>('[data-cursor-text]');
+
+            cursor.classList.toggle('hovering', !!isHovering && !cursorTarget);
+
+            if (cursorTarget) {
+                if (!hasText) {
+                    const text = cursorTarget.dataset.cursorText!;
+                    cursorTextEl.textContent = text;
+                    updateCursorSize(text);
+
+                    cursor.classList.add('has-text');
+                    hasText = true;
+                }
+            } else if (hasText) {
+                cursor.classList.remove('has-text');
+                cursor.style.removeProperty('--cursor-w');
+                cursor.style.removeProperty('--cursor-h');
+                cursorTextEl.textContent = '';
+                hasText = false;
+            }
+        });
+
+        function animate() {
+            cursorX += (mouseX - cursorX) * ease;
+            cursorY += (mouseY - cursorY) * ease;
+
+            const rect = cursor.getBoundingClientRect();
+            cursor.style.left = `${cursorX - rect.width / 2}px`;
+            cursor.style.top = `${cursorY - rect.height / 2}px`;
+            requestAnimationFrame(animate);
         }
-    });
 
-    function animate() {
-        cursorX += (mouseX - cursorX) * ease;
-        cursorY += (mouseY - cursorY) * ease;
-
-        const rect = cursor.getBoundingClientRect();
-        cursor.style.left = `${cursorX - rect.width / 2}px`;
-        cursor.style.top = `${cursorY - rect.height / 2}px`;
-        requestAnimationFrame(animate);
-    }
-
-    animate();
+        animate();
     }
 </script>

@@ -10,7 +10,11 @@ interface Props {
     headingLevel?: 'h2' | 'h3';
 }
 
-const { includeAll = false, excludedIds = [], headingLevel = 'h3' } = Astro.props;
+const {
+    includeAll = false,
+    excludedIds = [],
+    headingLevel = 'h3',
+} = Astro.props;
 
 const excludeFilter =
     excludedIds.length > 0 ? ` && !(_id in $excludedIds)` : '';

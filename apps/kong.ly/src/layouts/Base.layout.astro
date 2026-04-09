@@ -17,7 +17,12 @@ interface Props {
     type?: 'website' | 'article';
 }
 
-const { title, description = SITE.description, image, type = 'website' } = Astro.props;
+const {
+    title,
+    description = SITE.description,
+    image,
+    type = 'website',
+} = Astro.props;
 
 const pageTitle = title ? `${title} — ${SITE.name}` : SITE.title;
 const canonicalUrl = new URL(Astro.url.pathname, SITE.url).href;
@@ -47,8 +52,18 @@ const ogImage = image ?? new URL('/og-default.png', SITE.url).href;
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={ogImage} />
 
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon-16x16.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon-32x32.png"
+        />
         <link rel="icon" href="/favicon.ico" sizes="32x32" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -101,6 +116,7 @@ const ogImage = image ?? new URL('/og-default.png', SITE.url).href;
         <Footer />
         <Cursor />
         <SpeedInsights />
+
 
     </body>
 </html>
