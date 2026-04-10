@@ -38,6 +38,10 @@ export default defineConfig({
         },
     ],
 
+    image: {
+        domains: ['cdn.sanity.io'],
+    },
+
     integrations: [
         icon(),
         sanity({
