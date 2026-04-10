@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import type { Post } from '@kong/sanity';
 import { urlFor } from '../../lib/sanity';
 import Text from './Text.astro';
@@ -24,9 +25,9 @@ const date = new Date(post.publishedAt).toLocaleDateString('en-US', {
     {
         post.coverImage && (
             <div class="aspect-2/1 w-full overflow-hidden">
-                <img
+                <Image
                     src={urlFor(post.coverImage).width(800).height(400).url()}
-                    srcset={`${urlFor(post.coverImage).width(400).height(200).url()} 400w, ${urlFor(post.coverImage).width(800).height(400).url()} 800w`}
+                    widths={[400, 800]}
                     sizes="(max-width: 768px) 100vw, 50vw"
                     alt={post.title}
                     width={800}

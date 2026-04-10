@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Text from '../../common/Text.astro';
 import Section from '../../common/Section.astro';
 import Reveal from '../../common/Reveal.astro';
@@ -43,9 +44,9 @@ const date = new Date(post.publishedAt).toLocaleDateString('en-US', {
     {
         post.coverImage && (
             <Reveal>
-                <img
+                <Image
                     src={urlFor(post.coverImage).width(1200).height(600).url()}
-                    srcset={`${urlFor(post.coverImage).width(600).height(300).url()} 600w, ${urlFor(post.coverImage).width(1200).height(600).url()} 1200w`}
+                    widths={[600, 1200]}
                     sizes="(max-width: 768px) 100vw, 80vw"
                     alt={post.title}
                     width={1200}
