@@ -1,16 +1,5 @@
 ---
-type Variant =
-    | 'display'
-    | 'title'
-    | 'heading'
-    | 'body-lg'
-    | 'body'
-    | 'body-xl'
-    | 'body-sm'
-    | 'label'
-    | 'overline'
-    | 'link'
-    | 'normal';
+type Variant = keyof typeof variantConfig;
 
 interface Props {
     variant: Variant;
@@ -28,7 +17,7 @@ interface VariantData {
     classes: string;
 }
 
-const variantConfig: Record<Variant, VariantData> = {
+const variantConfig = {
     display: {
         tag: 'h1',
         classes:
@@ -38,6 +27,11 @@ const variantConfig: Record<Variant, VariantData> = {
         tag: 'h2',
         classes:
             'font-semibold text-4xl md:text-6xl xl:text-title leading-none -tracking-[5%]',
+    },
+    "title-sm": {
+        tag: 'h2',
+        classes:
+            'font-semibold text-4xl md:text-6xl leading-none -tracking-[5%]',
     },
     'body-xl': {
         tag: 'p',
