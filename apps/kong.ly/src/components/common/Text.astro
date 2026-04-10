@@ -21,7 +21,7 @@ interface Props {
 
 import { twMerge } from 'tailwind-merge';
 
-const { variant, as, class: className, reveal = false } = Astro.props as Props;
+const { variant, as, class: className, reveal = false, ...rest } = Astro.props as Props;
 
 interface VariantData {
     tag: string;
@@ -84,6 +84,7 @@ const Tag = (as || config.tag) as keyof HTMLElementTagNameMap;
 ---
 
 <Tag
+    {...rest}
     class={twMerge(config.classes, className)}
     data-reveal={reveal || undefined}
 >
