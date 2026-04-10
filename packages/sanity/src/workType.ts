@@ -45,12 +45,13 @@ export const workType = defineType({
         defineField({
             name: 'slug',
             type: 'slug',
+            options: { source: 'title' },
             validation: (rule) => rule.required(),
         }),
         defineField({
             name: 'coverImage',
             type: 'image',
-            description: 'Recommended: 1600×1600px minimum (1:1 square ratio)',
+            description: 'Recommended: 1600x1600px minimum (1:1 square ratio)',
             validation: (rule) => rule.required(),
         }),
         defineField({
