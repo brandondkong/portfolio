@@ -173,8 +173,8 @@ footer button:focus-visible {
 
 .prose a {
     color: var(--color-foreground);
-    text-decoration: underline;
-    text-underline-offset: 2px;
+    text-decoration: underline 1.5px;
+    text-underline-offset: 3px;
 }
 
 .prose a:hover {
