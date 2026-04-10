@@ -4,6 +4,7 @@ import { sanityClient } from 'sanity:client';
 
 import { urlFor } from '../../lib/sanity';
 
+import { Image } from 'astro:assets';
 import Section from '../common/Section.astro';
 import Text from '../common/Text.astro';
 import Reveal from '../common/Reveal.astro';
@@ -49,7 +50,7 @@ function formatRange(start: string, end: string | null): string {
                 >
                     <div class="gap-tight-gap flex items-center">
                         {exp.company.logo && (
-                            <img
+                            <Image
                                 src={urlFor(exp.company.logo)
                                     .width(64)
                                     .height(64)

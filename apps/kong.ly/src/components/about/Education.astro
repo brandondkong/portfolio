@@ -2,6 +2,7 @@
 import type { SanityDocument } from '@sanity/client';
 import { sanityClient } from 'sanity:client';
 
+import { Image } from 'astro:assets';
 import { urlFor } from '../../lib/sanity';
 
 import Reveal from '../common/Reveal.astro';
@@ -46,7 +47,7 @@ function formatRange(start: string, end: string | null): string {
                 >
                     <div class="gap-tight-gap flex items-center">
                         {edu.logo && (
-                            <img
+                            <Image
                                 src={urlFor(edu.logo)
                                     .width(64)
                                     .height(64)
