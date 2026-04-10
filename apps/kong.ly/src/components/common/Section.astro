@@ -4,7 +4,7 @@ import Reveal from './Reveal.astro';
 import Text from './Text.astro';
 
 type PaddingTop = 'hero' | 'section' | 'none';
-type PaddingBottom = 'section' | 'none';
+type PaddingBottom = 'section' | 'sm' | 'none';
 
 interface Props {
     class?: string;
@@ -37,6 +37,7 @@ const paddingTopClass: Record<PaddingTop, string> = {
 
 const paddingBottomClass: Record<PaddingBottom, string> = {
     section: 'pb-section-bottom',
+    sm: 'pb-section-top',
     none: '',
 };
 ---
