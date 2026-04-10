@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Section from '../../common/Section.astro';
 import { urlFor } from '../../../lib/sanity';
 import type { Work } from '@kong/sanity';
@@ -24,9 +25,9 @@ const gridClass = twMerge(
         <Section hideBorder class="gap-section-gap flex flex-col">
             <Reveal class={gridClass}>
                 {work.gallery.map((image, index) => (
-                    <img
+                    <Image
                         src={urlFor(image).width(1200).height(800).url()}
-                        srcset={`${urlFor(image).width(600).height(400).url()} 600w, ${urlFor(image).width(1200).height(800).url()} 1200w`}
+                        widths={[600, 1200]}
                         sizes="(max-width: 768px) 100vw, 50vw"
                         alt={`${work.title} screenshot ${index + 1}`}
                         width={1200}

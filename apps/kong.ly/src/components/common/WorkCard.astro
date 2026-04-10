@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import type { Work } from '@kong/sanity';
 import { urlFor } from '../../lib/sanity';
 import Text from './Text.astro';
@@ -15,9 +16,9 @@ const { work, headingLevel = 'h3' } = Astro.props;
     href={`/works/${work.slug.current}`}
     class="work-card border-border group relative aspect-square h-auto w-full overflow-hidden border"
 >
-    <img
+    <Image
         src={urlFor(work.coverImage).width(800).height(800).url()}
-        srcset={`${urlFor(work.coverImage).width(400).height(400).url()} 400w, ${urlFor(work.coverImage).width(800).height(800).url()} 800w`}
+        widths={[400, 800]}
         sizes="(max-width: 768px) 100vw, 50vw"
         alt={work.title}
         width={800}
