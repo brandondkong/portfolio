@@ -29,3 +29,6 @@ pnpm-debug.log*
 
 # superpowers docs
 docs/superpowers
+
+# project content drafts
+docs/projects
