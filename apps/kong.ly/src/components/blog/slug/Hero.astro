@@ -22,26 +22,28 @@ const date = new Date(post.publishedAt).toLocaleDateString('en-US', {
 <Section
     hideBorder
     paddingTop="hero"
-    class="gap-section-gap mx-auto flex max-w-5xl flex-col items-center"
+    paddingBottom="sm"
 >
-    <Reveal class="gap-content-gap flex w-full flex-col">
-        <Text variant="title" as="h1" class="break-all md:break-normal">
+    <Reveal class="gap-content-gap flex w-full flex-col max-w-2xl mx-auto">
+        <Text variant="title-sm" as="h1" class="break-all md:break-normal">
             {post.title}
         </Text>
-        <Text variant="overline" class="text-subtle">{date}</Text>
-        {
+        <div class="flex flex-col gap-element-gap">
+            <Text variant="overline" class="text-subtle normal-case">{date}</Text>
+            {
             post.tags && post.tags.length > 0 && (
-                <div class="gap-tight-gap flex flex-wrap">
-                    {post.tags.map((tag) => (
-                        <span class="bg-surface text-muted rounded-full px-3 py-1 text-sm">
-                            {tag}
-                        </span>
-                    ))}
-                </div>
-            )
-        }
-    </Reveal>
-    {
+                    <div class="gap-tight-gap flex flex-wrap">
+                        {post.tags.map((tag) => (
+                            <button type="button" class="bg-surface text-muted rounded-full px-3 py-1 text-sm">
+                                {tag}
+                            </button>
+                        ))}
+                    </div>
+                )
+            }            
+        </div>
+        
+        {
         post.coverImage && (
             <Reveal>
                 <Image
@@ -57,4 +59,5 @@ const date = new Date(post.publishedAt).toLocaleDateString('en-US', {
             </Reveal>
         )
     }
+    </Reveal>
 </Section>
