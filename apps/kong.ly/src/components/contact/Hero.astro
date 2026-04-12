@@ -34,7 +34,7 @@ import { LINKEDIN_LINK } from '../../lib/constants';
             />
         </div>
 
-        <form class="gap-content-gap flex w-full flex-[1.5] flex-col">
+        <form id="contact-form" class="gap-content-gap flex w-full flex-[1.5] flex-col">
             <Input
                 name="name"
                 placeholder="Your Name"
@@ -53,3 +53,67 @@ import { LINKEDIN_LINK } from '../../lib/constants';
         </form>
     </Reveal>
 </Section>
+
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-6 py-3 text-sm font-medium tracking-tight rounded-sm opacity-0 translate-y-4 pointer-events-none transition-all duration-300 ease-out" role="status" aria-live="polite"></div>
+
+<script is:inline>
+    function initContactForm() {
+        var form = document.getElementById('contact-form');
+        var toast = document.getElementById('toast');
+        if (!form || !toast) return;
+
+        var timeout;
+        function showToast(message, success) {
+            clearTimeout(timeout);
+            toast.textContent = message;
+            toast.className = toast.className
+                .replace(/bg-\S+/g, '')
+                .replace(/text-\S+/g, '');
+            toast.classList.add(
+                success ? 'bg-foreground' : 'bg-red-600',
+                success ? 'text-background' : 'text-white'
+            );
+            toast.style.opacity = '1';
+            toast.style.transform = 'translateX(-50%) translateY(0)';
+            timeout = setTimeout(function () {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(-50%) translateY(1rem)';
+            }, 4000);
+        }
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            var data = new FormData(form);
+            var btn = form.querySelector('button');
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+
+            try {
+                var res = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: data.get('name'),
+                        email: data.get('email'),
+                        message: data.get('message'),
+                    }),
+                });
+
+                if (res.ok) {
+                    showToast('Message sent!', true);
+                    form.reset();
+                } else {
+                    showToast('Failed to send. Please try again.', false);
+                }
+            } catch {
+                showToast('Failed to send. Please try again.', false);
+            }
+
+            btn.disabled = false;
+            btn.textContent = 'Submit';
+        });
+    }
+
+    initContactForm();
+    document.addEventListener('astro:page-load', initContactForm);
+</script>
