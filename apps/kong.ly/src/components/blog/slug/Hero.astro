@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import Text from '../../common/Text.astro';
 import Section from '../../common/Section.astro';
 import Reveal from '../../common/Reveal.astro';
+import BackButton from '../../common/BackButton.astro';
 import { urlFor } from '../../../lib/sanity';
 import type { Post } from '@kong/sanity';
 
@@ -24,6 +25,7 @@ const date = new Date(post.publishedAt).toLocaleDateString('en-US', {
     paddingTop="hero"
     paddingBottom="sm"
 >
+    <BackButton href="/blog" label="All Posts" class="max-w-2xl mx-auto w-full" />
     <Reveal class="gap-content-gap flex w-full flex-col max-w-2xl mx-auto">
         <Text variant="title-sm" as="h1" class="break-all md:break-normal">
             {post.title}

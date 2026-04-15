@@ -6,6 +6,7 @@ import { urlFor } from '../../../lib/sanity';
 import type { Work } from '@kong/sanity';
 import SocialLink from '../../common/SocialLink.astro';
 import Reveal from '../../common/Reveal.astro';
+import BackButton from '../../common/BackButton.astro';
 
 interface Props {
     work: Work;
@@ -17,6 +18,13 @@ const { work } = Astro.props;
 <Section
     hideBorder
     paddingTop="hero"
+    paddingBottom="none"
+>
+    <BackButton href="/works" label="All Works" />
+</Section>
+<Section
+    hideBorder
+    paddingTop="none"
     class="gap-section-gap md:gap-hero-gap flex flex-col md:grid md:grid-cols-2 md:items-center"
 >
     {

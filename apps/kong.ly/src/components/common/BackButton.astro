@@ -1,0 +1,21 @@
+---
+import { twMerge } from 'tailwind-merge';
+
+interface Props {
+    href: string;
+    label: string;
+    class?: string;
+}
+
+const { href, label, class: className } = Astro.props;
+---
+
+<div class={twMerge('mb-content-gap', className)}>
+    <a
+        href={href}
+        class="text-subtle hover:text-foreground group inline-flex items-center gap-2 text-sm tracking-tight transition-colors duration-fast"
+    >
+        <span class="transition-transform duration-fast group-hover:-translate-x-1">&larr;</span>
+        {label}
+    </a>
+</div>
