@@ -44,7 +44,7 @@ const paddingBottomClass: Record<PaddingBottom, string> = {
 
 <section
     class={twMerge(
-        'px-section-x sm:px-section-x-sm overflow-clip',
+        'px-section-x sm:px-section-x-sm [clip-path:inset(0)]',
         paddingTopClass[paddingTop],
         paddingBottomClass[paddingBottom],
         !hideBorder && 'border-t border-border',
