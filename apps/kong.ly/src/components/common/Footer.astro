@@ -125,29 +125,39 @@ const year = new Date().getFullYear();
             return;
         }
 
+        const mainContent = document.getElementById('main');
+        if (!mainContent) return;
+
         const offset = 300;
         inner.style.transform = `translateY(${offset}px)`;
 
         let viewportH = window.innerHeight;
+        let ticking = false;
 
         const onResize = () => {
             viewportH = window.visualViewport?.height ?? window.innerHeight;
         };
         window.visualViewport?.addEventListener('resize', onResize);
 
-        function onScroll() {
-            const mainContent = document.getElementById('main');
-            if (!mainContent) return;
-            const mainBottom = mainContent.getBoundingClientRect().bottom;
+        function update() {
+            const mainBottom = mainContent!.getBoundingClientRect().bottom;
             const progress = Math.max(
                 0,
                 Math.min(1, 1 - mainBottom / viewportH),
             );
             inner!.style.transform = `translateY(${offset * (1 - progress)}px)`;
+            ticking = false;
+        }
+
+        function onScroll() {
+            if (!ticking) {
+                requestAnimationFrame(update);
+                ticking = true;
+            }
         }
 
         window.addEventListener('scroll', onScroll, { passive: true });
-        onScroll();
+        update();
 
         cleanupParallax = () => {
             window.removeEventListener('scroll', onScroll);
