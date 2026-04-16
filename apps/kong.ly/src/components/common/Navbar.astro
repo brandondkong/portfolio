@@ -112,6 +112,10 @@ const links = [
             if (firstLink) firstLink.focus();
         }
 
+        const overlayFocusable =
+            overlay.querySelectorAll<HTMLElement>('a, button');
+        const lastFocusable = overlayFocusable[overlayFocusable.length - 1];
+
         toggle.addEventListener(
             'click',
             () => {
@@ -124,27 +128,22 @@ const links = [
         document.addEventListener(
             'keydown',
             (e) => {
-                if (e.key === 'Escape' && open) closeMenu();
-            },
-            { signal },
-        );
-
-        document.addEventListener(
-            'keydown',
-            (e) => {
-                if (e.key !== 'Tab' || !open) return;
-                const overlayFocusable =
-                    overlay.querySelectorAll<HTMLElement>('a, button');
-                if (!overlayFocusable.length) return;
-                const first = logo;
-                const last = overlayFocusable[overlayFocusable.length - 1];
-
-                if (e.shiftKey && document.activeElement === first) {
-                    e.preventDefault();
-                    last.focus();
-                } else if (!e.shiftKey && document.activeElement === last) {
-                    e.preventDefault();
-                    first.focus();
+                if (!open) return;
+                if (e.key === 'Escape') {
+                    closeMenu();
+                    return;
+                }
+                if (e.key === 'Tab' && lastFocusable) {
+                    if (e.shiftKey && document.activeElement === logo) {
+                        e.preventDefault();
+                        lastFocusable.focus();
+                    } else if (
+                        !e.shiftKey &&
+                        document.activeElement === lastFocusable
+                    ) {
+                        e.preventDefault();
+                        logo.focus();
+                    }
                 }
             },
             { signal },
