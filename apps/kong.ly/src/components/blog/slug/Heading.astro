@@ -1,0 +1,22 @@
+---
+import type { Block, Props as $ } from 'astro-portabletext/types';
+
+export type Props = $<Block>;
+
+const { node, index, isInline, ...attrs } = Astro.props;
+
+const text = node.children.map((child: any) => child.text ?? '').join('');
+const id = text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+
+const Tag = node.style as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+---
+
+<Tag id={id} class="heading-anchor group" {...attrs}>
+    <slot />
+    <a href={`#${id}`} aria-label={`Link to ${text}`} class="anchor-link">
+        #
+    </a>
+</Tag>
