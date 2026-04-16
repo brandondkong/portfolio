@@ -20,46 +20,54 @@ const date = new Date(post.publishedAt).toLocaleDateString('en-US', {
 });
 ---
 
-<Section
-    hideBorder
-    paddingTop="hero"
-    paddingBottom="sm"
->
-    <BackButton href="/blog" label="All Posts" class="max-w-2xl mx-auto w-full" />
-    <Reveal class="gap-content-gap flex w-full flex-col max-w-2xl mx-auto">
+<Section hideBorder paddingTop="hero" paddingBottom="sm">
+    <BackButton
+        href="/blog"
+        label="All Posts"
+        class="mx-auto w-full max-w-2xl"
+    />
+    <Reveal class="gap-content-gap mx-auto flex w-full max-w-2xl flex-col">
         <Text variant="title-sm" as="h1" class="break-all md:break-normal">
             {post.title}
         </Text>
-        <div class="flex flex-col gap-element-gap">
-            <Text variant="overline" class="text-subtle normal-case">{date}</Text>
+        <div class="gap-element-gap flex flex-col">
+            <Text variant="overline" class="text-subtle normal-case"
+                >{date}</Text
+            >
             {
-            post.tags && post.tags.length > 0 && (
+                post.tags && post.tags.length > 0 && (
                     <div class="gap-tight-gap flex flex-wrap">
                         {post.tags.map((tag) => (
-                            <button type="button" class="bg-surface text-muted rounded-full px-3 py-1 text-sm">
+                            <button
+                                type="button"
+                                class="bg-surface text-muted rounded-full px-3 py-1 text-sm"
+                            >
                                 {tag}
                             </button>
                         ))}
                     </div>
                 )
-            }            
+            }
         </div>
-        
+
         {
-        post.coverImage && (
-            <Reveal>
-                <Image
-                    src={urlFor(post.coverImage).width(1200).height(600).url()}
-                    widths={[600, 1200]}
-                    sizes="(max-width: 768px) 100vw, 80vw"
-                    alt={post.title}
-                    width={1200}
-                    height={600}
-                    class="w-full object-contain"
-                    loading="eager"
-                />
-            </Reveal>
-        )
-    }
+            post.coverImage && (
+                <Reveal>
+                    <Image
+                        src={urlFor(post.coverImage)
+                            .width(1200)
+                            .height(600)
+                            .url()}
+                        widths={[600, 1200]}
+                        sizes="(max-width: 768px) 100vw, 80vw"
+                        alt={post.title}
+                        width={1200}
+                        height={600}
+                        class="w-full object-contain"
+                        loading="eager"
+                    />
+                </Reveal>
+            )
+        }
     </Reveal>
 </Section>

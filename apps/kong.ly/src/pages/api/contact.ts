@@ -15,10 +15,13 @@ export const POST: APIRoute = async ({ request }) => {
     const { name, email, message } = await request.json();
 
     if (!name || !email || !message) {
-        return new Response(JSON.stringify({ error: 'All fields are required' }), {
-            status: 400,
-            headers: { 'Content-Type': 'application/json' },
-        });
+        return new Response(
+            JSON.stringify({ error: 'All fields are required' }),
+            {
+                status: 400,
+                headers: { 'Content-Type': 'application/json' },
+            },
+        );
     }
 
     const res = await fetch(webhookUrl, {
@@ -41,10 +44,13 @@ export const POST: APIRoute = async ({ request }) => {
     });
 
     if (!res.ok) {
-        return new Response(JSON.stringify({ error: 'Failed to send message' }), {
-            status: 502,
-            headers: { 'Content-Type': 'application/json' },
-        });
+        return new Response(
+            JSON.stringify({ error: 'Failed to send message' }),
+            {
+                status: 502,
+                headers: { 'Content-Type': 'application/json' },
+            },
+        );
     }
 
     return new Response(JSON.stringify({ success: true }), {

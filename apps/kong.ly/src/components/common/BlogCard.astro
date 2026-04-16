@@ -22,7 +22,6 @@ const date = new Date(post.publishedAt).toLocaleDateString('en-US', {
     href={`/blog/${post.slug.current}`}
     class="border-border group flex flex-col overflow-hidden border"
 >
-   
     <div class="gap-element-gap flex flex-col p-6">
         <Text variant="overline">{date}</Text>
         <Text variant="heading" as={headingLevel}>{post.title}</Text>

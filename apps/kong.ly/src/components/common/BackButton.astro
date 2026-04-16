@@ -13,9 +13,12 @@ const { href, label, class: className } = Astro.props;
 <div class={twMerge('mb-content-gap', className)}>
     <a
         href={href}
-        class="text-subtle hover:text-foreground group inline-flex items-center gap-2 text-sm tracking-tight transition-colors duration-fast"
+        class="text-subtle hover:text-foreground group duration-fast inline-flex items-center gap-2 text-sm tracking-tight transition-colors"
     >
-        <span class="transition-transform duration-fast group-hover:-translate-x-1">&larr;</span>
+        <span
+            class="duration-fast transition-transform group-hover:-translate-x-1"
+            >&larr;</span
+        >
         {label}
     </a>
 </div>

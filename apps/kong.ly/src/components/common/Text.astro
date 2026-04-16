@@ -10,7 +10,13 @@ interface Props {
 
 import { twMerge } from 'tailwind-merge';
 
-const { variant, as, class: className, reveal = false, ...rest } = Astro.props as Props;
+const {
+    variant,
+    as,
+    class: className,
+    reveal = false,
+    ...rest
+} = Astro.props as Props;
 
 interface VariantData {
     tag: string;
@@ -28,7 +34,7 @@ const variantConfig = {
         classes:
             'font-semibold text-4xl md:text-6xl xl:text-title leading-none -tracking-[5%]',
     },
-    "title-sm": {
+    'title-sm': {
         tag: 'h2',
         classes:
             'font-semibold text-4xl md:text-6xl leading-none -tracking-[5%]',
