@@ -31,6 +31,8 @@ const styles = [
 
 <script is:inline>
     function initRevealFade() {
+        if (window.__revealObserver) window.__revealObserver.disconnect();
+
         var elements = document.querySelectorAll('[data-reveal-fade]');
         if (!elements.length) return;
 
@@ -45,6 +47,8 @@ const styles = [
             },
             { rootMargin: '100px', threshold: 0 },
         );
+
+        window.__revealObserver = observer;
 
         elements.forEach(function (el) {
             observer.observe(el);
