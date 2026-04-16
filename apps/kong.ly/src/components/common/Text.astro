@@ -93,39 +93,50 @@ const Tag = (as || config.tag) as keyof HTMLElementTagNameMap;
 
 <script is:inline>
     function initReveal() {
-        document.querySelectorAll('[data-reveal]').forEach(function (el) {
-            var lines = [[]];
+        var elements = document.querySelectorAll('[data-reveal]');
+        if (!elements.length) return;
 
-            el.childNodes.forEach(function (node) {
-                if (node.nodeType === 1 && node.tagName === 'BR') {
-                    lines.push([]);
-                } else {
-                    lines[lines.length - 1].push(node);
-                }
-            });
+        function processElements() {
+            elements.forEach(function (el) {
+                var lines = [[]];
 
-            el.innerHTML = '';
-
-            lines.forEach(function (lineNodes, i) {
-                var clip = document.createElement('span');
-                clip.style.display = 'block';
-                clip.style.clipPath = 'inset(0 -0.1em 0 0)';
-
-                var inner = document.createElement('span');
-                inner.style.display = 'block';
-                inner.style.animation =
-                    'reveal-up 2s cubic-bezier(0.16, 1, 0.3, 1) both';
-
-                lineNodes.forEach(function (node) {
-                    inner.appendChild(node);
+                el.childNodes.forEach(function (node) {
+                    if (node.nodeType === 1 && node.tagName === 'BR') {
+                        lines.push([]);
+                    } else {
+                        lines[lines.length - 1].push(node);
+                    }
                 });
-                clip.appendChild(inner);
-                el.appendChild(clip);
-            });
 
-            el.removeAttribute('data-reveal');
-            el.style.visibility = 'visible';
-        });
+                el.innerHTML = '';
+
+                lines.forEach(function (lineNodes, i) {
+                    var clip = document.createElement('span');
+                    clip.style.display = 'block';
+                    clip.style.clipPath = 'inset(0 -0.1em 0 0)';
+
+                    var inner = document.createElement('span');
+                    inner.style.display = 'block';
+                    inner.style.animation =
+                        'reveal-up 2s cubic-bezier(0.16, 1, 0.3, 1) both';
+
+                    lineNodes.forEach(function (node) {
+                        inner.appendChild(node);
+                    });
+                    clip.appendChild(inner);
+                    el.appendChild(clip);
+                });
+
+                el.removeAttribute('data-reveal');
+                el.style.visibility = 'visible';
+            });
+        }
+
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(processElements);
+        } else {
+            setTimeout(processElements, 0);
+        }
     }
 
     initReveal();
