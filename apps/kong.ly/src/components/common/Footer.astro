@@ -120,7 +120,8 @@ const year = new Date().getFullYear();
         const reducedMotion = window.matchMedia(
             '(prefers-reduced-motion: reduce)',
         ).matches;
-        if (reducedMotion) {
+        const isMobile = !window.matchMedia('(min-width: 768px)').matches;
+        if (reducedMotion || isMobile) {
             inner.style.transform = 'none';
             return;
         }
