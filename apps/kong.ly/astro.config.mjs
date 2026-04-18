@@ -42,6 +42,10 @@ export default defineConfig({
         domains: ['cdn.sanity.io'],
     },
 
+    prefetch: {
+        prefetchAll: true,
+    },
+
     integrations: [
         icon(),
         sanity({
