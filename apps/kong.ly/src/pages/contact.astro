@@ -1,11 +1,33 @@
 ---
 import Base from '../layouts/Base.layout.astro';
+import JsonLd from '../components/common/JsonLd.astro';
 import Hero from '../components/contact/Hero.astro';
+import { SITE } from '../lib/constants';
 ---
 
 <Base
     title="Contact"
     description="Get in touch with Brandon Kong for collaboration, freelance work, or just to say hello."
 >
+    <JsonLd
+        data={{
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+                {
+                    '@type': 'ListItem',
+                    position: 1,
+                    name: 'Home',
+                    item: SITE.url,
+                },
+                {
+                    '@type': 'ListItem',
+                    position: 2,
+                    name: 'Contact',
+                    item: `${SITE.url}/contact`,
+                },
+            ],
+        }}
+    />
     <Hero />
 </Base>

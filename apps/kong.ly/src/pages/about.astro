@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.layout.astro';
+import JsonLd from '../components/common/JsonLd.astro';
 import Hero from '../components/about/Hero.astro';
 import AboutSection from '../components/about/About.astro';
 import Currently from '../components/about/Currently.astro';
@@ -7,12 +8,33 @@ import Experience from '../components/landing/Experience.astro';
 import Skills from '../components/about/Skills.astro';
 import Education from '../components/about/Education.astro';
 import Connect from '../components/about/Connect.astro';
+import { SITE } from '../lib/constants';
 ---
 
 <Base
     title="About"
     description="Learn about Brandon Kong — software engineer based in Chicago, building auth infrastructure, developer tools, and modern web applications."
 >
+    <JsonLd
+        data={{
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+                {
+                    '@type': 'ListItem',
+                    position: 1,
+                    name: 'Home',
+                    item: SITE.url,
+                },
+                {
+                    '@type': 'ListItem',
+                    position: 2,
+                    name: 'About',
+                    item: `${SITE.url}/about`,
+                },
+            ],
+        }}
+    />
     <Hero />
     <AboutSection />
     <Currently />
