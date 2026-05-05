@@ -1,0 +1,266 @@
+---
+import { Image } from 'astro:assets';
+import { sanityClient } from 'sanity:client';
+import type { Photo } from '@kong/sanity';
+
+import Base from '../layouts/Base.layout.astro';
+import JsonLd from '../components/common/JsonLd.astro';
+import BackButton from '../components/common/BackButton.astro';
+import Reveal from '../components/common/Reveal.astro';
+import Section from '../components/common/Section.astro';
+import Text from '../components/common/Text.astro';
+import { urlFor } from '../lib/sanity';
+import { SITE } from '../lib/constants';
+
+const settings = await sanityClient.fetch<{
+    photos: Photo[] | null;
+}>(`*[_type == "siteSettings"][0]{ photos }`);
+
+const photos = settings?.photos ?? [];
+---
+
+<Base
+    title="Photos"
+    description="A small collection of photos by Brandon Kong."
+>
+    <JsonLd
+        data={{
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+                {
+                    '@type': 'ListItem',
+                    position: 1,
+                    name: 'Home',
+                    item: SITE.url,
+                },
+                {
+                    '@type': 'ListItem',
+                    position: 2,
+                    name: 'Photos',
+                    item: `${SITE.url}/photos`,
+                },
+            ],
+        }}
+    />
+    <h1 class="sr-only">Photos</h1>
+    <Section hideBorder paddingTop="hero" paddingBottom="none">
+        <BackButton href="/about" label="About me" />
+    </Section>
+    <Section hideBorder paddingTop="none" paddingBottom="section">
+        {
+            photos.length > 0 ? (
+                <Reveal class="gap-content-gap-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    {photos.map((photo, i) => {
+                        const fullSrc = urlFor(photo.image)
+                            .width(2000)
+                            .quality(90)
+                            .url();
+                        const altText =
+                            photo.alt ?? photo.caption ?? `Photo ${i + 1}`;
+                        return (
+                            <figure class="border-border gap-tight-gap flex flex-col overflow-hidden border">
+                                <button
+                                    type="button"
+                                    class="photo-trigger group block w-full cursor-zoom-in"
+                                    data-src={fullSrc}
+                                    data-alt={altText}
+                                    data-caption={photo.caption ?? ''}
+                                    data-location={photo.location ?? ''}
+                                    aria-label={`View ${altText} larger`}
+                                >
+                                    <Image
+                                        src={urlFor(photo.image)
+                                            .width(800)
+                                            .height(800)
+                                            .url()}
+                                        widths={[400, 800]}
+                                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                                        alt={altText}
+                                        width={800}
+                                        height={800}
+                                        loading={i < 4 ? 'eager' : 'lazy'}
+                                        class="aspect-square w-full object-cover transition-transform duration-(--duration-normal) group-hover:scale-105"
+                                    />
+                                </button>
+                                {(photo.caption || photo.location) && (
+                                    <figcaption class="gap-tight-gap flex flex-col p-6">
+                                        {photo.caption && (
+                                            <Text variant="body-sm">
+                                                {photo.caption}
+                                            </Text>
+                                        )}
+                                        {photo.location && (
+                                            <Text
+                                                variant="overline"
+                                                class="text-subtle"
+                                            >
+                                                {photo.location}
+                                            </Text>
+                                        )}
+                                    </figcaption>
+                                )}
+                            </figure>
+                        );
+                    })}
+                </Reveal>
+            ) : (
+                <Text variant="body" class="text-muted">
+                    No photos yet.
+                </Text>
+            )
+        }
+    </Section>
+
+    <dialog
+        id="photo-lightbox"
+        aria-label="Photo viewer"
+        class="m-auto max-h-screen max-w-screen border-0 bg-transparent p-0"
+    >
+        <div class="relative flex flex-col items-center gap-4">
+            <button
+                type="button"
+                id="photo-lightbox-close"
+                aria-label="Close"
+                class="absolute top-4 right-4 z-10 text-3xl leading-none text-white/80 hover:text-white"
+                >&times;</button
+            >
+            <img
+                id="photo-lightbox-img"
+                alt=""
+                class="max-h-[90vh] max-w-[95vw] object-contain"
+            />
+            <figcaption
+                id="photo-lightbox-caption"
+                class="gap-tight-gap hidden max-w-[90vw] flex-col text-center"
+            >
+                <span
+                    id="photo-lightbox-caption-text"
+                    class="text-xl font-medium tracking-tighter text-white"
+                ></span>
+                <span
+                    id="photo-lightbox-location"
+                    class="text-base font-light tracking-normal text-white/60 uppercase"
+                ></span>
+            </figcaption>
+        </div>
+    </dialog>
+
+    <style is:global>
+        @media (pointer: fine) {
+            #photo-lightbox,
+            #photo-lightbox::backdrop {
+                cursor: none;
+            }
+        }
+
+        #photo-lightbox {
+            opacity: 0;
+            transition:
+                opacity var(--duration-fast) ease,
+                overlay var(--duration-fast) ease allow-discrete,
+                display var(--duration-fast) ease allow-discrete;
+        }
+
+        #photo-lightbox[open] {
+            opacity: 1;
+        }
+
+        @starting-style {
+            #photo-lightbox[open] {
+                opacity: 0;
+            }
+        }
+
+        #photo-lightbox::backdrop {
+            background-color: rgb(0 0 0 / 0);
+            backdrop-filter: blur(0);
+            transition:
+                background-color var(--duration-fast) ease,
+                backdrop-filter var(--duration-fast) ease,
+                overlay var(--duration-fast) ease allow-discrete,
+                display var(--duration-fast) ease allow-discrete;
+        }
+
+        #photo-lightbox[open]::backdrop {
+            background-color: rgb(0 0 0 / 0.85);
+            backdrop-filter: blur(4px);
+        }
+
+        @starting-style {
+            #photo-lightbox[open]::backdrop {
+                background-color: rgb(0 0 0 / 0);
+                backdrop-filter: blur(0);
+            }
+        }
+    </style>
+
+    <script>
+        function initLightbox() {
+            const dialog = document.getElementById(
+                'photo-lightbox',
+            ) as HTMLDialogElement | null;
+            if (!dialog) return;
+
+            const img = document.getElementById(
+                'photo-lightbox-img',
+            ) as HTMLImageElement | null;
+            const captionWrap = document.getElementById(
+                'photo-lightbox-caption',
+            );
+            const captionText = document.getElementById(
+                'photo-lightbox-caption-text',
+            );
+            const locationEl = document.getElementById(
+                'photo-lightbox-location',
+            );
+            const closeBtn = document.getElementById('photo-lightbox-close');
+            if (!img || !captionWrap || !captionText || !locationEl || !closeBtn)
+                return;
+
+            document
+                .querySelectorAll<HTMLButtonElement>('.photo-trigger')
+                .forEach((trigger) => {
+                    if (trigger.dataset.lightboxBound) return;
+                    trigger.dataset.lightboxBound = 'true';
+                    trigger.addEventListener('click', () => {
+                        img.src = trigger.dataset.src ?? '';
+                        img.alt = trigger.dataset.alt ?? '';
+                        const caption = trigger.dataset.caption ?? '';
+                        const location = trigger.dataset.location ?? '';
+                        captionText.textContent = caption;
+                        locationEl.textContent = location;
+                        captionText.classList.toggle('hidden', !caption);
+                        locationEl.classList.toggle('hidden', !location);
+                        captionWrap.classList.toggle(
+                            'hidden',
+                            !caption && !location,
+                        );
+                        captionWrap.classList.toggle(
+                            'flex',
+                            Boolean(caption || location),
+                        );
+                        dialog.showModal();
+                        const cursor = document.getElementById('cursor');
+                        if (cursor) dialog.appendChild(cursor);
+                    });
+                });
+
+            closeBtn.addEventListener('click', () => dialog.close());
+
+            dialog.addEventListener('click', (e) => {
+                if (e.target === dialog) dialog.close();
+            });
+
+            dialog.addEventListener('close', () => {
+                const cursor = document.getElementById('cursor');
+                if (cursor && cursor.parentElement === dialog) {
+                    document.body.appendChild(cursor);
+                }
+            });
+        }
+
+        initLightbox();
+        document.addEventListener('astro:page-load', initLightbox);
+    </script>
+</Base>
