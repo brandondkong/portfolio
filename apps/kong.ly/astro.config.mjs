@@ -6,8 +6,46 @@ import tailwindcss from '@tailwindcss/vite';
 import icon from 'astro-icon';
 
 import sanity from '@sanity/astro';
+import { createClient } from '@sanity/client';
 import vercel from '@astrojs/vercel';
 import sitemap from '@astrojs/sitemap';
+
+const sanityProjectId = 'mpaopctd';
+const sanityDataset = 'production';
+
+let cmsLastmodPromise = null;
+function getCmsLastmodMap() {
+    if (!cmsLastmodPromise) {
+        cmsLastmodPromise = (async () => {
+            const map = new Map();
+            try {
+                const client = createClient({
+                    projectId: sanityProjectId,
+                    dataset: sanityDataset,
+                    useCdn: false,
+                    apiVersion: '2024-01-01',
+                });
+                const items = await client.fetch(
+                    `*[(_type == "post" || _type == "project") && defined(slug.current)]{ _type, "slug": slug.current, _updatedAt }`,
+                );
+                for (const it of items) {
+                    const path =
+                        it._type === 'post'
+                            ? `/blog/${it.slug}`
+                            : `/works/${it.slug}`;
+                    map.set(path, it._updatedAt);
+                }
+            } catch (err) {
+                console.warn(
+                    '[sitemap] could not fetch lastmod from Sanity:',
+                    err,
+                );
+            }
+            return map;
+        })();
+    }
+    return cmsLastmodPromise;
+}
 
 // https://astro.build/config
 export default defineConfig({
@@ -49,10 +87,21 @@ export default defineConfig({
     integrations: [
         icon(),
         sanity({
-            projectId: 'mpaopctd',
-            dataset: 'production',
+            projectId: sanityProjectId,
+            dataset: sanityDataset,
             useCdn: false,
         }),
-        sitemap(),
+        sitemap({
+            async serialize(item) {
+                const map = await getCmsLastmodMap();
+                const pathname = new URL(item.url).pathname.replace(
+                    /\/$/,
+                    '',
+                );
+                const lastmod = map.get(pathname);
+                if (lastmod) item.lastmod = lastmod;
+                return item;
+            },
+        }),
     ],
 });
