@@ -55,23 +55,27 @@ const links = [
     aria-label="Navigation menu"
     aria-modal="true"
     inert
-    class="bg-background px-section-x duration-normal pointer-events-none fixed inset-0 z-40 flex flex-col justify-center opacity-0 transition-opacity"
+    class="bg-background duration-normal pointer-events-none fixed inset-0 z-40 overflow-y-auto opacity-0 transition-opacity"
     transition:persist
 >
-    <ul class="gap-section-gap flex flex-col">
-        {
-            links.map((link) => (
-                <li>
-                    <a
-                        href={link.href}
-                        class="md:text-display-sm duration-fast text-muted hover:text-foreground text-4xl leading-none font-semibold -tracking-[7.5%] uppercase transition-colors sm:text-5xl"
-                    >
-                        {link.label}
-                    </a>
-                </li>
-            ))
-        }
-    </ul>
+    <div
+        class="px-section-x flex min-h-full flex-col justify-center pt-40 pb-12"
+    >
+        <ul class="gap-section-gap flex flex-col">
+            {
+                links.map((link) => (
+                    <li>
+                        <a
+                            href={link.href}
+                            class="md:text-display-sm duration-fast text-muted hover:text-foreground text-4xl leading-none font-semibold -tracking-[7.5%] uppercase transition-colors sm:text-5xl"
+                        >
+                            {link.label}
+                        </a>
+                    </li>
+                ))
+            }
+        </ul>
+    </div>
 </div>
 
 <script>
