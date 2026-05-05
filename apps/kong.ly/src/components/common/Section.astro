@@ -12,6 +12,7 @@ interface Props {
     title?: string;
     buttonText?: string;
     href?: string;
+    buttonExternal?: boolean;
     paddingTop?: PaddingTop;
     paddingBottom?: PaddingBottom;
 }
@@ -24,10 +25,15 @@ const {
     hideBorder = false,
     title,
     buttonText,
+    buttonExternal = false,
     paddingTop = 'section',
     paddingBottom = 'section',
     ...rest
 } = Astro.props;
+
+const buttonAttrs = buttonExternal
+    ? { target: '_blank', rel: 'noopener noreferrer' }
+    : {};
 
 const paddingTopClass: Record<PaddingTop, string> = {
     hero: 'pt-hero-top',
@@ -57,7 +63,11 @@ const paddingBottomClass: Record<PaddingBottom, string> = {
             <Reveal distance="64px">
                 <div class="flex flex-row items-center justify-between">
                     <Text variant="heading">{title}</Text>
-                    {buttonText && <Button href={href}>{buttonText}</Button>}
+                    {buttonText && (
+                        <Button href={href} {...buttonAttrs}>
+                            {buttonText}
+                        </Button>
+                    )}
                 </div>
             </Reveal>
         )
