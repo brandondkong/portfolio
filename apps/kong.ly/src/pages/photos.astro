@@ -215,7 +215,13 @@ const photos = settings?.photos ?? [];
                 'photo-lightbox-location',
             );
             const closeBtn = document.getElementById('photo-lightbox-close');
-            if (!img || !captionWrap || !captionText || !locationEl || !closeBtn)
+            if (
+                !img ||
+                !captionWrap ||
+                !captionText ||
+                !locationEl ||
+                !closeBtn
+            )
                 return;
 
             document
