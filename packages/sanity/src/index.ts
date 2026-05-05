@@ -12,3 +12,4 @@ export { workType, companyType, experienceType, postType, paperType, skillType, 
 export type { Work, WorkFeature, WorkLink, WorkImage, WorkMetadata } from './workType';
 export type { Post, PostImage } from './postType';
 export type { Paper, PaperAuthor, PaperLink, PaperImage, PaperVenueType, PaperStatus } from './paperType';
+export type { SiteSettings, MusicPick, Photo, SanityImageRef } from './siteSettingsType';
