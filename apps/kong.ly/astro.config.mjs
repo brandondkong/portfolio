@@ -26,14 +26,17 @@ function getCmsLastmodMap() {
                     apiVersion: '2024-01-01',
                 });
                 const items = await client.fetch(
-                    `*[(_type == "post" || _type == "project") && defined(slug.current)]{ _type, "slug": slug.current, _updatedAt }`,
+                    `*[(_type == "post" || _type == "project" || _type == "paper") && defined(slug.current)]{ _type, "slug": slug.current, _updatedAt }`,
                 );
+                const pathPrefix = {
+                    post: '/blog',
+                    project: '/works',
+                    paper: '/papers',
+                };
                 for (const it of items) {
-                    const path =
-                        it._type === 'post'
-                            ? `/blog/${it.slug}`
-                            : `/works/${it.slug}`;
-                    map.set(path, it._updatedAt);
+                    const prefix = pathPrefix[it._type];
+                    if (!prefix) continue;
+                    map.set(`${prefix}/${it.slug}`, it._updatedAt);
                 }
             } catch (err) {
                 console.warn(
@@ -94,10 +97,7 @@ export default defineConfig({
         sitemap({
             async serialize(item) {
                 const map = await getCmsLastmodMap();
-                const pathname = new URL(item.url).pathname.replace(
-                    /\/$/,
-                    '',
-                );
+                const pathname = new URL(item.url).pathname.replace(/\/$/, '');
                 const lastmod = map.get(pathname);
                 if (lastmod) item.lastmod = lastmod;
                 return item;
