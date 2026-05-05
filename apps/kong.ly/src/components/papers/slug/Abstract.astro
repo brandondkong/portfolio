@@ -1,0 +1,24 @@
+---
+import { PortableText } from 'astro-portabletext';
+import Section from '../../common/Section.astro';
+import Reveal from '../../common/Reveal.astro';
+import type { Paper } from '@kong/sanity';
+
+interface Props {
+    paper: Paper;
+}
+
+const { paper } = Astro.props;
+---
+
+{
+    paper.abstract && paper.abstract.length > 0 && (
+        <Section title="Abstract" class="gap-section-gap flex flex-col">
+            <Reveal>
+                <div class="prose mx-auto max-w-2xl text-justify md:mr-0 md:ml-auto">
+                    <PortableText value={paper.abstract} />
+                </div>
+            </Reveal>
+        </Section>
+    )
+}

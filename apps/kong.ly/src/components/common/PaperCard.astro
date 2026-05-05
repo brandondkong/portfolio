@@ -1,0 +1,66 @@
+---
+import type { Paper } from '@kong/sanity';
+import Text from './Text.astro';
+
+interface Props {
+    paper: Paper;
+    headingLevel?: 'h2' | 'h3';
+}
+
+const { paper, headingLevel = 'h3' } = Astro.props;
+
+const year = new Date(paper.publishedAt).getFullYear();
+const venueShowsYear = paper.venue.includes(String(year));
+---
+
+<a
+    href={`/papers/${paper.slug.current}`}
+    class="border-border group gap-element-gap flex flex-col border p-6"
+>
+    <Text variant="overline">
+        {paper.venue}{!venueShowsYear ? ` · ${year}` : ''}
+    </Text>
+    <Text
+        variant="heading"
+        as={headingLevel}
+        class="duration-fast group-hover:underline"
+    >
+        {paper.title}
+    </Text>
+    <div class="gap-tight-gap flex flex-wrap">
+        {
+            paper.authors.map((author, i) => (
+                <Text
+                    variant="body-sm"
+                    as="span"
+                    class={
+                        author.isMe
+                            ? 'text-foreground font-medium'
+                            : 'text-muted'
+                    }
+                >
+                    {author.name}
+                    {i < paper.authors.length - 1 ? ',' : ''}
+                </Text>
+            ))
+        }
+    </div>
+    {
+        paper.excerpt && (
+            <Text variant="body" class="text-muted">
+                {paper.excerpt}
+            </Text>
+        )
+    }
+    {
+        paper.awards && paper.awards.length > 0 && (
+            <div class="gap-tight-gap flex flex-wrap">
+                {paper.awards.map((award) => (
+                    <span class="bg-surface text-foreground rounded-full px-3 py-1 text-sm">
+                        {award}
+                    </span>
+                ))}
+            </div>
+        )
+    }
+</a>

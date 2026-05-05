@@ -1,0 +1,20 @@
+---
+import Text from '../common/Text.astro';
+import Section from '../common/Section.astro';
+import PaperGrid from '../common/PaperGrid.astro';
+---
+
+<Section hideBorder paddingTop="hero" class="gap-hero-gap flex flex-col">
+    <div
+        class="gap-element-gap flex flex-col-reverse items-start justify-between md:flex-row"
+    >
+        <Text variant="display" reveal aria-label="Papers"> Papers </Text>
+    </div>
+    <div
+        class="gap-element-gap flex w-full flex-col items-start justify-between"
+    >
+        <div class="w-full">
+            <PaperGrid includeAll headingLevel="h3" groupByYear />
+        </div>
+    </div>
+</Section>

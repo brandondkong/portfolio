@@ -1,0 +1,111 @@
+---
+import Text from '../../common/Text.astro';
+import Section from '../../common/Section.astro';
+import type { Paper } from '@kong/sanity';
+import SocialLink from '../../common/SocialLink.astro';
+import Reveal from '../../common/Reveal.astro';
+import BackButton from '../../common/BackButton.astro';
+
+interface Props {
+    paper: Paper;
+}
+
+const { paper } = Astro.props;
+
+const year = new Date(paper.publishedAt).getFullYear();
+const venueShowsYear = paper.venue.includes(String(year));
+
+const allLinks = [
+    ...(paper.doi
+        ? [
+              {
+                  label: 'DOI',
+                  url: `https://doi.org/${paper.doi}`,
+                  icon: 'external-link',
+              },
+          ]
+        : []),
+    ...(paper.arxivId
+        ? [
+              {
+                  label: 'arXiv',
+                  url: `https://arxiv.org/abs/${paper.arxivId}`,
+                  icon: 'external-link',
+              },
+          ]
+        : []),
+    ...(paper.links ?? []),
+];
+---
+
+<Section hideBorder paddingTop="hero" paddingBottom="none">
+    <BackButton href="/papers" label="All Papers" />
+</Section>
+<Section hideBorder paddingTop="none" class="gap-section-gap flex flex-col">
+    <Reveal class="gap-content-gap flex flex-col">
+        <Text variant="overline">
+            {paper.venue}{!venueShowsYear ? ` · ${year}` : ''}{
+                paper.status && paper.status !== 'published'
+                    ? ` · ${paper.status}`
+                    : ''
+            }
+        </Text>
+        <Text
+            variant="title-sm"
+            as="h1"
+            class="leading-tight break-words md:leading-tight"
+        >
+            {paper.title}
+        </Text>
+    </Reveal>
+    <Reveal class="gap-tight-gap flex flex-wrap">
+        {
+            paper.authors.map((author, i) => {
+                const name = `${author.name}${i < paper.authors.length - 1 ? ',' : ''}`;
+                const className = author.isMe
+                    ? 'text-foreground font-medium'
+                    : 'text-muted';
+                return author.url ? (
+                    <a
+                        href={author.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class={`${className} hover:text-foreground duration-fast transition-colors`}
+                    >
+                        <Text variant="body" as="span">
+                            {name}
+                        </Text>
+                    </a>
+                ) : (
+                    <Text variant="body" as="span" class={className}>
+                        {name}
+                    </Text>
+                );
+            })
+        }
+    </Reveal>
+    {
+        paper.awards && paper.awards.length > 0 && (
+            <Reveal class="gap-tight-gap flex flex-wrap">
+                {paper.awards.map((award) => (
+                    <span class="bg-surface text-foreground rounded-full px-3 py-1 text-sm">
+                        {award}
+                    </span>
+                ))}
+            </Reveal>
+        )
+    }
+    {
+        allLinks.length > 0 && (
+            <Reveal class="gap-content-gap flex flex-wrap">
+                {allLinks.map((link) => (
+                    <SocialLink
+                        text={link.label}
+                        icon={link.icon}
+                        href={link.url}
+                    />
+                ))}
+            </Reveal>
+        )
+    }
+</Section>

@@ -1,0 +1,21 @@
+---
+import Section from '../../common/Section.astro';
+import type { Paper } from '@kong/sanity';
+import PaperGrid from '../../common/PaperGrid.astro';
+
+interface Props {
+    paper: Paper;
+}
+
+const { paper } = Astro.props;
+---
+
+<Section
+    title="More to Explore"
+    buttonText="Show More"
+    href="/papers"
+    paddingBottom="none"
+    class="gap-section-gap flex flex-col"
+>
+    <PaperGrid excludedIds={[paper._id]} />
+</Section>

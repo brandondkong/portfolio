@@ -1,0 +1,97 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { sanityClient } from 'sanity:client';
+import type { Paper } from '@kong/sanity';
+import Base from '../../layouts/Base.layout.astro';
+import JsonLd from '../../components/common/JsonLd.astro';
+import Hero from '../../components/papers/slug/Hero.astro';
+import Abstract from '../../components/papers/slug/Abstract.astro';
+import Explore from '../../components/papers/slug/Explore.astro';
+import { urlFor } from '../../lib/sanity';
+import { SITE } from '../../lib/constants';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+    const papers = await sanityClient.fetch<Paper[]>(
+        `*[_type == "paper" && defined(slug.current)]{ _id, title, slug, authors, venue, venueType, publishedAt, status, excerpt, abstract, doi, arxivId, links, awards, tags, coverImage }`,
+    );
+
+    return papers.map((paper) => ({
+        params: { slug: paper.slug.current },
+        props: { paper },
+    }));
+};
+
+interface Props {
+    paper: Paper;
+}
+
+const { paper } = Astro.props;
+const ogImage = paper.coverImage
+    ? urlFor(paper.coverImage).width(1200).height(630).url()
+    : undefined;
+const canonicalUrl = new URL(`/papers/${paper.slug.current}`, SITE.url).href;
+const year = new Date(paper.publishedAt).getFullYear();
+---
+
+<Base
+    title={paper.title}
+    description={paper.excerpt}
+    image={ogImage}
+    type="article"
+>
+    <JsonLd
+        data={{
+            '@context': 'https://schema.org',
+            '@type': 'ScholarlyArticle',
+            headline: paper.title,
+            description: paper.excerpt,
+            datePublished: paper.publishedAt,
+            url: canonicalUrl,
+            ...(ogImage && { image: ogImage }),
+            ...(paper.doi && { sameAs: `https://doi.org/${paper.doi}` }),
+            isPartOf: {
+                '@type':
+                    paper.venueType === 'journal'
+                        ? 'PublicationVolume'
+                        : 'PublicationEvent',
+                name: paper.venue,
+            },
+            author: paper.authors.map((author) => ({
+                '@type': 'Person',
+                name: author.name,
+                ...(author.url && { url: author.url }),
+                ...(author.affiliation && {
+                    affiliation: {
+                        '@type': 'Organization',
+                        name: author.affiliation,
+                    },
+                }),
+            })),
+            ...(paper.tags &&
+                paper.tags.length > 0 && { keywords: paper.tags }),
+        }}
+    />
+    <JsonLd
+        data={{
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+                {
+                    '@type': 'ListItem',
+                    position: 1,
+                    name: 'Papers',
+                    item: `${SITE.url}/papers`,
+                },
+                {
+                    '@type': 'ListItem',
+                    position: 2,
+                    name: `${paper.venue} (${year})`,
+                    item: canonicalUrl,
+                },
+            ],
+        }}
+    />
+    <Hero paper={paper} />
+    <Abstract paper={paper} />
+    <Explore paper={paper} />
+</Base>

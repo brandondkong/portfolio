@@ -1,0 +1,33 @@
+---
+import Base from '../../layouts/Base.layout.astro';
+import JsonLd from '../../components/common/JsonLd.astro';
+import Hero from '../../components/papers/Hero.astro';
+import { SITE } from '../../lib/constants';
+---
+
+<Base
+    title="Papers"
+    description="Peer-reviewed and preprint research papers by Brandon Kong."
+>
+    <JsonLd
+        data={{
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+                {
+                    '@type': 'ListItem',
+                    position: 1,
+                    name: 'Home',
+                    item: SITE.url,
+                },
+                {
+                    '@type': 'ListItem',
+                    position: 2,
+                    name: 'Papers',
+                    item: `${SITE.url}/papers`,
+                },
+            ],
+        }}
+    />
+    <Hero />
+</Base>

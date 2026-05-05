@@ -1,0 +1,69 @@
+---
+import { sanityClient } from 'sanity:client';
+import type { Paper } from '@kong/sanity';
+import PaperCard from './PaperCard.astro';
+import Reveal from './Reveal.astro';
+import Text from './Text.astro';
+
+interface Props {
+    includeAll?: boolean;
+    excludedIds?: string[];
+    headingLevel?: 'h2' | 'h3';
+    groupByYear?: boolean;
+}
+
+const {
+    includeAll = false,
+    excludedIds = [],
+    headingLevel = 'h3',
+    groupByYear = false,
+} = Astro.props;
+
+const excludeFilter =
+    excludedIds.length > 0 ? ` && !(_id in $excludedIds)` : '';
+const PAPERS_QUERY = includeAll
+    ? `*[_type == "paper" && defined(slug.current)${excludeFilter}]|order(publishedAt desc){ _id, title, slug, authors, venue, venueType, publishedAt, status, excerpt, awards, tags, coverImage }`
+    : `*[_type == "paper" && defined(slug.current)${excludeFilter}]|order(publishedAt desc)[0...3]{ _id, title, slug, authors, venue, venueType, publishedAt, status, excerpt, awards, tags, coverImage }`;
+const papers = await sanityClient.fetch<Paper[]>(PAPERS_QUERY, {
+    excludedIds,
+});
+
+const groups = groupByYear
+    ? papers.reduce<Record<string, Paper[]>>((acc, paper) => {
+          const year = String(new Date(paper.publishedAt).getFullYear());
+          (acc[year] ??= []).push(paper);
+          return acc;
+      }, {})
+    : null;
+const groupYears = groups
+    ? Object.keys(groups).sort((a, b) => Number(b) - Number(a))
+    : [];
+---
+
+{
+    groupByYear && groups ? (
+        <div class="gap-section-gap flex flex-col">
+            {groupYears.map((year) => (
+                <Reveal class="gap-content-gap flex flex-col">
+                    <Text variant="heading" as="h2" class="text-muted">
+                        {year}
+                    </Text>
+                    <div class="gap-content-gap grid grid-cols-1">
+                        {groups[year].map((paper) => (
+                            <PaperCard
+                                paper={paper}
+                                headingLevel={headingLevel}
+                            />
+                        ))}
+                    </div>
+                </Reveal>
+            ))}
+        </div>
+    ) : (
+        <Reveal class="gap-content-gap grid grid-cols-1">
+            {papers.map((paper) => (
+                <PaperCard paper={paper} headingLevel={headingLevel} />
+            ))}
+        </Reveal>
+    )
+}
